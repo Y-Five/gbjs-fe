@@ -1,0 +1,29 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 430px;
+
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: transparent;
+  z-index: 1000;
+
+  color: white;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.icon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
