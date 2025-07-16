@@ -1,0 +1,128 @@
+.section {
+  padding: 25px 21px 50px;
+  background-color: var(--blue-light);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  width: 50%;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: var(--gray-400);
+  padding: 4px 8px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.active {
+  width: 50%;
+  color: var(--gray-600);
+  border-bottom: 2px solid var(--blue-main);
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--blue-main);
+  border-radius: 2px;
+}
+
+.productWrapper {
+  background-color: white;
+  border-radius: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* 스크롤바 없애기 */
+.productWrapper::-webkit-scrollbar {
+  display: none;
+}
+.productWrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.productList {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  padding: 18px;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.location {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 2%;
+}
+
+.name {
+  color: var(--gray-600);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arrow {
+  font-size: 20px;
+  color: var(--gray-300);
+}

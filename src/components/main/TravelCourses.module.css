@@ -1,0 +1,106 @@
+.section {
+  padding: 25px 21px;
+  background-color: var(--blue-light);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  width: 50%;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: var(--gray-400);
+  padding: 4px 8px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.active {
+  width: 50%;
+  color: var(--gray-600);
+  border-bottom: 2px solid var(--blue-main);
+}
+
+.cardContainer {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-behavior: smooth;
+  /* 스크롤바 없애기 (크로스브라우징) */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.cardContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.card {
+  min-width: 194px;
+  height: 270px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.name {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--gray-100);
+  margin-bottom: 6px;
+}
+
+.location {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gray-200);
+}
+
+.image {
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+}
+
+.description {
+  padding: 12px;
+}
