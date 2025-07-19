@@ -1,0 +1,30 @@
+/* Tour 컴포넌트용 추가 변수 (index.css와 겹치지 않는 것들만) */
+:root {
+  /* 그림자 */
+  --tour-card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+
+  /* 모서리 둥글기 */
+  --tour-border-radius: 0.625rem;
+  --tour-border-radius-small: 0.3125rem;
+
+  /* 타이포그래피 */
+  --tour-title-size: 20px;
+  --tour-body-size: 14px;
+  --tour-small-size: 12px;
+
+  /* 간격 */
+  --tour-spacing-xs: 0.5rem;
+  --tour-spacing-sm: 0.75rem;
+  --tour-spacing-md: 1rem;
+  --tour-spacing-lg: 1.25rem;
+  --tour-spacing-xl: 2.5rem;
+
+  /* 컨테이너 간격 */
+  --tour-container-padding: 1.3125rem;
+  --tour-container-padding-tablet: 1rem;
+  --tour-container-padding-mobile: 0.75rem;
+
+  /* 브레이크포인트 */
+  --tour-breakpoint-tablet: 768px;
+  --tour-breakpoint-mobile: 480px;
+}
