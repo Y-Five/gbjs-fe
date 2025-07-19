@@ -1,0 +1,108 @@
+@import "../../styles/tour-variables.css";
+
+.welcomeSection {
+  margin-bottom: var(--tour-spacing-xl);
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .welcomeSection {
+    margin-bottom: var(--tour-spacing-xl);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .welcomeSection {
+    margin-bottom: var(--tour-spacing-xl);
+  }
+}
+
+.welcomeCard {
+  background-color: var(--gray-100);
+  border-radius: var(--tour-border-radius);
+  padding: var(--tour-spacing-lg);
+  box-shadow: var(--tour-card-shadow);
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .welcomeCard {
+    padding: var(--tour-spacing-md);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .welcomeCard {
+    padding: var(--tour-spacing-sm);
+  }
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tour-spacing-md);
+}
+
+.welcomeTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.greetingText {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-400);
+  line-height: 25px;
+}
+
+.nameText {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-600);
+  line-height: 25px;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tour-spacing-xs);
+}
+
+.locationLabel {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-400);
+  line-height: 19px;
+  margin: 0;
+}
+
+.locationDisplay {
+  display: flex;
+  align-items: center;
+  gap: var(--tour-spacing-xs);
+  background-color: var(--blue-light);
+  border-radius: var(--tour-border-radius-small);
+  padding: var(--tour-spacing-xs) var(--tour-spacing-sm);
+  width: fit-content;
+}
+
+.locationIcon {
+  width: 1.3125rem; /* 21px */
+  height: 1.3125rem; /* 21px */
+  color: var(--blue-main);
+}
+
+.locationText {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-600);
+  line-height: 25px;
+}

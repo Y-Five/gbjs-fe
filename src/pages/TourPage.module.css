@@ -1,0 +1,29 @@
+@import "../styles/tour-variables.css";
+
+.container {
+  background-color: var(--blue-light);
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.content {
+  padding: 4.375rem var(--tour-container-padding) var(--tour-spacing-xl)
+    var(--tour-container-padding);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 4.375rem var(--tour-container-padding-tablet)
+      var(--tour-spacing-xl) var(--tour-container-padding-tablet);
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 4.375rem var(--tour-container-padding-mobile)
+      var(--tour-spacing-xl) var(--tour-container-padding-mobile);
+  }
+}

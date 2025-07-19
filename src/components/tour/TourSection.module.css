@@ -1,0 +1,94 @@
+@import "../../styles/tour-variables.css";
+
+.tourSection {
+  margin-bottom: var(--tour-spacing-xl);
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .tourSection {
+    margin-bottom: var(--tour-spacing-xl);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .tourSection {
+    margin-bottom: var(--tour-spacing-xl);
+  }
+}
+
+.sectionHeader {
+  margin-bottom: var(--tour-spacing-md);
+  padding-left: var(--tour-spacing-xs);
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .sectionHeader {
+    margin-bottom: var(--tour-spacing-sm);
+    padding-left: 0.375rem;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .sectionHeader {
+    margin-bottom: 0.625rem;
+    padding-left: 0.25rem;
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-600);
+  line-height: 15px;
+  margin: 0 0 var(--tour-spacing-xs) 0;
+}
+
+.sectionDescription {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-500);
+  line-height: 15px;
+  margin: 0;
+}
+
+.tourCards {
+  display: flex;
+  gap: var(--tour-spacing-sm);
+  overflow-x: auto;
+  padding: 0 var(--tour-container-padding) var(--tour-spacing-xs)
+    var(--tour-container-padding);
+  margin: 0 calc(-1 * var(--tour-container-padding));
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .tourCards {
+    gap: 0.625rem;
+    padding: 0 var(--tour-container-padding-tablet) var(--tour-spacing-xs)
+      var(--tour-container-padding-tablet);
+    margin: 0 calc(-1 * var(--tour-container-padding-tablet));
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .tourCards {
+    gap: var(--tour-spacing-xs);
+    padding: 0 var(--tour-container-padding-mobile) var(--tour-spacing-xs)
+      var(--tour-container-padding-mobile);
+    margin: 0 calc(-1 * var(--tour-container-padding-mobile));
+  }
+}
+
+.tourCards::-webkit-scrollbar {
+  display: none;
+}
