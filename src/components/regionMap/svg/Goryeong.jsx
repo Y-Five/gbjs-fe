@@ -3,7 +3,7 @@ export default function SvgIcon({
   selected = false,
   name = "고령군",
   textX = 20,
-  textY =22,
+  textY = 22,
   ...props
 }) {
   return (
@@ -18,8 +18,8 @@ export default function SvgIcon({
         y={textY}
         textAnchor="middle"
         fontSize="8"
-        fill={selected ? "#FFFFFF" : "#000000"}
-        fontWeight={selected ? "bold" : "normal"}
+        fill="#FFFFFF"
+        fontWeight="700"
         pointerEvents="none"
       >
         {name}

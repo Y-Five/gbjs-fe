@@ -10,9 +10,8 @@ export default function Andong({ fill = "#A8A8A8", selected = false }) {
         y={40}
         textAnchor="middle"
         fontSize="8"
-        fill={selected ? "#FFFFFF" : "#000000"}
-        fontWeight={selected ? "bold" : "normal"}
-        pointerEvents="none"
+        fill="#FFFFFF"
+        fontWeight="700"
       >
         안동시
       </text>
