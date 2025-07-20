@@ -1,0 +1,91 @@
+@import "../../styles/tour-variables.css";
+
+.searchSection {
+  margin-bottom: 1.5625rem;
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .searchSection {
+    margin-bottom: var(--tour-spacing-lg);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .searchSection {
+    margin-bottom: var(--tour-spacing-md);
+  }
+}
+
+.searchBox {
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--tour-spacing-lg) 3.125rem var(--tour-spacing-lg)
+    var(--tour-spacing-md);
+  border: none;
+  border-radius: var(--tour-border-radius);
+  font-family: var(--font-family);
+  font-size: var(--tour-body-size);
+  color: var(--gray-600);
+  font-weight: 500;
+  background-color: var(--gray-100);
+  box-shadow: var(--tour-card-shadow);
+  outline: none;
+  line-height: 15px;
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .searchInput {
+    padding: var(--tour-spacing-md) 2.8125rem var(--tour-spacing-md) 0.875rem;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .searchInput {
+    padding: 0.875rem 2.5rem 0.875rem var(--tour-spacing-sm);
+  }
+}
+
+.searchInput::placeholder {
+  color: var(--gray-400);
+}
+
+.searchIcon {
+  position: absolute;
+  right: var(--tour-spacing-sm); /* 12px */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.8125rem; /* 29px */
+  height: 1.8125rem; /* 29px */
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.searchIcon:hover {
+  color: var(--blue-main);
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .searchIcon {
+    right: 0.625rem; /* 10px */
+    width: 1.625rem; /* 26px */
+    height: 1.625rem; /* 26px */
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  .searchIcon {
+    right: var(--tour-spacing-xs); /* 8px */
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+  }
+}
