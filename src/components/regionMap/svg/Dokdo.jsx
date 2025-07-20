@@ -18,8 +18,8 @@ export default function SvgIcon({
         y={textY}
         textAnchor="middle"
         fontSize="6"
-        fill={selected ? "#000000" : "#000000"}
-        fontWeight={selected ? "bold" : "normal"}
+        fill="#FFFFFF"
+        fontWeight="700"
         pointerEvents="none"
       >
         {name}

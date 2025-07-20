@@ -1,6 +1,5 @@
 export default function SvgIcon({
   fill = "#A8A8A8",
-  selected = false,
   name = "봉화군",
   textX = 38,
   textY = 30,
@@ -18,8 +17,8 @@ export default function SvgIcon({
         y={textY}
         textAnchor="middle"
         fontSize="8"
-        fill={selected ? "#FFFFFF" : "#000000"}
-        fontWeight={selected ? "bold" : "normal"}
+        fill="#FFFFFF"
+        fontWeight="700"
         pointerEvents="none"
       >
         {name}
