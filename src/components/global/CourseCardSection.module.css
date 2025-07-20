@@ -56,51 +56,42 @@
 }
 
 .card {
-  min-width: 194px;
+  max-width: 194px;
   height: 270px;
-  background-size: cover;
-  background-position: center;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
+  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
-  padding: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-}
-
-.name {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  color: var(--gray-100);
-  margin-bottom: 6px;
-}
-
-.location {
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  color: var(--gray-200);
 }
 
 .image {
-  height: 100px;
+  height: 166px;
   background-size: cover;
   background-position: center;
 }
 
 .description {
-  padding: 12px;
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+}
+
+.location {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-400);
 }
