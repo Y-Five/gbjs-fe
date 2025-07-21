@@ -62,7 +62,7 @@
   composes: btn-reset text-body;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   background-color: var(--gray-100);
   border: 1px solid #e5e5e5;
   border-radius: var(--tour-border-radius-small);

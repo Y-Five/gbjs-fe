@@ -96,7 +96,7 @@ export default function SearchPage() {
           >
             <span>{sortBy.label}</span>
             <DropdownIcon 
-              size="12" 
+              size="16" 
               rotated={dropdown.isOpen}
               className={styles.dropdownIcon}
             />

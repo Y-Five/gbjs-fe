@@ -12,8 +12,12 @@ const DropdownIcon = ({ className, size = '16', rotated = false, ...props }) => 
       {...props}
     >
       <path
-        d="M8 10.5L4.5 7H11.5L8 10.5Z"
-        fill="currentColor"
+        d="M4 6L8 10L12 6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   );
