@@ -38,6 +38,7 @@ export default function TourPage() {
         <SearchBox
           placeholder="경북의 어떤 관광지를 찾으세요?"
           onSearch={handleSearch}
+          readOnly={true}
         />
         <LocationCard location={location} />
         <TourSection tourData={sortedTourData} onTourClick={handleTourClick} />

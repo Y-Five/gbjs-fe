@@ -7,10 +7,10 @@ export default function LocationCard({ location, userName = "나나나난님", c
       return "위치 정보 로딩 중...";
     }
 
-    const { province, city, district } = location.address;
+    const { province, city } = location.address;
 
-    if (city || district) {
-      return province ? `${province} ${city} ${district}`.trim() : `${city} ${district}`.trim();
+    if (city) {
+      return province ? `${province} ${city}`.trim() : `${city}`.trim();
     }
 
     return "경상북도 경주시 인왕동";
