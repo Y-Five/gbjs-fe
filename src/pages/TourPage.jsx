@@ -1,10 +1,10 @@
 import Header from "../components/header/Header";
 import {
   LocationCard,
-  SearchBox,
   TourSection,
   ChatSection,
 } from "../components/tour";
+import { SearchBox } from "../components/global";
 import styles from "./TourPage.module.css";
 import { mockTourData } from "../data/mockTourData";
 import { useGeolocation } from "../hooks/useGeolocation";
