@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { SearchBox, SearchFilters, SearchResults } from "../components/tour";
+import { SearchBox } from "../components/tour";
+import { SearchFilters, SearchResults } from "../components/search";
 import { BackArrowIcon, DropdownIcon } from "../assets/icons";
 import { useDropdown } from "../hooks/useDropdown";
 import { SORT_OPTIONS, SEARCH_RESULTS_DATA, sortFunctions, filterFunction } from "../data/searchData";
