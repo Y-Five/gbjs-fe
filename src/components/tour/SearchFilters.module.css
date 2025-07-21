@@ -1,0 +1,101 @@
+@import "../../styles/tour-variables.css";
+
+.filtersWrapper {
+  position: relative;
+  margin: 0 20px 20px 20px;
+  overflow: hidden;
+}
+
+.filtersWrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(to left, transparent, #eff7ff);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.filtersWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #eff7ff);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.filtersWrapper.showLeft::before {
+  opacity: 1;
+}
+
+.filtersWrapper.showRight::after {
+  opacity: 1;
+}
+
+.filtersContainer {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-width: min-content;
+}
+
+@media (min-width: 393px) {
+  .filtersContainer {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.filtersContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.filterButton {
+  flex-shrink: 0;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.0714285714285714em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 393px) {
+  .filterButton {
+    padding: 10px 14px;
+  }
+}
+
+.filterButton {
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.filterButton.active {
+  background-color: #5e5e5e;
+  color: var(--gray-100);
+  font-weight: 700;
+}
+
+.filterButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.1);
+}
+
