@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { SearchBoxContainer as SearchBox } from "../components/global";
 import { SearchFilters, SearchResults } from "../components/search";
 import { BackArrowIcon, DropdownIcon } from "../assets/icons";
 import { useDropdown } from "../hooks/useDropdown";
-import { SORT_OPTIONS, SEARCH_RESULTS_DATA, sortFunctions, filterFunction } from "../data/searchData";
+import { SORT_OPTIONS, sortFunctions, filterFunction, SEARCH_RESULTS_DATA } from "../data/searchData";
 import styles from "./SearchPage.module.css";
-import mountainImg from "../assets/images/mountain.jpg";
 
 export default function SearchPage() {
   const navigate = useNavigate();
@@ -15,47 +14,43 @@ export default function SearchPage() {
   const [selectedFilter, setSelectedFilter] = useState("전체");
   const [sortBy, setSortBy] = useState(SORT_OPTIONS[0]);
   const [searchResults, setSearchResults] = useState([]);
-  const [filteredAndSorted, setFilteredAndSorted] = useState([]);
   const dropdown = useDropdown();
 
-  // 이미지와 함께 검색 결과 데이터 생성
-  const enrichedResults = SEARCH_RESULTS_DATA.map(result => ({
-    ...result,
-    imageUrl: mountainImg
-  }));
-
   useEffect(() => {
-    setSearchResults(enrichedResults);
+    setSearchResults(SEARCH_RESULTS_DATA);
   }, []);
 
-  // 필터링 및 정렬 적용
-  useEffect(() => {
+  const filteredAndSorted = useMemo(() => {
     let results = [...searchResults];
     
-    // 필터 적용
+    if (searchQuery) {
+      const lowerQuery = searchQuery.toLowerCase();
+      results = results.filter(item => 
+        item.name.toLowerCase().includes(lowerQuery) ||
+        item.tags.some(tag => tag.toLowerCase().includes(lowerQuery)) ||
+        item.description.toLowerCase().includes(lowerQuery)
+      );
+    }
+    
     results = filterFunction(results, selectedFilter);
     
-    // 정렬 적용
     const sortKey = sortBy.key;
     if (sortFunctions[sortKey]) {
       results = sortFunctions[sortKey](results);
     }
     
-    setFilteredAndSorted(results);
-  }, [searchResults, selectedFilter, sortBy]);
-
+    return results;
+  }, [searchResults, searchQuery, selectedFilter, sortBy]);
 
   const handleSearch = () => {
-    console.log("검색:", searchQuery, "필터:", selectedFilter, "정렬:", sortBy);
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
-  const handleBackClick = () => {
-    navigate(-1);
-  };
+  const handleBackClick = () => navigate(-1);
+  const handleResultClick = (result) => navigate(`/place/${result.id}`);
 
   return (
     <div className={styles.searchPage}>
-      {/* 헤더 */}
       <div className={styles.header}>
         <button 
           className={styles.backButton} 
@@ -76,13 +71,11 @@ export default function SearchPage() {
         />
       </div>
 
-      {/* 필터 */}
       <SearchFilters
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
       />
 
-      {/* 결과 헤더 */}
       <div className={styles.resultsHeader}>
         <span className={styles.resultsCount}>
           총 <span className={styles.countNumber}>{filteredAndSorted.length}</span> 건
@@ -91,7 +84,7 @@ export default function SearchPage() {
           <button
             className={styles.dropdownButton}
             onClick={dropdown.toggle}
-            aria-label={`정렬 방식: ${sortBy}`}
+            aria-label={`정렬 방식: ${sortBy.label}`}
             aria-expanded={dropdown.isOpen}
             aria-haspopup="listbox"
           >
@@ -106,7 +99,7 @@ export default function SearchPage() {
             <div className={styles.dropdownMenu} role="listbox" aria-label="정렬 방식 선택">
               {SORT_OPTIONS.map((option) => (
                 <button
-                  key={option}
+                  key={option.key}
                   className={`${styles.dropdownOption} ${sortBy.key === option.key ? styles.active : ''}`}
                   onClick={() => {
                     setSortBy(option);
@@ -123,13 +116,9 @@ export default function SearchPage() {
         </div>
       </div>
 
-      {/* 검색 결과 */}
       <SearchResults
         results={filteredAndSorted}
-        onResultClick={(result) => {
-          console.log("결과 클릭:", result);
-          navigate(-1);
-        }}
+        onResultClick={handleResultClick}
       />
     </div>
   );
