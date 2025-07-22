@@ -1,0 +1,96 @@
+/* Shared utility classes for the tour components */
+
+/* Container utilities */
+.container-padding {
+  padding: var(--tour-container-padding);
+}
+
+/* Spacing utilities */
+.spacing-xs { margin: var(--tour-spacing-xs); }
+.spacing-sm { margin: var(--tour-spacing-sm); }
+.spacing-md { margin: var(--tour-spacing-md); }
+.spacing-lg { margin: var(--tour-spacing-lg); }
+.spacing-xl { margin: var(--tour-spacing-xl); }
+
+.spacing-top-xs { margin-top: var(--tour-spacing-xs); }
+.spacing-top-sm { margin-top: var(--tour-spacing-sm); }
+.spacing-top-md { margin-top: var(--tour-spacing-md); }
+.spacing-top-lg { margin-top: var(--tour-spacing-lg); }
+.spacing-top-xl { margin-top: var(--tour-spacing-xl); }
+
+.spacing-bottom-xs { margin-bottom: var(--tour-spacing-xs); }
+.spacing-bottom-sm { margin-bottom: var(--tour-spacing-sm); }
+.spacing-bottom-md { margin-bottom: var(--tour-spacing-md); }
+.spacing-bottom-lg { margin-bottom: var(--tour-spacing-lg); }
+.spacing-bottom-xl { margin-bottom: var(--tour-spacing-xl); }
+
+/* Layout utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-title { 
+  font-size: var(--tour-title-size);
+  font-weight: 600;
+}
+
+.text-body { 
+  font-size: var(--tour-body-size);
+}
+
+.text-small { 
+  font-size: var(--tour-small-size);
+}
+
+/* Visual utilities */
+.shadow { box-shadow: var(--tour-card-shadow); }
+.rounded { border-radius: var(--tour-border-radius); }
+.rounded-small { border-radius: var(--tour-border-radius-small); }
+
+/* Button utilities */
+.btn-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: var(--tour-spacing-sm) var(--tour-spacing-md);
+  border-radius: var(--tour-border-radius-small);
+  cursor: pointer;
+  font-size: var(--tour-body-size);
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Color utilities */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }

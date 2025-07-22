@@ -4,19 +4,6 @@
   margin-bottom: var(--tour-spacing-xl);
 }
 
-/* 태블릿 */
-@media (max-width: 768px) {
-  .welcomeSection {
-    margin-bottom: var(--tour-spacing-xl);
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .welcomeSection {
-    margin-bottom: var(--tour-spacing-xl);
-  }
-}
 
 .welcomeCard {
   background-color: var(--gray-100);
@@ -25,19 +12,6 @@
   box-shadow: var(--tour-card-shadow);
 }
 
-/* 태블릿 */
-@media (max-width: 768px) {
-  .welcomeCard {
-    padding: var(--tour-spacing-md);
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .welcomeCard {
-    padding: var(--tour-spacing-sm);
-  }
-}
 
 .greeting {
   display: flex;
