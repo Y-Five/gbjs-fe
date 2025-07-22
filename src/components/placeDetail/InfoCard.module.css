@@ -1,0 +1,129 @@
+.infoCard {
+  position: relative;
+  margin: 21px 21px 0;
+  padding: 20px 20px 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
+}
+
+.mapButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  background: #eff7ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: #5e5e5e;
+  width: 175px;
+  height: 31px;
+  margin-bottom: 15px;
+}
+
+.mapButton svg {
+  width: 16px;
+  height: 16px;
+  color: #5e5e5e;
+}
+
+.title {
+  font-family: "Pretendard", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16.64px;
+  color: #1a1a1a;
+  margin: 0 0 15px;
+}
+
+.tags {
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16.64px;
+  color: #5e5e5e;
+  margin: 0 0 15px;
+}
+
+.description {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23px;
+  color: #1a1a1a;
+  margin: 15px 0 15px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 15px 0;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 15px;
+}
+
+.infoItem:last-child {
+  margin-bottom: 0;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 16px;
+  height: 16px;
+  color: #2d8ae7;
+}
+
+/* 문자 스타일 통합 */
+.address,
+.phone,
+.day,
+.hours {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  line-height: 15px;
+  color: #1a1a1a;
+}
+
+.address,
+.phone {
+  font-weight: 400;
+}
+
+.day,
+.hours {
+  font-weight: 600;
+}
+
+.timeInfo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  justify-content: flex-start;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #a8a8a8;
+}
