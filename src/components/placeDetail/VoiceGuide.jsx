@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import PlayIcon from "../../assets/icons/PlayIcon";
+import { PiPlayFill } from "react-icons/pi";
+import { RiPauseMiniLine } from "react-icons/ri";
 import magpieImg from "../../assets/images/magpie.png";
 import styles from "./VoiceGuide.module.css";
 
@@ -44,12 +45,9 @@ export default function VoiceGuide({ placeData, audioControls }) {
                 {isPlaying ? "음성 가이드 정지하기" : "음성 가이드 재생하기"}
               </span>
               {isPlaying ? (
-                <div className={styles.pauseControls}>
-                  <div className={styles.pauseBar} />
-                  <div className={styles.pauseBar} />
-                </div>
+                <RiPauseMiniLine className={styles.pauseIcon} size={18} style={{ transform: 'scaleX(1.2) scaleY(1.3)' }} />
               ) : (
-                <PlayIcon className={styles.playIcon} />
+                <PiPlayFill className={styles.playIcon} size={16} />
               )}
             </button>
           </div>
@@ -104,12 +102,9 @@ export default function VoiceGuide({ placeData, audioControls }) {
           aria-label={isPlaying ? "음성 가이드 정지" : "음성 가이드 재생"}
         >
           {isPlaying ? (
-            <div className={styles.pauseIcon}>
-              <div className={styles.pauseBar} />
-              <div className={styles.pauseBar} />
-            </div>
+            <RiPauseMiniLine className={styles.floatingPauseIcon} size={28} style={{ transform: 'scaleX(1.2) scaleY(1.3)' }} />
           ) : (
-            <PlayIcon className={styles.floatingPlayIcon} />
+            <PiPlayFill className={styles.floatingPlayIcon} size={22} />
           )}
         </button>
       )}

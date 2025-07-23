@@ -1,0 +1,39 @@
+/* Chat 컴포넌트용 추가 변수 (index.css와 겹치지 않는 것들만) */
+:root {
+  /* 그림자 */
+  --chat-card-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  --chat-menu-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+
+  /* 모서리 둥글기 */
+  --chat-border-radius: 0.625rem;
+  --chat-border-radius-small: 0.3125rem;
+  --chat-message-radius: 1rem;
+
+  /* 타이포그래피 */
+  --chat-title-size: 20px;
+  --chat-body-size: 14px;
+  --chat-small-size: 12px;
+  --chat-input-size: 15px;
+
+  /* 간격 */
+  --chat-spacing-xs: 0.5rem;
+  --chat-spacing-sm: 0.75rem;
+  --chat-spacing-md: 1rem;
+  --chat-spacing-lg: 1.25rem;
+  --chat-spacing-xl: 2.5rem;
+
+  /* 컨테이너 간격 */
+  --chat-container-padding: 1.25rem;
+  --chat-container-padding-tablet: 1rem;
+  --chat-container-padding-mobile: 0.75rem;
+
+  /* 채팅 관련 색상 */
+  --chat-user-bg: #2d8ae7;
+  --chat-bot-bg: #ffffff;
+  --chat-input-bg: #ffffff;
+  --chat-menu-bg: #ffffff;
+
+  /* 브레이크포인트 */
+  --chat-breakpoint-tablet: 768px;
+  --chat-breakpoint-mobile: 480px;
+}

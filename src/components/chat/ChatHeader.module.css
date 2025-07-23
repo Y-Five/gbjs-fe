@@ -1,0 +1,43 @@
+@import "../../styles/chat-variables.css";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: #eff7ff;
+  position: relative;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.49px;
+  line-height: 28px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #1a1a1a;
+}
