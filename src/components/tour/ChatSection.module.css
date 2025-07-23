@@ -77,15 +77,18 @@
 .chatButton {
   display: flex;
   align-items: center;
-  gap: var(--tour-spacing-xs); /* 8px */
+  justify-content: center;
+  gap: 4px;
   background-color: var(--blue-light);
   border: 1px solid var(--blue-main);
   border-radius: var(--tour-border-radius-small);
-  padding: var(--tour-spacing-xs) var(--tour-spacing-md);
-  width: fit-content;
+  padding: 0 6px 0 12px;
+  width: 90px;
+  height: 30px;
   align-self: flex-end;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 
@@ -97,10 +100,10 @@
 .chatButton span {
   font-family: var(--font-family);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--blue-main);
   letter-spacing: -0.35px;
-  line-height: 25px;
+  line-height: 1;
 }
 
 .chatButton:hover span {
@@ -108,9 +111,10 @@
 }
 
 .arrowIcon {
-  width: 1.1875rem;
-  height: 1.1875rem;
+  width: 16px;
+  height: 16px;
   color: var(--blue-main);
+  margin-left: -2px;
 }
 
 
