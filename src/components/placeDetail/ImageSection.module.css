@@ -1,0 +1,26 @@
+.imageSection {
+  position: relative;
+  width: 100%;
+  height: 393px;
+  overflow: hidden;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.backButton {
+  position: absolute;
+  top: 45px;
+  left: 21px;
+  width: 17.47px;
+  height: 17.47px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #1a1a1a;
+  z-index: 10;
+}
