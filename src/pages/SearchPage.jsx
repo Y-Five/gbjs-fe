@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { SearchBoxContainer as SearchBox } from "../components/global";
 import { SearchFilters, SearchResults } from "../components/search";
-import { BackArrowIcon, DropdownIcon } from "../assets/icons";
+import { IoChevronDown } from "react-icons/io5";
+import { LuChevronLeft } from "react-icons/lu";
 import { useDropdown } from "../hooks/useDropdown";
 import { SORT_OPTIONS, sortFunctions, filterFunction, SEARCH_RESULTS_DATA } from "../data/searchData";
 import styles from "./SearchPage.module.css";
@@ -57,7 +58,7 @@ export default function SearchPage() {
           onClick={handleBackClick}
           aria-label="뒤로 가기"
         >
-          <BackArrowIcon size="20" className={styles.backArrow} />
+          <LuChevronLeft size={20} className={styles.backArrow} />
         </button>
 
         <SearchBox
@@ -89,10 +90,9 @@ export default function SearchPage() {
             aria-haspopup="listbox"
           >
             <span>{sortBy.label}</span>
-            <DropdownIcon 
-              size="16" 
-              rotated={dropdown.isOpen}
-              className={styles.dropdownIcon}
+            <IoChevronDown 
+              size={16} 
+              className={`${styles.dropdownIcon} ${dropdown.isOpen ? styles.rotated : ''}`}
             />
           </button>
           {dropdown.isOpen && (

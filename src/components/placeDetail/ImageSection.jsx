@@ -1,4 +1,4 @@
-import ArrowIcon from "../../assets/icons/ArrowIcon";
+import { LuChevronLeft } from "react-icons/lu";
 import styles from "./ImageSection.module.css";
 
 export default function ImageSection({ placeData, onBack }) {
@@ -10,7 +10,7 @@ export default function ImageSection({ placeData, onBack }) {
         className={styles.mainImage}
       />
       <button className={styles.backButton} onClick={onBack}>
-        <ArrowIcon />
+        <LuChevronLeft size={20} />
       </button>
     </div>
   );

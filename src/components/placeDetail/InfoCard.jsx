@@ -1,8 +1,7 @@
 import { useCallback } from "react";
-import MapIcon from "../../assets/icons/MapIcon";
-import LocationIcon from "../../assets/icons/LocationIcon";
-import ClockIcon from "../../assets/icons/ClockIcon";
-import CallIcon from "../../assets/icons/CallIcon";
+import { IoCall } from "react-icons/io5";
+import { MdLocationOn, MdOutlineMap } from "react-icons/md";
+import { TbClockFilled } from "react-icons/tb";
 import styles from "./InfoCard.module.css";
 
 const KAKAO_MAP_URL = "https://map.kakao.com/link/search/";
@@ -25,7 +24,7 @@ export default function InfoCard({ placeData }) {
         onClick={handleMapClick}
         aria-label="카카오맵에서 위치 보기"
       >
-        <MapIcon />
+        <MdOutlineMap size={20} />
         <span>카카오맵으로 상세위치 보기</span>
       </button>
 
@@ -42,14 +41,14 @@ export default function InfoCard({ placeData }) {
 
       <div className={styles.infoItem}>
         <div className={styles.icon}>
-          <LocationIcon />
+          <MdLocationOn size={20} />
         </div>
         <span className={styles.address}>{placeData.address}</span>
       </div>
 
       <div className={styles.infoItem}>
         <div className={styles.icon}>
-          <ClockIcon />
+          <TbClockFilled size={20} />
         </div>
         <div className={styles.timeInfo}>
           <span className={styles.day}>매일</span>
@@ -60,7 +59,7 @@ export default function InfoCard({ placeData }) {
 
       <div className={styles.infoItem}>
         <div className={styles.icon}>
-          <CallIcon />
+          <IoCall size={18} />
         </div>
         <span className={styles.phone}>{placeData.phoneNumber}</span>
       </div>

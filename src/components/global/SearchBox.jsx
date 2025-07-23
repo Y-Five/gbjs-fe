@@ -1,4 +1,4 @@
-import SearchIcon from "../../assets/icons/SearchIcon";
+import { FiSearch } from "react-icons/fi";
 import styles from "./SearchBox.module.css";
 
 export default function SearchBox({
@@ -33,9 +33,10 @@ export default function SearchBox({
           readOnly={readOnly}
           autoFocus={autoFocus}
         />
-        <SearchIcon 
+        <FiSearch 
           className={styles.searchIcon} 
-          onClick={onSearchIconClick} 
+          onClick={onSearchIconClick}
+          size={24}
         />
       </div>
     </div>
