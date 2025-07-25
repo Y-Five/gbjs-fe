@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding: 24px 28px;
+  max-width: 430px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.backButton {
+  position: absolute;
+  left: 30px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gray-600);
+}

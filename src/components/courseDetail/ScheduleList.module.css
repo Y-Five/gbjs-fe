@@ -1,0 +1,103 @@
+.list {
+  background-color: white;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-500);
+  margin-bottom: 10px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 20px;
+  color: var(--gray-600);
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.regenerateBtn {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--blue-main);
+  background-color: white;
+  border: 1px solid var(--blue-main);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.regenerateBtn:hover {
+  background-color: #f3f7ff;
+}
+
+.ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.dotWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--blue-main);
+  color: white;
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.verticalLine {
+  width: 2px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 0;
+}
+
+.name {
+  color: var(--gray-600);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.type {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 400;
+}
+
+.spotSection{
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+}

@@ -1,0 +1,5 @@
+.main {
+  padding: 30px var(--tour-container-padding) var(--tour-spacing-xl)
+    var(--tour-container-padding);
+    background-color: var(--blue-light);
+}
