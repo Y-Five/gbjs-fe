@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import TourPage from "../pages/TourPage";
-// import CourseDetailPage from "../pages/CourseDetailPage";
-// import RegionSearchPage from "../pages/RegionSearchPage";
+import SealTourPage from "../pages/SealTourPage";
+import CourseDetailPage from "../pages/CourseDetailPage";
+import AdministrativePage from "../pages/AdministrativePage";
 
 export default function AppRouter() {
   return (
@@ -10,8 +11,9 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/tour" element={<TourPage />} />
-        {/* <Route path="/course" element={<CourseSearchPage />} />
-        <Route path="/courses/:type/:id" element={<CourseDetailPage />} /> */}
+        <Route path="/sealtour" element={<SealTourPage />} />
+        <Route path="/course" element={<CourseDetailPage />} />
+        <Route path="/administrative" element={<AdministrativePage />} />
       </Routes>
     </Router>
   );

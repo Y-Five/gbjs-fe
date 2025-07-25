@@ -1,11 +1,10 @@
-.section {
-  padding: 25px 21px;
-  background-color: var(--blue-light);
+.section{
+  margin-bottom: 30px;
 }
 
 .searchBox {
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
   cursor: pointer;
 }
 

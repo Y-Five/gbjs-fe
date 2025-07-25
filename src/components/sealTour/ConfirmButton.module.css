@@ -1,0 +1,18 @@
+.wrapper {
+  padding: 30px 0;
+}
+.button {
+  width: 100%;
+  background-color: var(--blue-main);
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21.833px; /* 109.167% */
+  letter-spacing: -0.546px;
+  padding: 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}

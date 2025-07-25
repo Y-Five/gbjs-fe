@@ -1,13 +1,9 @@
-.section {
-  padding: 25px 21px 50px;
-  background-color: var(--blue-light);
-}
-
 .title {
   font-size: 20px;
   font-weight: 700;
   color: var(--gray-600);
   margin-bottom: 8px;
+  margin-top: 30px;
 }
 
 .sub {
@@ -28,6 +24,7 @@
   border: none;
   background: none;
   font-size: 14px;
+  font-weight: 600;
   color: var(--gray-400);
   padding: 4px 8px;
   border-bottom: 2px solid transparent;
@@ -37,7 +34,7 @@
 .active {
   width: 50%;
   color: var(--gray-600);
-  border-bottom: 2px solid var(--blue-main);
+  border-bottom: 3px solid var(--blue-main);
 }
 
 .active::after {
