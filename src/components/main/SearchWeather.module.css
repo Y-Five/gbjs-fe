@@ -1,16 +1,10 @@
 .section{
   margin-bottom: 30px;
 }
-
-<<<<<<< HEAD
-.searchBox {
+.searchBoxComponent {
+  cursor: pointer;
   position: relative;
   margin-bottom: 30px;
-=======
-.searchBoxComponent {
-  margin-bottom: 16px;
->>>>>>> develop
-  cursor: pointer;
 }
 
 .weatherCard {
