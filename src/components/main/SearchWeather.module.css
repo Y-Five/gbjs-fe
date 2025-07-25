@@ -2,31 +2,15 @@
   margin-bottom: 30px;
 }
 
+<<<<<<< HEAD
 .searchBox {
   position: relative;
   margin-bottom: 30px;
+=======
+.searchBoxComponent {
+  margin-bottom: 16px;
+>>>>>>> develop
   cursor: pointer;
-}
-
-.input {
-  width: 100%;
-  padding: 20px 16px;
-  border: none;
-  border-radius: 10px;
-  font-size: 15px;
-  color: var(--gray-400);
-  font-weight: 500;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
-}
-
-.searchIcon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 29px;
-  height: 29px;
 }
 
 .weatherCard {
@@ -86,13 +70,4 @@
 .character {
   width: 144px;
   height: auto;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: var(--gray-400);
 }

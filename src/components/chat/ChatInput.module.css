@@ -1,0 +1,65 @@
+@import "../../styles/chat-variables.css";
+
+.inputContainer {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.input {
+  flex: 1;
+  padding: 12px 16px;
+  padding-right: 50px;
+  border: 1px solid #a8a8a8;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: 0;
+  line-height: 17px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: #a8a8a8;
+}
+
+.input:focus {
+  border-color: #2d8ae7;
+}
+
+.sendButton {
+  position: absolute;
+  right: 4px;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background-color: #2d8ae7;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.sendButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sendButton:not(:disabled):hover {
+  background-color: #2674c9;
+}
+
+.sendButton:not(:disabled):active {
+  transform: scale(0.95);
+}

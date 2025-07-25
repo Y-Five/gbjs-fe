@@ -1,18 +1,15 @@
 import styles from "./SearchWeather.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
 import rainCharacter from "../../assets/images/rain-character.png";
+import { SearchBoxContainer as SearchBox } from "../global";
 
 export default function SearchWeather() {
   return (
     <section className={styles.section}>
-      <div className={styles.searchBox}>
-        <input
-          type="text"
-          placeholder="경북의 어떤 관광지를 찾으세요?"
-          className={styles.input}
-        />
-        <AiOutlineSearch className={styles.searchIcon} />
-      </div>
+      <SearchBox
+        placeholder="경북의 어떤 관광지를 찾으세요?"
+        readOnly={true}
+        className={styles.searchBoxComponent}
+      />
 
       <div className={styles.weatherCard}>
         <div className={styles.weatherInfo}>

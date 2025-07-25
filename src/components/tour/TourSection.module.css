@@ -4,40 +4,12 @@
   margin-bottom: var(--tour-spacing-xl);
 }
 
-/* 태블릿 */
-@media (max-width: 768px) {
-  .tourSection {
-    margin-bottom: var(--tour-spacing-xl);
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .tourSection {
-    margin-bottom: var(--tour-spacing-xl);
-  }
-}
 
 .sectionHeader {
   margin-bottom: var(--tour-spacing-md);
   padding-left: var(--tour-spacing-xs);
 }
 
-/* 태블릿 */
-@media (max-width: 768px) {
-  .sectionHeader {
-    margin-bottom: var(--tour-spacing-sm);
-    padding-left: 0.375rem;
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .sectionHeader {
-    margin-bottom: 0.625rem;
-    padding-left: 0.25rem;
-  }
-}
 
 .sectionTitle {
   font-family: var(--font-family);
@@ -69,25 +41,6 @@
   scrollbar-width: none;
 }
 
-/* 태블릿 */
-@media (max-width: 768px) {
-  .tourCards {
-    gap: 0.625rem;
-    padding: 0 var(--tour-container-padding-tablet) var(--tour-spacing-xs)
-      var(--tour-container-padding-tablet);
-    margin: 0 calc(-1 * var(--tour-container-padding-tablet));
-  }
-}
-
-/* 모바일 */
-@media (max-width: 480px) {
-  .tourCards {
-    gap: var(--tour-spacing-xs);
-    padding: 0 var(--tour-container-padding-mobile) var(--tour-spacing-xs)
-      var(--tour-container-padding-mobile);
-    margin: 0 calc(-1 * var(--tour-container-padding-mobile));
-  }
-}
 
 .tourCards::-webkit-scrollbar {
   display: none;

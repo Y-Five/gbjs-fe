@@ -1,0 +1,239 @@
+/* 음성 가이드 섹션 */
+.voiceGuideTitle {
+  font-family: "Pretendard", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 15px;
+  color: #1a1a1a;
+  margin: 40px 0 20px 0;
+  padding-left: 29px;
+}
+
+.voiceGuideWrapper {
+  position: relative;
+  margin: 0 20px 40px;
+}
+
+.voiceGuideCard {
+  position: relative;
+  width: 100%;
+  min-height: 388px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.mascot {
+  position: absolute;
+  top: 25.56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 142.86px;
+  height: 133.64px;
+  object-fit: contain;
+}
+
+.audioControls {
+  position: absolute;
+  top: 179.72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 159px;
+  height: 31.3px;
+}
+
+.playButton {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #8f8f8f;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  gap: 10px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.playButton.playing {
+  border-color: #2d8ae7;
+  background-color: #ffffff;
+}
+
+.playText {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.35px;
+  color: #8f8f8f;
+  white-space: nowrap;
+}
+
+.playing .playText {
+  color: #2d8ae7;
+}
+
+.playIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #8f8f8f;
+}
+
+.pauseIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #2d8ae7;
+  display: inline-block;
+}
+
+
+.progressSection {
+  position: absolute;
+  top: 233px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 256px;
+}
+
+.progressBar {
+  width: 100%;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 13px;
+  background-color: #eff7ff;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #2d8ae7;
+  border-radius: 100px;
+  transition: width 0.3s ease-out;
+  min-width: 13px;
+}
+
+.timeInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.currentTime,
+.duration {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 25.24px;
+  letter-spacing: -0.35px;
+  color: #1a1a1a;
+}
+
+/* 카드 내 구분선 */
+.dividerInCard {
+  position: absolute;
+  top: 297px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 298px;
+  height: 1px;
+  background-color: #e5e5e5;
+}
+
+/* 자막보기 버튼 */
+.subtitleButton {
+  position: absolute;
+  top: 316px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 50px;
+  width: 302px;
+  height: 42px;
+  background: transparent;
+  border: 1px solid #a8a8a8;
+  border-radius: 5px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.71px;
+  color: #a8a8a8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitleButton:hover {
+  border-color: #2d8ae7;
+  color: #2d8ae7;
+}
+
+/* 자막 내용 */
+.subtitleContent {
+  margin-top: 395px;
+  padding: 0 27px 35px;
+}
+
+.subtitleContent p {
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.4px;
+  color: #1a1a1a;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+/* 플로팅 컨트롤 버튼 */
+.floatingControlButton {
+  position: fixed;
+  bottom: 100px;
+  right: 21px;
+  width: 58px;
+  height: 58px;
+  background: #ffffff;
+  border: 1px solid #2d8ae7;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.floatingControlButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.floatingPlayIcon {
+  width: 22px;
+  height: 22px;
+  color: #2d8ae7;
+}
+
+.floatingPauseIcon {
+  width: 28px;
+  height: 28px;
+  color: #2d8ae7;
+  display: inline-block;
+}
