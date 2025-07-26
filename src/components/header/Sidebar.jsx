@@ -13,7 +13,6 @@ export default function Sidebar({ isOpen, onClose, current = "home" }) {
     <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`}>
       <div className={styles.sidebar}>
         <button className={styles.closeButton} onClick={() => {
-          console.log("닫기 버튼 클릭됨");
           onClose();
         }}>✕</button>
 

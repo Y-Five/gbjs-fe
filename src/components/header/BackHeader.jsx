@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./BackHeader.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 
-export default function BackHeader({ title = "제목" }) {
+export default function BackHeader({ title }) {
   const navigate = useNavigate();
 
   return (
@@ -10,7 +10,7 @@ export default function BackHeader({ title = "제목" }) {
       <button className={styles.backButton} onClick={() => navigate(-1)}>
         <FaArrowLeft />
       </button>
-      <h1 className={styles.title}>{title}</h1>
+      {title && <h1 className={styles.title}>{title}</h1>}
     </header>
   );
 }
