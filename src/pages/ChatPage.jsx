@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
-  ChatHeader, 
   ChatMessage, 
   ChatInput, 
-  ChatMenu, 
   TypingIndicator 
 } from "../components/chat";
+import BackHeader from "../components/header/BackHeader";
 import { useChat } from "../hooks/useChat";
 import { getTodayDateString } from "../utils/dateUtils";
 import { CHAT_CONSTANTS } from "../constants/chatConstants";
@@ -31,7 +30,6 @@ const getInitialMessages = () => [
 export default function ChatPage() {
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
-  const [showMenu, setShowMenu] = useState(true);
 
   const {
     messages,
@@ -51,33 +49,14 @@ export default function ChatPage() {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  const handleMenuClick = useCallback((action) => {
-    if (action === "text") {
-      setShowMenu(false);
-    } else if (action === "voice") {
-      alert("음성 질문 기능은 준비 중입니다.");
-    } else if (action === "endChat") {
-      navigate(-1);
-    }
-  }, [navigate]);
 
-  const handleMenuToggle = useCallback(() => {
-    setShowMenu(prev => !prev);
-  }, []);
-
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
 
   return (
     <div className={styles.container}>
-      <ChatHeader 
-        onBack={handleBack}
-        onMenuToggle={handleMenuToggle}
-        showMenu={showMenu}
-      />
+      <BackHeader title="대화하기" className={styles.chatHeader} />
 
       <div className={styles.messagesContainer}>
+        <div className={styles.spacer} />
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
@@ -92,8 +71,6 @@ export default function ChatPage() {
         onSend={sendMessage}
       />
 
-      {showMenu && <ChatMenu onMenuClick={handleMenuClick} />}
-      
       {error && (
         <div className={styles.errorToast}>
           {error}

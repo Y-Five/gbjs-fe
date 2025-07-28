@@ -5,7 +5,7 @@ import styles from "./TypingIndicator.module.css";
 export default function TypingIndicator() {
   return (
     <div className={`${styles.messageWrapper} ${styles.bot}`}>
-      <div className={styles.botInfo}>
+      <div className={styles.profileContainer}>
         <div className={styles.avatar}>
           <img
             src={magpieAvatar}
@@ -15,12 +15,14 @@ export default function TypingIndicator() {
         </div>
         <span className={styles.botName}>{CHAT_CONSTANTS.BOT_NAME}</span>
       </div>
-      <div className={styles.messageContent}>
-        <div className={styles.messageBubble}>
-          <div className={styles.typingIndicator}>
-            <span></span>
-            <span></span>
-            <span></span>
+      <div className={styles.messageContainer}>
+        <div className={styles.messageRow}>
+          <div className={styles.messageBubble}>
+            <div className={styles.typingIndicator}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
       </div>
