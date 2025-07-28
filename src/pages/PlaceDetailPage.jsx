@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ImageSection, InfoCard, VoiceGuide } from "../components/placeDetail";
+import BackHeader from "../components/header/BackHeader";
+import { InfoCard, VoiceGuide } from "../components/placeDetail";
 import { useAudioPlayer } from "../hooks/useAudioPlayer";
 import { getPlaceById } from "../data/placeDetailData";
 import styles from "./PlaceDetailPage.module.css";
@@ -15,9 +16,9 @@ export default function PlaceDetailPage() {
     const foundPlace = getPlaceById(contentId);
     setPlaceData(foundPlace);
     setIsLoading(false);
-    
+
     if (!foundPlace) {
-      navigate('/tour');
+      navigate("/tour");
     }
   }, [contentId, navigate]);
 
@@ -35,11 +36,16 @@ export default function PlaceDetailPage() {
     return null;
   }
 
-  const handleBack = () => navigate(-1);
-
   return (
     <div className={styles.container}>
-      <ImageSection placeData={placeData} onBack={handleBack} />
+      <BackHeader title={placeData?.name || ""} className={styles.header} />
+      <div className={styles.imageSection}>
+        <img
+          src={placeData?.imageUrl || ""}
+          alt={placeData?.name || ""}
+          className={styles.mainImage}
+        />
+      </div>
       <InfoCard placeData={placeData} />
       {placeData.hasVoiceGuide && (
         <VoiceGuide placeData={placeData} audioControls={audioControls} />

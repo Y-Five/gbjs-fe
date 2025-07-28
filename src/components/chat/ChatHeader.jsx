@@ -1,8 +1,7 @@
 import { LuChevronLeft } from "react-icons/lu";
-import { HiDotsVertical } from "react-icons/hi";
 import styles from "./ChatHeader.module.css";
 
-export default function ChatHeader({ onBack, onMenuToggle, showMenu }) {
+export default function ChatHeader({ onBack, title }) {
   return (
     <header className={styles.header}>
       <button
@@ -12,14 +11,8 @@ export default function ChatHeader({ onBack, onMenuToggle, showMenu }) {
       >
         <LuChevronLeft size={20} />
       </button>
-      <h1 className={styles.title}>대화하기</h1>
-      <button
-        className={styles.menuButton}
-        onClick={onMenuToggle}
-        aria-label="메뉴"
-      >
-        <HiDotsVertical size={20} />
-      </button>
+      <h1 className={styles.title}>{title || "대화하기"}</h1>
+      <div className={styles.spacer} />
     </header>
   );
 }

@@ -34,7 +34,7 @@ export default function SearchBox({
           autoFocus={autoFocus}
         />
         <FiSearch 
-          className={styles.searchIcon} 
+          className={`${styles.searchIcon} ${searchValue ? styles.active : ''}`} 
           onClick={onSearchIconClick}
           size={24}
         />

@@ -10,7 +10,7 @@
 /* 헤더 */
 .header {
   position: relative;
-  padding: 45px 20px 20px 20px;
+  padding: 24px 28px;
   background-color: #eff7ff;
   display: flex;
   align-items: center;
@@ -20,9 +20,12 @@
 .backButton {
   composes: btn-reset flex-center;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  align-self: center;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 .searchSection {
@@ -38,7 +41,7 @@
 /* 결과 헤더 */
 .resultsHeader {
   composes: flex-between;
-  padding: 0 20px 20px 20px;
+  padding: 0 28px 20px 28px;
   margin-top: 20px;
 }
 

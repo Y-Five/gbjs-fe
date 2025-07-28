@@ -18,7 +18,7 @@ export default function ChatMessage({ message }) {
       className={`${styles.messageWrapper} ${styles[message.type]}`}
     >
       {message.type === "bot" && (
-        <div className={styles.botInfo}>
+        <div className={styles.profileContainer}>
           <div className={styles.avatar}>
             <img
               src={magpieAvatar}
@@ -29,13 +29,15 @@ export default function ChatMessage({ message }) {
           <span className={styles.botName}>{message.name}</span>
         </div>
       )}
-      <div className={styles.messageContent}>
-        <div className={styles.messageBubble}>
-          <p className={styles.messageText}>{message.text}</p>
+      <div className={styles.messageContainer}>
+        <div className={styles.messageRow}>
+          <div className={styles.messageBubble}>
+            <p className={styles.messageText}>{message.text}</p>
+          </div>
+          <span className={styles.messageTime}>
+            {formatTime(message.time)}
+          </span>
         </div>
-        <span className={styles.messageTime}>
-          {formatTime(message.time)}
-        </span>
       </div>
     </div>
   );

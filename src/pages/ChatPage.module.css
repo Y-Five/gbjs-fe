@@ -7,12 +7,16 @@
   background-color: #eff7ff;
   overflow: hidden;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 .messagesContainer {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 20px;
+  padding-top: 88px; /* 헤더 높이(24+24+20) + 여유 공간 20px */
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -63,9 +67,30 @@
   }
 }
 
+/* Chat Header 스타일 */
+.chatHeader {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* ChatPage 내의 header 요소에 그라디언트 배경 적용 */
+.container header {
+  background: linear-gradient(to bottom, #eff7ff 0%, #eff7ff 70%, rgba(239, 247, 255, 0.8) 85%, rgba(239, 247, 255, 0) 100%);
+}
+
+/* Spacer to push messages to bottom */
+.spacer {
+  flex: 1;
+  min-height: 0;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .messagesContainer {
-    padding: 16px;
+    padding: 16px 20px;
+    padding-top: 84px; /* 모바일에서도 헤더 높이 고려 */
   }
 }

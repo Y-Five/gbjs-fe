@@ -1,3 +1,5 @@
+@import "../../styles/common-variables.css";
+
 /* 음성 가이드 섹션 */
 .voiceGuideTitle {
   font-family: "Pretendard", sans-serif;
@@ -19,8 +21,8 @@
   width: 100%;
   min-height: 388px;
   background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-card);
   padding-bottom: 0;
   overflow: hidden;
 }
@@ -87,11 +89,20 @@
 }
 
 .pauseIcon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
-  color: #2d8ae7;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.pauseBar {
+  width: 3px;
+  height: 12px;
+  background-color: #2d8ae7;
+  border-radius: 1.5px;
 }
 
 
@@ -215,14 +226,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-card);
   transition: all 0.2s ease;
   z-index: 1000;
 }
 
 .floatingControlButton:hover {
   transform: scale(1.05);
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .floatingPlayIcon {
@@ -232,8 +243,17 @@
 }
 
 .floatingPauseIcon {
-  width: 28px;
-  height: 28px;
-  color: #2d8ae7;
-  display: inline-block;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.floatingPauseBar {
+  width: 4px;
+  height: 16px;
+  background-color: #2d8ae7;
+  border-radius: 2px;
 }
