@@ -71,6 +71,7 @@
   top: 6px;
 }
 
+
 /* Week Layout */
 :global(.react-datepicker__day-names),
 :global(.react-datepicker__week) {
@@ -229,4 +230,51 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+/* Custom Header Styles */
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.headerNavigation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  color: #1a1a1a;
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dateDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.yearText {
+  font-size: 12px;
+  font-weight: 400;
+  color: #767676;
+  margin-bottom: 2px;
+}
+
+.monthText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
 }

@@ -85,73 +85,27 @@ export default function DateSelector() {
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                }}
-              >
+            <div className={styles.headerContainer}>
+              <div className={styles.headerNavigation}>
                 <button
                   onClick={decreaseMonth}
                   disabled={prevMonthButtonDisabled}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    padding: "4px",
-                    color: "#1a1a1a",
-                  }}
+                  className={styles.navButton}
                 >
                   {"<"}
                 </button>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "400",
-                      color: "#767676",
-                      marginBottom: "2px",
-                    }}
-                  >
+                <div className={styles.dateDisplay}>
+                  <span className={styles.yearText}>
                     {date.getFullYear()}
                   </span>
-                  <span
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "600",
-                      color: "#111111",
-                    }}
-                  >
+                  <span className={styles.monthText}>
                     {`${date.getMonth() + 1}월`}
                   </span>
                 </div>
                 <button
                   onClick={increaseMonth}
                   disabled={nextMonthButtonDisabled}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    padding: "4px",
-                    color: "#1a1a1a",
-                  }}
+                  className={styles.navButton}
                 >
                   {">"}
                 </button>
