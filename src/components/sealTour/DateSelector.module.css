@@ -71,7 +71,6 @@
   top: 6px;
 }
 
-
 /* Week Layout */
 :global(.react-datepicker__day-names),
 :global(.react-datepicker__week) {
@@ -119,6 +118,11 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  outline: none !important;
+}
+
+:global(.react-datepicker__day:focus) {
+  outline: none !important;
 }
 
 /* Hover States */
@@ -126,7 +130,11 @@
   border-radius: 10px;
 }
 
-:global(.react-datepicker__day:hover:not(.react-datepicker__day--selected):not(.react-datepicker__day--in-range):not(.react-datepicker__day--in-selecting-range)) {
+:global(
+    .react-datepicker__day:hover:not(.react-datepicker__day--selected):not(
+        .react-datepicker__day--in-range
+      ):not(.react-datepicker__day--in-selecting-range)
+  ) {
   background-color: #f5f5f5;
 }
 
@@ -137,7 +145,13 @@
 }
 
 :global(.react-datepicker__day--keyboard-selected) {
-  background-color: transparent;
+  background-color: transparent !important;
+  outline: none !important;
+}
+
+:global(.react-datepicker__day--keyboard-selected:not(.react-datepicker__day--selected):not(.react-datepicker__day--in-range)) {
+  background-color: transparent !important;
+  color: var(--gray-600) !important;
 }
 
 /* Today */
@@ -184,43 +198,77 @@
 }
 
 /* Range Start Styles */
-:global(.react-datepicker__day--range-start:not(.react-datepicker__day--range-end))::before {
+:global(
+    .react-datepicker__day--range-start:not(.react-datepicker__day--range-end)
+  )::before {
   left: 0;
   right: -2px;
   border-radius: 10px 0 0 10px;
 }
 
-:global(.react-datepicker__day--range-start:not(.react-datepicker__day--range-end)),
-:global(.react-datepicker__day--selecting-range-start:not(.react-datepicker__day--selecting-range-end)) {
+:global(
+    .react-datepicker__day--range-start:not(.react-datepicker__day--range-end)
+  ),
+:global(
+    .react-datepicker__day--selecting-range-start:not(
+        .react-datepicker__day--selecting-range-end
+      )
+  ) {
   border-radius: 10px 0 0 10px;
 }
 
 /* Range End Styles */
-:global(.react-datepicker__day--range-end:not(.react-datepicker__day--range-start))::before {
+:global(
+    .react-datepicker__day--range-end:not(.react-datepicker__day--range-start)
+  )::before {
   left: -2px;
   right: 0;
   border-radius: 0 10px 10px 0;
 }
 
-:global(.react-datepicker__day--range-end:not(.react-datepicker__day--range-start)),
-:global(.react-datepicker__day--selecting-range-end:not(.react-datepicker__day--selecting-range-start)) {
+:global(
+    .react-datepicker__day--range-end:not(.react-datepicker__day--range-start)
+  ),
+:global(
+    .react-datepicker__day--selecting-range-end:not(
+        .react-datepicker__day--selecting-range-start
+      )
+  ) {
   border-radius: 0 10px 10px 0;
 }
 
 /* Range Middle */
-:global(.react-datepicker__day--in-range:not(.react-datepicker__day--range-start):not(.react-datepicker__day--range-end))::before {
+:global(
+    .react-datepicker__day--in-range:not(
+        .react-datepicker__day--range-start
+      ):not(.react-datepicker__day--range-end)
+  )::before {
   left: -2px;
   right: -2px;
 }
 
-:global(.react-datepicker__day--in-range:not(.react-datepicker__day--range-start):not(.react-datepicker__day--range-end)),
-:global(.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--selecting-range-start):not(.react-datepicker__day--selecting-range-end)) {
+:global(
+    .react-datepicker__day--in-range:not(
+        .react-datepicker__day--range-start
+      ):not(.react-datepicker__day--range-end)
+  ),
+:global(
+    .react-datepicker__day--in-selecting-range:not(
+        .react-datepicker__day--selecting-range-start
+      ):not(.react-datepicker__day--selecting-range-end)
+  ) {
   border-radius: 0;
 }
 
 /* Single Day Selection */
 :global(.react-datepicker__day--range-start.react-datepicker__day--range-end),
-:global(.react-datepicker__day--selecting-range-start.react-datepicker__day--selecting-range-end) {
+:global(
+    .react-datepicker__day--selecting-range-start.react-datepicker__day--selecting-range-end
+  ),
+:global(.react-datepicker__day--selected:not([aria-disabled="true"]):hover),
+:global(
+    .react-datepicker__day--keyboard-selected:not([aria-disabled="true"]):hover
+  ) {
   border-radius: 10px;
 }
 
