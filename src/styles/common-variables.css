@@ -1,0 +1,114 @@
+/* Common CSS Variables for the entire application */
+
+:root {
+  /* Font */
+  --font-family: 'Pretendard', sans-serif;
+
+  /* Grayscale */
+  --gray-100: #ffffff;
+  --gray-200: #e5e5e5;
+  --gray-300: #a8a8a8;
+  --gray-400: #8f8f8f;
+  --gray-500: #5e5e5e;
+  --gray-600: #1a1a1a;
+
+  /* Colors */
+  --blue-main: #2d8ae7;
+  --blue-light: #eff7ff;
+
+  /* Shadows */
+  --shadow-card: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
+  --shadow-button: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-button-hover: 0px 6px 16px rgba(0, 0, 0, 0.2);
+  --shadow-menu: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+
+  /* Border Radius */
+  --radius-small: 5px;
+  --radius-medium: 10px;
+  --radius-large: 20px;
+  --radius-full: 50%;
+  --radius-message: 1rem;
+
+  /* Typography */
+  --title-size: 20px;
+  --body-size: 14px;
+  --small-size: 12px;
+  --input-size: 15px;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.25rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+
+  /* Container spacing */
+  --container-padding: 1.25rem;
+  --container-padding-tablet: 1rem;
+  --container-padding-mobile: 0.75rem;
+
+  /* Breakpoints */
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 480px;
+
+  /* Chat specific */
+  --chat-bg: #eff7ff;
+  --chat-date-badge-bg: #2d8ae7;
+  --chat-bubble-bot: #ffffff;
+  --chat-bubble-user: #2d8ae7;
+  --chat-text-user: #ffffff;
+  --chat-input-bg: #ffffff;
+  --chat-menu-bg: #ffffff;
+
+  /* Tour specific */
+  --tour-bg-light: #eff7ff;
+  --tour-text-primary: #1a1a1a;
+  --tour-text-secondary: #5e5e5e;
+  --tour-text-tertiary: #8f8f8f;
+  --tour-tag-bg: #eff7ff;
+  --tour-tag-text: #2d8ae7;
+  --tour-icon-color: #2d8ae7;
+
+  /* Legacy variables for backward compatibility */
+  --tour-card-shadow: var(--shadow-card);
+  --tour-border-radius: var(--radius-medium);
+  --tour-border-radius-small: var(--radius-small);
+  --tour-title-size: var(--title-size);
+  --tour-body-size: var(--body-size);
+  --tour-small-size: var(--small-size);
+  --tour-spacing-xs: var(--spacing-xs);
+  --tour-spacing-sm: var(--spacing-sm);
+  --tour-spacing-md: var(--spacing-md);
+  --tour-spacing-lg: var(--spacing-lg);
+  --tour-spacing-xl: var(--spacing-xl);
+  --tour-container-padding: var(--container-padding);
+  --tour-container-padding-tablet: var(--container-padding-tablet);
+  --tour-container-padding-mobile: var(--container-padding-mobile);
+  --tour-breakpoint-tablet: var(--breakpoint-tablet);
+  --tour-breakpoint-mobile: var(--breakpoint-mobile);
+
+  --chat-card-shadow: var(--shadow-card);
+  --chat-menu-shadow: var(--shadow-menu);
+  --chat-border-radius: var(--radius-medium);
+  --chat-border-radius-small: var(--radius-small);
+  --chat-message-radius: var(--radius-message);
+  --chat-title-size: var(--title-size);
+  --chat-body-size: var(--body-size);
+  --chat-small-size: var(--small-size);
+  --chat-input-size: var(--input-size);
+  --chat-spacing-xs: var(--spacing-xs);
+  --chat-spacing-sm: var(--spacing-sm);
+  --chat-spacing-md: var(--spacing-md);
+  --chat-spacing-lg: var(--spacing-lg);
+  --chat-spacing-xl: var(--spacing-xl);
+  --chat-container-padding: var(--container-padding);
+  --chat-container-padding-tablet: var(--container-padding-tablet);
+  --chat-container-padding-mobile: var(--container-padding-mobile);
+  --chat-breakpoint-tablet: var(--breakpoint-tablet);
+  --chat-breakpoint-mobile: var(--breakpoint-mobile);
+  --chat-user-bg: var(--chat-bubble-user);
+  --chat-bot-bg: var(--chat-bubble-bot);
+}

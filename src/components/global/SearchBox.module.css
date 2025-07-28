@@ -1,5 +1,4 @@
 @import "../../styles/tour-variables.css";
-
 .searchSection {
   margin-bottom: 1.5625rem;
 }
@@ -7,7 +6,6 @@
 .noMargin {
   margin-bottom: 0;
 }
-
 
 .searchBox {
   position: relative;
@@ -29,7 +27,6 @@
   line-height: 15px;
 }
 
-
 .searchInput::placeholder {
   color: var(--gray-400);
 }
@@ -50,3 +47,7 @@
   color: var(--blue-main);
 }
 
+.searchIcon.active {
+  color: var(--gray-600);
+  cursor: pointer;
+}
