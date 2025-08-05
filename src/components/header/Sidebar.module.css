@@ -76,6 +76,12 @@
   font-weight: 500;
   padding: 14px 8px;
   border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menuItem:hover {
+  color: var(--blue-main);
 }
 
 .active {
@@ -87,8 +93,17 @@
   text-align: center;
 }
 
+.active:hover {
+  background: var(--blue-light);
+  color: var(--blue-main);
+}
+
 .inactive {
   color: #aaa;
+}
+
+.inactive:hover {
+  color: var(--blue-main);
 }
 
 .divider {
@@ -105,4 +120,14 @@
   font-size: 20px;
   font-weight: 500;
   color: var(--gray-300);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.bottom:hover {
+  color: var(--blue-main);
+}
+
+.myPageActive {
+  color: var(--blue-main) !important;
 }

@@ -2,6 +2,7 @@ import styles from './CollectionStats.module.css';
 
 export default function CollectionStats({ collectedCount = 17, totalCount = 100 }) {
   const progressPercentage = (collectedCount / totalCount) * 100;
+  const remainingCount = totalCount - collectedCount;
 
   return (
     <div className={styles.collectionStats}>
@@ -18,7 +19,9 @@ export default function CollectionStats({ collectedCount = 17, totalCount = 100 
       <div className={styles.progressContainer}>
         <div className={styles.progressLabelContainer}>
           <div className={styles.progressLabel}>띠부실 수집 완료까지</div>
-          <div className={styles.progressText}>3개 남음</div>
+          <div className={styles.progressText}>
+            <span className={styles.countEmphasis}>{remainingCount}개</span> 남음
+          </div>
         </div>
         <div className={styles.progressBar}>
           <div 
