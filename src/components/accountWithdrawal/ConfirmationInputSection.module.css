@@ -1,0 +1,80 @@
+.section {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  color: #5E5E5E;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+}
+
+.description {
+  color: #5E5E5E;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.35px;
+  margin-bottom: 10px;
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+.confirmInput {
+  width: 100%;
+  padding-bottom: 6px;
+  border: none;
+  border-bottom: 1px solid #E5E5E5;
+  border-radius: 0;
+  color: #A8A8A8;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.35px;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.confirmInput::placeholder {
+  color: #A8A8A8;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+}
+
+.confirmInput:focus {
+  outline: none;
+  border-bottom: 2px solid var(--blue-main);
+}
+
+.validationMessage {
+  text-align: start;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21.833px; /* 181.944% */
+  letter-spacing: -0.546px;
+  margin-top: 5px;
+}
+
+.validationMessage.match {
+  color: #2D8AE7;
+}
+
+.validationMessage.mismatch {
+  color: #FF5858;
+} 

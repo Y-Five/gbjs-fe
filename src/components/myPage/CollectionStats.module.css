@@ -1,0 +1,84 @@
+.collectionStats {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.title {
+  color: #1A1A1A;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 15px;
+  margin-bottom: 10px;
+}
+
+.countSection {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.count {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue-main);
+  margin-right: 5px;
+}
+
+.unit {
+  color: #5E5E5E;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19.611px;
+}
+
+.detailButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  width: 24px;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressLabelContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressLabel {
+  color: #5E5E5E;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14.708px; /* 122.569% */
+}
+
+.progressBar {
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #007AFF 0%, #0051D5 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+} 

@@ -1,0 +1,101 @@
+.completePage {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--tour-container-padding);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.iconContainer {
+  margin-bottom: 30px;
+}
+
+.iconCircle {
+  width: 80px;
+  height: 80px;
+  background: var(--blue-main);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.trashIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.title {
+  color: #1A1A1A;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 35px; /* 125% */
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.description {
+  color: #8F8F8F;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px; /* 162.5% */
+  margin: 0;
+}
+
+.bottomSection {
+  width: 100%;
+  max-width: 400px;
+  padding-bottom: 2rem;
+  margin-top: auto;
+}
+
+.mainButton {
+  width: 100%;
+  padding: 20px;
+  background: var(--blue-main);
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 21.833px;
+  letter-spacing: -0.546px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mainButton:hover {
+  background: #1A7DD9;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .completePage {
+    padding: 0 16px;
+  }
+  
+  .bottomSection {
+    padding-bottom: 1rem;
+  }
+} 

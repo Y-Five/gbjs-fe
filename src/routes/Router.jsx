@@ -7,6 +7,10 @@ import AdministrativePage from "../pages/AdministrativePage";
 import SearchPage from "../pages/SearchPage";
 import PlaceDetailPage from "../pages/PlaceDetailPage";
 import ChatPage from "../pages/ChatPage";
+import MyPage from "../pages/MyPage";
+import AccountEditPage from "../pages/AccountEditPage";
+import AccountWithdrawalPage from "../pages/AccountWithdrawalPage";
+import AccountWithdrawalCompletePage from "../pages/AccountWithdrawalCompletePage";
 
 export default function AppRouter() {
   return (
@@ -20,6 +24,10 @@ export default function AppRouter() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/place/:contentId" element={<PlaceDetailPage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/account-edit" element={<AccountEditPage />} />
+        <Route path="/account-withdrawal" element={<AccountWithdrawalPage />} />
+        <Route path="/account-withdrawal-complete" element={<AccountWithdrawalCompletePage />} />
       </Routes>
     </Router>
   );

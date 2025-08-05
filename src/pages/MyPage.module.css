@@ -1,0 +1,22 @@
+.myPageContainer {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.content {
+  padding-bottom: 100px; /* 하단 네비게이션 여백 */
+}
+
+.main {
+  padding: 4.375rem var(--tour-container-padding) var(--tour-spacing-xl)
+    var(--tour-container-padding);
+  background-color: var(--blue-light);
+  min-height: 100vh;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .content {
+    padding-bottom: 80px;
+  }
+} 

@@ -1,0 +1,36 @@
+.bottomSection {
+  padding: 20px var(--tour-container-padding) 2rem var(--tour-container-padding);
+  background-color: var(--blue-light);
+  margin-top: auto;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 20px;
+  background: var(--blue-main);
+  color: #FFF;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 21.833px;
+  letter-spacing: -0.546px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover:not(.disabled) {
+  background: #A8A8A8;
+}
+
+.submitButton.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .bottomSection {
+    padding: 16px;
+  }
+} 

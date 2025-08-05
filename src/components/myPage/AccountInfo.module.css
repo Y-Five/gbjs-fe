@@ -1,0 +1,103 @@
+.accountInfo {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-direction: column;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.infoItem:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.label {
+  font-size: 14px;
+  color: #666;
+  min-width: 60px;
+  margin-bottom: 10px;
+}
+
+.valueSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.value {
+  font-size: 14px;
+  color: #333;
+}
+
+.editButton {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px 17px;
+  border-radius: 100px;
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background: #f5f5f5;
+}
+
+.message {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--gray-400);
+}
+
+.loginSection {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.loginButtons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.activeLogin {
+  background: #FEE500;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.inactiveLogin {
+  color: rgba(143, 143, 143, 0.97);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px; /* 107.143% */
+}
+
+.inactiveLogin:hover {
+  background: #f5f5f5;
+} 
