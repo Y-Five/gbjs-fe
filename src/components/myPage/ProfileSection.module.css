@@ -5,9 +5,13 @@
   padding: 30px 20px;
 }
 
-.profileImage {
-  position: relative;
+.profileContainer {
   margin-bottom: 20px;
+}
+
+.profileImageContainer {
+  position: relative;
+  display: inline-block;
 }
 
 .avatar {
@@ -21,40 +25,28 @@
   position: relative;
 }
 
-.avatarIcon {
-  width: 40px;
-  height: 40px;
-  background: #bbb;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  position: relative;
-}
-
-.avatarIcon::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 25px;
-  background: #bbb;
-  border-radius: 50px 50px 0 0;
+.userIcon {
+  opacity: 0.8;
 }
 
 .cameraButton {
   position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 28px;
-  height: 28px;
-  background: #333;
-  border: 2px solid #fff;
+  bottom: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  background: #5E5E5E;
+  border: 3px solid #5E5E5E;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cameraButton:hover {
+  background: #4A4A4A;
 }
 
 .greeting {
@@ -74,6 +66,11 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 26px; /* 108.333% */
+  line-height: 26px;
   letter-spacing: -0.6px;
+  text-align: center;
+}
+
+.honorific {
+  color: #5E5E5E;
 } 
