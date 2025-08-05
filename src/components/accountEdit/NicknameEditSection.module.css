@@ -1,0 +1,13 @@
+.section {
+}
+
+.sectionTitle {
+  color: #161619;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: -0.6px;
+  margin-bottom: 40px;
+} 

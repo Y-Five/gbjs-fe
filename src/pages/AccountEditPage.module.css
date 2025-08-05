@@ -1,0 +1,15 @@
+.accountEditContainer {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 4.375rem var(--tour-container-padding) 2rem
+    var(--tour-container-padding);
+  background-color: var(--blue-light);
+  display: flex;
+  flex-direction: column;
+}
