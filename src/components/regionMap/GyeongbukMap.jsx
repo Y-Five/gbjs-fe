@@ -65,7 +65,7 @@ export default function GyeongbukMap({ onSelect, multiSelect = false, selectAllT
 
   return (
     <div className={styles.mapContainer}>
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 300 270" xmlns="http://www.w3.org/2000/svg">
         <g onClick={() => handleSelect("안동시")}>
           <Andong fill={isSelected("안동시") ? "#4C8BF5" : "#A8A8A8"} />
         </g>

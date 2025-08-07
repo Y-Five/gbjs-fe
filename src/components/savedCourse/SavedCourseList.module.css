@@ -1,0 +1,226 @@
+.listSection {
+  margin-bottom: 20px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 33px 0;
+}
+
+.listTitle {
+  color: #1A1A1A;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 15px;
+  margin: 0;
+}
+
+.countNumber {
+  color: var(--blue-main);
+}
+
+.sortContainer {
+  position: relative;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 3px 10px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #E5E5E5;
+  color: #A8A8A8;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sortButton:hover {
+  border-color: var(--blue-main);
+  color: var(--blue-main);
+}
+
+.dropdownArrow {
+  transition: transform 0.2s ease;
+}
+
+.dropdownArrow.rotated {
+  transform: rotate(180deg);
+}
+
+.sortDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 100px;
+  margin-top: 4px;
+}
+
+.sortOption {
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sortOption:hover {
+  background: #f5f5f5;
+  color: var(--blue-main);
+}
+
+.sortOption.active {
+  color: var(--blue-main);
+  font-weight: 500;
+}
+
+.courseList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.courseItem {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.courseItem:hover {
+  border-color: var(--blue-main);
+  box-shadow: 0 2px 8px rgba(45, 138, 231, 0.1);
+}
+
+.courseInfo {
+  flex: 1;
+}
+
+.stampInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stampLabel {
+  color: #5E5E5E;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.3px;
+}
+
+.stampCount {
+  color: var(--blue-main);
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -0.3px;
+}
+
+.courseTitle {
+  color: #1A1A1A;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 15px;
+  margin: 0;
+}
+
+.arrowIcon {
+  flex-shrink: 0;
+  margin-left: 8px;
+  background: transparent;
+}
+.courseTitleContainer{
+  display: flex;
+  align-items: center;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 61px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.emptyContent {
+  text-align: center;
+  max-width: 300px;
+}
+
+.emptyTitle {
+  color: #1A1A1A;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 130% */
+  letter-spacing: -0.479px;
+  margin: 12px 0 5px 0;
+}
+
+.emptyDescription {
+  color: #5E5E5E;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.157px; /* 136.838% */
+  letter-spacing: -0.479px;
+  margin: 0 0 20px 0;
+}
+
+.emptyButton {
+  width: 100%;
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 14px 44px;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emptyButton:hover {
+  background: #3a7bc8;
+}

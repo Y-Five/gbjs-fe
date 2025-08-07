@@ -10,7 +10,7 @@ export default function Sidebar({ isOpen, onClose }) {
     { key: "map", label: "띠부씰 지도", path: "/sealtour" },
     { key: "product", label: "띠부씰 상품", path: "/sealtour" },
     { key: "tour", label: "관광지 투어", path: "/tour" },
-    { key: "saved", label: "저장된 코스", path: "/course" },
+    { key: "saved", label: "저장된 코스", path: "/saved-course" },
   ];
 
   const handleMenuClick = (path) => {

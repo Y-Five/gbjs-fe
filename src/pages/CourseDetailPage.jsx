@@ -7,9 +7,18 @@ import StickerList from "../components/courseDetail/StickerList";
 
 import styles from "./CourseDetailPage.module.css";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function CourseDetailPage() {
+export default function CourseDetailPage({ 
+  headerTitle: propHeaderTitle = "띠부씰 코스", 
+  showSaveButton: propShowSaveButton = true 
+}) {
   const [selectedDay, setSelectedDay] = useState(1);
+  const location = useLocation();
+  
+  // state가 있으면 state 값을 사용, 없으면 prop 값을 사용
+  const headerTitle = location.state?.headerTitle || propHeaderTitle;
+  const showSaveButton = location.state?.showSaveButton ?? propShowSaveButton;
 
   const schedules = {
     1: [
@@ -29,12 +38,12 @@ export default function CourseDetailPage() {
 
   return (
     <>
-      <BackHeader title="띠부씰 코스" />
+      <BackHeader title={headerTitle} />
       <div className={styles.main}>
         <MapPreview />
         <DayTabs selectedDay={selectedDay} onChange={setSelectedDay} />
-        <ScheduleList day={selectedDay} schedules={schedules[selectedDay]} />
-        <SaveButton />
+        <ScheduleList day={selectedDay} schedules={schedules[selectedDay]} showRegenerateButton={showSaveButton} />
+        {showSaveButton && <SaveButton />}
         <StickerList stickers={stickers} />
       </div>
     </>

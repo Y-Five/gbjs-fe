@@ -1,13 +1,15 @@
 import styles from "./ScheduleList.module.css";
 import Line from "../../assets/images/scheduleList/line.png";
 
-export default function ScheduleList({ day, schedules }) {
+export default function ScheduleList({ day, schedules, showRegenerateButton = true }) {
   return (
     <div className={styles.list}>
       <p className={styles.label}>코스가 마음에 드신다면 저장해주세요.</p>
       <p className={styles.titleRow}>
         <span className={styles.title}>6월 24일 안동,의성,영천 코스</span>
-        <button className={styles.regenerateBtn}>재생성</button>
+        {showRegenerateButton && (
+          <button className={styles.regenerateBtn}>재생성</button>
+        )}
       </p>
 
       <ul className={styles.ul}>
