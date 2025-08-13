@@ -1,19 +1,35 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import BackHeader from '../components/header/BackHeader';
-import { NicknameEditSection, SubmitSection } from '../components/accountEdit';
-import styles from './AccountEditPage.module.css';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BackHeader from "../components/header/BackHeader";
+import { NicknameEditSection, SubmitSection } from "../components/accountEdit";
+import styles from "./AccountEditPage.module.css";
+import { getNickname, updateNickname } from "../apis/myPageApi";
 
 export default function AccountEditPage() {
   const navigate = useNavigate();
-  const [currentNickname] = useState('나나난');
-  const [newNickname, setNewNickname] = useState('');
+  const [currentNickname, setCurrentNickname] = useState("");
+  const [newNickname, setNewNickname] = useState("");
   const [isValidated, setIsValidated] = useState(false);
 
-  const handleSubmit = () => {
-    if (!newNickname.trim() || !isValidated) return;
+  useEffect(() => {
+    (async () => {
+      try {
+        const nickname = await getNickname();
+        setCurrentNickname(nickname || "");
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
 
-    navigate('/mypage');
+  const handleSubmit = async () => {
+    if (!newNickname.trim() || !isValidated) return;
+    try {
+      await updateNickname(newNickname.trim());
+      navigate("/mypage");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const isSubmitDisabled = !newNickname.trim() || !isValidated;
@@ -21,9 +37,9 @@ export default function AccountEditPage() {
   return (
     <div className={styles.accountEditContainer}>
       <BackHeader title="계정정보" />
-      
+
       <div className={styles.content}>
-        <NicknameEditSection 
+        <NicknameEditSection
           currentNickname={currentNickname}
           newNickname={newNickname}
           onNicknameChange={setNewNickname}
@@ -31,10 +47,7 @@ export default function AccountEditPage() {
         />
       </div>
 
-      <SubmitSection 
-        onSubmit={handleSubmit}
-        disabled={isSubmitDisabled}
-      />
+      <SubmitSection onSubmit={handleSubmit} disabled={isSubmitDisabled} />
     </div>
   );
-} 
+}

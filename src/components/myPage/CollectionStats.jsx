@@ -6,7 +6,7 @@ export default function CollectionStats({ collectedCount = 17, totalCount = 100 
 
   return (
     <div className={styles.collectionStats}>
-      <div className={styles.title}>띠부실실 수집 현황</div>
+      <div className={styles.title}>띠부실 수집 현황</div>
       <div className={styles.countSection}>
         <span className={styles.count}>{collectedCount}</span>
         <span className={styles.unit}>개</span>
