@@ -1,7 +1,13 @@
-import { useState } from 'react';
-import styles from './NicknameInputField.module.css';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { checkNicknameAvailability } from "../../apis/myPageApi";
+import styles from "./NicknameInputField.module.css";
 
-export default function NicknameInputField({ value, onChange, onValidationChange }) {
+export default function NicknameInputField({
+  value,
+  onChange,
+  onValidationChange,
+}) {
   const [isChecking, setIsChecking] = useState(false);
   const [checkResult, setCheckResult] = useState(null); // 'available', 'duplicate', null
 
@@ -14,23 +20,24 @@ export default function NicknameInputField({ value, onChange, onValidationChange
 
   const handleDuplicateCheck = async () => {
     if (!value.trim()) return;
-    
     setIsChecking(true);
-    // 실제로는 API 호출이 필요합니다
-    // 임시로 랜덤하게 성공/실패 결정 (나중에 실제 API로 교체)
-    setTimeout(() => {
-      const isDuplicate = Math.random() < 0.3; // 30% 확률로 중복
-      
+    try {
+      const result = await checkNicknameAvailability(value.trim());
+      const isDuplicate = Boolean(result);
       if (isDuplicate) {
-        setCheckResult('duplicate');
+        setCheckResult("duplicate");
         onValidationChange(false);
       } else {
-        setCheckResult('available');
+        setCheckResult("available");
         onValidationChange(true);
       }
-      
+    } catch (e) {
+      setCheckResult("duplicate");
+      onValidationChange(false);
+      console.error(e);
+    } finally {
       setIsChecking(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -51,15 +58,29 @@ export default function NicknameInputField({ value, onChange, onValidationChange
             onClick={handleDuplicateCheck}
             disabled={!value.trim() || isChecking}
           >
-            {isChecking ? '확인중...' : '중복확인'}
+            {isChecking ? "확인중..." : "중복확인"}
           </button>
         </div>
       </div>
       {checkResult && (
-        <div className={`${styles.checkMessage} ${checkResult === 'duplicate' ? styles.errorMessage : styles.successMessage}`}>
-          {checkResult === 'available' ? '사용 가능한 닉네임입니다.' : '이미 존재하는 닉네임입니다.'}
+        <div
+          className={`${styles.checkMessage} ${
+            checkResult === "duplicate"
+              ? styles.errorMessage
+              : styles.successMessage
+          }`}
+        >
+          {checkResult === "available"
+            ? "사용 가능한 닉네임입니다."
+            : "이미 존재하는 닉네임입니다."}
         </div>
       )}
     </div>
   );
-} 
+}
+
+NicknameInputField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
+};

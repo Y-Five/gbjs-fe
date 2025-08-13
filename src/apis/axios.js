@@ -42,8 +42,16 @@
  * }
  */
 
-import axios from 'axios';
+import axios from "axios";
 import qs from "qs";
+
+function getCookie(name) {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+}
 
 /**
  * 토큰이 필요없는 일반 요청을 위한 Axios 인스턴스
@@ -54,6 +62,7 @@ import qs from "qs";
 const publicApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -70,6 +79,7 @@ const publicApi = axios.create({
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
+  withCredentials: true,
   // headers: {
   //   // 'Content-Type': 'application/json',
   // },
@@ -82,18 +92,16 @@ const privateApi = axios.create({
  */
 privateApi.interceptors.request.use(
   (config) => {
-    // localStorage에서 토큰 가져오기
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      // Authorization 헤더에 Bearer 토큰 추가
-      config.headers.Authorization = `Bearer ${token}`;
+    // 쿠키의 ACCESS_TOKEN을 Authorization 헤더로 주입
+    const accessToken = getCookie("ACCESS_TOKEN");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
   (error) => {
-    // 요청 전 에러 발생 시 에러 반환
     return Promise.reject(error);
-  },
+  }
 );
 
 /**
@@ -116,31 +124,19 @@ privateApi.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // 리프레시 토큰으로 새 액세스 토큰 발급 시도
-        const refreshToken = localStorage.getItem('refreshToken');
-        const response = await publicApi.post('api/auth/reissue', {
-          refreshToken,
-        });
-        const newToken = response.data.token;
-
-        // 새 access 토큰 저장
-        localStorage.setItem('accessToken', newToken);
-
-        // 새 토큰으로 원래 요청 재시도
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        // 쿠키의 REFRESH_TOKEN을 이용한 재발급 (서버가 쿠키 읽고 Set-Cookie로 갱신)
+        await publicApi.post("api/auth/reissue");
+        // 쿠키 갱신 후 원래 요청 재시도
         return privateApi(originalRequest);
       } catch (refreshError) {
-        // 리프레시 토큰도 만료된 경우
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        // 로그인 페이지로 리다이렉트
-        window.location.href = '/start';
+        // 재발급 실패: 로그인 페이지로 리다이렉트
+        window.location.href = "/start";
         return Promise.reject(refreshError);
       }
     }
     // 다른 에러의 경우 그대로 에러 반환
     return Promise.reject(error);
-  },
+  }
 );
 
 /**

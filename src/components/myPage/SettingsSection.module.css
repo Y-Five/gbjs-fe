@@ -1,13 +1,12 @@
 .settingsContainer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .settingSection {
   background: #fff;
   padding: 30px 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 10px;
 }
 
