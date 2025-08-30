@@ -20,3 +20,74 @@ export async function getSealProducts() {
     throw error;
   }
 }
+
+// 로그인 상태 확인 함수
+function getCookie(name) {
+  if (typeof document === 'undefined') return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
+
+// 전체 띠부씰 조회 (로그인 상태에 따라 다른 엔드포인트 사용)
+export async function getAllSeals(sortBy = 'NUMBER') {
+  try {
+    // 로그인 상태 확인
+    const accessToken = getCookie('ACCESS_TOKEN');
+    const endpoint = accessToken ? '/api/seals/user' : '/api/seals';
+
+    const response = await APIService.private.get(endpoint, {
+      params: { sortBy },
+    });
+
+    // 응답 데이터 안전하게 처리
+    const payload = response?.data ?? response;
+    console.log('getAllSeals raw response:', response);
+    console.log('getAllSeals payload:', payload);
+
+    return payload;
+  } catch (error) {
+    console.error('All seals API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}
+
+// 회원 띠부씰 조회 (기존 함수 유지)
+export async function getUserSeals(sortBy = 'NUMBER') {
+  try {
+    const response = await APIService.private.get('/api/seals/user', {
+      params: { sortBy },
+    });
+
+    // 응답 데이터 안전하게 처리
+    const payload = response?.data ?? response;
+    console.log('getUserSeals raw response:', response);
+    console.log('getUserSeals payload:', payload);
+
+    return payload;
+  } catch (error) {
+    console.error('User seals API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}

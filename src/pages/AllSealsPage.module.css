@@ -1,14 +1,83 @@
-@import "../styles/common-variables.css";
+@import '../styles/common-variables.css';
 
 .page {
   min-height: 100vh;
   background-color: var(--blue-light);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .main {
   padding: 4.375rem 0 var(--spacing-xl) 0;
   max-width: 393px;
   margin: 0 auto;
+}
+
+/* 로딩 상태 */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--blue-main);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* 에러 상태 */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  margin: 20px;
+}
+
+.errorContainer p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0 0 16px 0;
+}
+
+.backButton {
+  background-color: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 /* 수집 현황 카드 */
@@ -92,6 +161,32 @@
   transition: width 0.3s ease;
 }
 
+/* 뷰 토글 버튼 */
+.viewToggle {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.toggleButton {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--gray-500);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.toggleButton.active {
+  background-color: var(--blue-main);
+  color: white;
+}
+
 /* 정렬 섹션 */
 .sortSection {
   margin-bottom: 20px;
@@ -100,21 +195,98 @@
 }
 
 /* 띠부씰 그리드 */
+.gridContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto;
+  overflow: hidden;
+  width: 100%;
+}
+
 .sealsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
   gap: 20px 15px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  transform: scale(1);
+  transform-origin: center;
+  width: 100%;
+  max-width: 100%;
+  justify-items: center;
+  align-items: start;
+  min-height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
 }
 
+.sealsGrid.expandedGrid {
+  grid-template-rows: auto;
+  min-height: auto;
+  align-items: start;
+}
+
+.sealsGrid.sorting {
+  transform: scale(1);
+  gap: 0px 0px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 띠부씰 카드 */
 .sealCard {
   background-color: #fff;
   border-radius: 8px;
   border: 2px solid #e8e8e8;
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   width: 100%;
   aspect-ratio: 108/128;
+  transform: scale(1);
+  opacity: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.sealCard img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* 카드 뒤집기 애니메이션 */
+.sealCard.sorting {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0.7;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sealCard.flipped {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sealCard.sorting.flipped {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sealCard.collected {
@@ -125,6 +297,11 @@
   opacity: 0.6;
 }
 
+.sealCard.uncollected.sorting {
+  opacity: 0.3;
+}
+
+/* 카드 내부 요소들 */
 .sealHeader {
   display: flex;
   align-items: center;
@@ -168,12 +345,15 @@
   align-items: center;
   justify-content: center;
   padding: 8px;
+  min-height: 80px;
 }
 
 .sealImage {
   width: 75px;
   height: 75px;
   object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .sealLocation {
@@ -183,6 +363,24 @@
   line-height: 1.2;
   padding: 4px 8px 8px 8px;
   text-align: center;
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
 }
 
 /* 모바일 반응형 */

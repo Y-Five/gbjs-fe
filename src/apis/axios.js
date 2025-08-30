@@ -42,14 +42,14 @@
  * }
  */
 
-import axios from "axios";
-import qs from "qs";
+import axios from 'axios';
+import qs from 'qs';
 
 function getCookie(name) {
-  if (typeof document === "undefined") return null;
+  if (typeof document === 'undefined') return null;
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
+  if (parts.length === 2) return parts.pop().split(';').shift();
   return null;
 }
 
@@ -60,14 +60,14 @@ function getCookie(name) {
  * timeout: 30초 (30000ms) 후 요청 자동 취소
  */
 const publicApi = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  baseURL: import.meta.env.DEV ? '' : import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   paramsSerializer: {
-    serialize: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
+    serialize: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
   },
 });
 
@@ -77,7 +77,7 @@ const publicApi = axios.create({
  * publicApi와 동일한 기본 설정을 가지지만, 토큰 관련 인터셉터가 추가됨
  */
 const privateApi = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  baseURL: import.meta.env.DEV ? '' : import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
   withCredentials: true,
   // headers: {
@@ -93,7 +93,7 @@ const privateApi = axios.create({
 privateApi.interceptors.request.use(
   (config) => {
     // 쿠키의 ACCESS_TOKEN을 Authorization 헤더로 주입
-    const accessToken = getCookie("ACCESS_TOKEN");
+    const accessToken = getCookie('ACCESS_TOKEN');
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -125,12 +125,12 @@ privateApi.interceptors.response.use(
 
       try {
         // 쿠키의 REFRESH_TOKEN을 이용한 재발급 (서버가 쿠키 읽고 Set-Cookie로 갱신)
-        await publicApi.post("api/auth/reissue");
+        await publicApi.post('api/auth/reissue');
         // 쿠키 갱신 후 원래 요청 재시도
         return privateApi(originalRequest);
       } catch (refreshError) {
         // 재발급 실패: 로그인 페이지로 리다이렉트
-        window.location.href = "/start";
+        window.location.href = '/start';
         return Promise.reject(refreshError);
       }
     }

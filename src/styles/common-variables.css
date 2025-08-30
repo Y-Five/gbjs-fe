@@ -4,6 +4,11 @@
   /* Font */
   --font-family: 'Pretendard', sans-serif;
 
+  /* 띠부씰 희귀도 색상 */
+  --rarity-blue: #2d8ae7; /* 흔함 (BLUE) */
+  --rarity-green: #00d27a; /* 보통 (GREEN) */
+  --rarity-red: #ff0f67; /* 희귀 (RED) */
+
   /* Grayscale */
   --gray-100: #ffffff;
   --gray-200: #e5e5e5;
