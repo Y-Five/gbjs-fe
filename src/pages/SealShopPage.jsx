@@ -1,85 +1,70 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "../components/header/Header";
-import styles from "./SealShopPage.module.css";
-import magpieImage from "../assets/images/magpie2.png";
-import mountainImage from "../assets/images/mountain.png";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../components/header/Header';
+import styles from './SealShopPage.module.css';
+import magpieImage from '../assets/images/magpie2.png';
+import { getSealProducts } from '../apis/sealApi';
 
 export default function SealShopPage() {
   const navigate = useNavigate();
   const [collectedSeals] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const totalSeals = 18;
 
-  const exchangeProducts = [
-    {
-      id: 1,
-      name: "편의점 상품권 5,000원",
-      requiredSeals: 5,
-      image: mountainImage
-    },
-    {
-      id: 2,
-      name: "경주 스타벅스 텀블러",
-      requiredSeals: 10,
-      image: mountainImage
-    },
-    {
-      id: 3,
-      name: "편의점 상품권 5,000원",
-      requiredSeals: 5,
-      image: mountainImage
-    },
-    {
-      id: 4,
-      name: "경주 스타벅스 텀블러",
-      requiredSeals: 10,
-      image: mountainImage
-    },
-    {
-      id: 5,
-      name: "편의점 상품권 5,000원",
-      requiredSeals: 5,
-      image: mountainImage
-    },
-    {
-      id: 6,
-      name: "경주 스타벅스 텀블러",
-      requiredSeals: 10,
-      image: mountainImage
-    }
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await getSealProducts();
+
+        if (response?.products?.length > 0) {
+          setProducts(response.products);
+        } else {
+          setError('상품 정보를 불러올 수 없습니다.');
+        }
+      } catch (error) {
+        console.error('상품 조회 실패:', error);
+        setError('상품 정보를 불러오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleAllSealsClick = () => {
-    navigate("/allseals");
+    navigate('/allseals');
   };
 
   return (
     <div className={styles.page}>
       <Header title="띠부씰 상품" isDark={true} />
-      
+
       <main className={styles.main}>
-        {/* 상단 배너 */}
         <div className={styles.banner}>
           <div className={styles.bannerContent}>
             <p className={styles.bannerMainText}>
-              자신이 모은 띠부씰과<br />
+              자신이 모은 띠부씰과
+              <br />
               교환할 수 있는 상품을 확인해봐요!
             </p>
             <p className={styles.bannerSubText}>
               수집 띠부씰을 한 눈에 볼 수 있어요, 짹짹!
             </p>
-            <img 
-              src={magpieImage} 
-              alt="짹짹이" 
+            <img
+              src={magpieImage}
+              alt="짹짹이"
               className={styles.magpieImage}
             />
           </div>
         </div>
 
-        {/* 수집 현황 카드 */}
         <div className={styles.collectionCard}>
           <h3 className={styles.collectionTitle}>띠부씰 수집 현황</h3>
-          
+
           <div className={styles.collectionCount}>
             <span className={styles.countNumber}>{collectedSeals}</span>
             <span className={styles.countUnit}>개</span>
@@ -87,21 +72,21 @@ export default function SealShopPage() {
 
           <div className={styles.progressInfo}>
             <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
-            <span className={styles.progressRemaining}>{totalSeals - collectedSeals}개 남음</span>
+            <span className={styles.progressRemaining}>
+              {totalSeals - collectedSeals}개 남음
+            </span>
           </div>
 
           <div className={styles.progressBar}>
-            <div 
-              className={styles.progressFill} 
+            <div
+              className={styles.progressFill}
               style={{ width: `${(collectedSeals / totalSeals) * 100}%` }}
             />
           </div>
 
           <div className={styles.buttonGroup}>
-            <button className={styles.shopButton}>
-              띠부씰 상품 보기
-            </button>
-            <button 
+            <button className={styles.shopButton}>띠부씰 상품 보기</button>
+            <button
               className={styles.allSealsButton}
               onClick={handleAllSealsClick}
             >
@@ -110,7 +95,6 @@ export default function SealShopPage() {
           </div>
         </div>
 
-        {/* 교환상품 섹션 */}
         <section className={styles.exchangeSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>띠부씰 교환상품</h2>
@@ -119,21 +103,50 @@ export default function SealShopPage() {
             </p>
           </div>
 
-          <div className={styles.productGrid}>
-            {exchangeProducts.map((product) => (
-              <div key={product.id} className={styles.productCard}>
-                <div className={styles.productImage}>
-                  <img src={product.image} alt={product.name} />
+          {loading && (
+            <div className={styles.loadingContainer}>
+              <div className={styles.loadingSpinner}></div>
+              <p>상품을 불러오는 중...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className={styles.errorContainer}>
+              <p>{error}</p>
+            </div>
+          )}
+
+          {!loading && !error && (
+            <div className={styles.productGrid}>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className={styles.productCard}
+                  onClick={() => navigate(`/sealshop/exchange/${product.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className={styles.productImage}>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      onError={(e) => {
+                        e.target.src = magpieImage;
+                      }}
+                    />
+                  </div>
+                  <div className={styles.productInfo}>
+                    <span className={styles.requiredSeals}>
+                      스티커 {product.price}개
+                    </span>
+                    <h4 className={styles.productName}>{product.name}</h4>
+                    <p className={styles.productDescription}>
+                      {product.description}
+                    </p>
+                  </div>
                 </div>
-                <div className={styles.productInfo}>
-                  <span className={styles.requiredSeals}>
-                    스티커 {product.requiredSeals}개
-                  </span>
-                  <h4 className={styles.productName}>{product.name}</h4>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       </main>
     </div>

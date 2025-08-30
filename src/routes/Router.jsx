@@ -1,19 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage";
-import TourPage from "../pages/TourPage";
-import SealTourPage from "../pages/SealTourPage";
-import SealShopPage from "../pages/SealShopPage";
-import AllSealsPage from "../pages/AllSealsPage";
-import CourseDetailPage from "../pages/CourseDetailPage";
-import AdministrativePage from "../pages/AdministrativePage";
-import SearchPage from "../pages/SearchPage";
-import PlaceDetailPage from "../pages/PlaceDetailPage";
-import ChatPage from "../pages/ChatPage";
-import MyPage from "../pages/MyPage";
-import AccountEditPage from "../pages/AccountEditPage";
-import AccountWithdrawalPage from "../pages/AccountWithdrawalPage";
-import AccountWithdrawalCompletePage from "../pages/AccountWithdrawalCompletePage";
-import SavedCoursePage from "../pages/SavedCoursePage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainPage from '../pages/MainPage';
+import TourPage from '../pages/TourPage';
+import SealTourPage from '../pages/SealTourPage';
+import SealShopPage from '../pages/SealShopPage';
+import SealExchangePage from '../pages/SealExchangePage';
+import AllSealsPage from '../pages/AllSealsPage';
+import CourseDetailPage from '../pages/CourseDetailPage';
+import AdministrativePage from '../pages/AdministrativePage';
+import SearchPage from '../pages/SearchPage';
+import PlaceDetailPage from '../pages/PlaceDetailPage';
+import ChatPage from '../pages/ChatPage';
+import MyPage from '../pages/MyPage';
+import AccountEditPage from '../pages/AccountEditPage';
+import AccountWithdrawalPage from '../pages/AccountWithdrawalPage';
+import AccountWithdrawalCompletePage from '../pages/AccountWithdrawalCompletePage';
+import SavedCoursePage from '../pages/SavedCoursePage';
 
 export default function AppRouter() {
   return (
@@ -23,6 +24,10 @@ export default function AppRouter() {
         <Route path="/tour" element={<TourPage />} />
         <Route path="/sealtour" element={<SealTourPage />} />
         <Route path="/sealshop" element={<SealShopPage />} />
+        <Route
+          path="/sealshop/exchange/:productId"
+          element={<SealExchangePage />}
+        />
         <Route path="/allseals" element={<AllSealsPage />} />
         <Route path="/course" element={<CourseDetailPage />} />
         <Route path="/course-detail" element={<CourseDetailPage />} />
@@ -33,7 +38,10 @@ export default function AppRouter() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account-edit" element={<AccountEditPage />} />
         <Route path="/account-withdrawal" element={<AccountWithdrawalPage />} />
-        <Route path="/account-withdrawal-complete" element={<AccountWithdrawalCompletePage />} />
+        <Route
+          path="/account-withdrawal-complete"
+          element={<AccountWithdrawalCompletePage />}
+        />
         <Route path="/saved-course" element={<SavedCoursePage />} />
       </Routes>
     </Router>
