@@ -1,0 +1,268 @@
+@import "../styles/common-variables.css";
+
+.page {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+}
+
+.main {
+  padding: 4.375rem 0 var(--spacing-xl) 0;
+  max-width: 393px;
+  margin: 0 auto;
+}
+
+/* 상단 배너 */
+.banner {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 25px 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 144px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 1;
+}
+
+.bannerMainText {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.56;
+  color: var(--gray-600);
+  letter-spacing: -0.4px;
+  max-width: 217px;
+  margin: 0 0 20px 0;
+}
+
+.bannerSubText {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--gray-600);
+  letter-spacing: -0.35px;
+  max-width: 217px;
+  margin: 0;
+}
+
+.magpieImage {
+  position: absolute;
+  right: -30px;
+  bottom: -30px;
+  width: 120px;
+  height: 150px;
+  object-fit: contain;
+}
+
+/* 수집 현황 카드 */
+.collectionCard {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.collectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-600);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.collectionCount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-bottom: 25px;
+}
+
+.countNumber {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue-main);
+  line-height: 1;
+}
+
+.countUnit {
+  font-size: var(--body-size);
+  font-weight: 500;
+  color: var(--gray-500);
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--small-size);
+  color: var(--gray-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.progressLabel {
+  font-weight: 400;
+}
+
+.progressRemaining {
+  font-weight: 400;
+}
+
+.progressBar {
+  height: 11px;
+  background-color: var(--gray-200);
+  border-radius: 5.5px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--blue-main);
+  transition: width 0.3s ease;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.shopButton,
+.allSealsButton {
+  flex: 1;
+  height: 45px;
+  border: none;
+  border-radius: var(--radius-medium);
+  font-size: var(--body-size);
+  font-weight: 600;
+  letter-spacing: -0.35px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shopButton {
+  background-color: #82befb;
+  color: var(--gray-100);
+}
+
+.shopButton:hover {
+  background-color: #6aabeb;
+}
+
+.allSealsButton {
+  background-color: var(--blue-main);
+  color: var(--gray-100);
+}
+
+.allSealsButton:hover {
+  background-color: #1b75d0;
+}
+
+/* 교환상품 섹션 */
+.exchangeSection {
+  margin-top: var(--spacing-2xl);
+}
+
+.sectionHeader {
+  margin-bottom: 25px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.sectionSubtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #5e5e5e;
+  line-height: 1;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.productCard {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 225px;
+}
+
+.productCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.productImage {
+  width: 100%;
+  height: 142px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.productImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productInfo {
+  height: 83px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.requiredSeals {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2d8ae7;
+  letter-spacing: -0.46px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.productName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: -0.46px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* 모바일 반응형 */
+@media (max-width: var(--breakpoint-mobile)) {
+  .main {
+    max-width: 100%;
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+
+  .banner {
+    padding: 25px 12px;
+  }
+
+  .collectionCard {
+    padding: 30px 12px;
+  }
+
+  .productGrid {
+    gap: var(--spacing-sm);
+  }
+}

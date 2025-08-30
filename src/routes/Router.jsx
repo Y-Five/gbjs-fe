@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import TourPage from "../pages/TourPage";
 import SealTourPage from "../pages/SealTourPage";
+import SealShopPage from "../pages/SealShopPage";
+import AllSealsPage from "../pages/AllSealsPage";
 import CourseDetailPage from "../pages/CourseDetailPage";
 import AdministrativePage from "../pages/AdministrativePage";
 import SearchPage from "../pages/SearchPage";
@@ -20,6 +22,8 @@ export default function AppRouter() {
         <Route path="/" element={<MainPage />} />
         <Route path="/tour" element={<TourPage />} />
         <Route path="/sealtour" element={<SealTourPage />} />
+        <Route path="/sealshop" element={<SealShopPage />} />
+        <Route path="/allseals" element={<AllSealsPage />} />
         <Route path="/course" element={<CourseDetailPage />} />
         <Route path="/course-detail" element={<CourseDetailPage />} />
         <Route path="/administrative" element={<AdministrativePage />} />

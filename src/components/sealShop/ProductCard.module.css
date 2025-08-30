@@ -1,0 +1,223 @@
+/* ProductCard Styles - 공통 변수 활용 */
+
+.card {
+  background: var(--gray-100);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-md);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: var(--gray-200);
+}
+
+.popularBadge {
+  position: absolute;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  background: var(--blue-main);
+  color: var(--gray-100);
+  padding: 2px var(--spacing-xs);
+  border-radius: var(--radius-small);
+  font-size: var(--small-size);
+  font-weight: bold;
+}
+
+.lowStockBadge {
+  position: absolute;
+  top: var(--spacing-xs);
+  left: var(--spacing-xs);
+  background: #ff6b6b;
+  color: var(--gray-100);
+  padding: 2px var(--spacing-xs);
+  border-radius: var(--radius-small);
+  font-size: var(--small-size);
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info {
+  margin-bottom: var(--spacing-md);
+}
+
+.name {
+  font-size: var(--title-size);
+  font-weight: bold;
+  color: var(--gray-600);
+  margin: 0 0 var(--spacing-xs) 0;
+  line-height: 1.3;
+}
+
+.description {
+  font-size: var(--body-size);
+  color: var(--gray-500);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.tags {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.categoryTag,
+.regionTag {
+  padding: 2px var(--spacing-xs);
+  border-radius: var(--radius-small);
+  font-size: var(--small-size);
+  font-weight: 500;
+}
+
+.categoryTag {
+  background: var(--blue-light);
+  color: var(--blue-main);
+}
+
+.regionTag {
+  background: var(--gray-200);
+  color: var(--gray-500);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: var(--title-size);
+  font-weight: bold;
+  color: var(--blue-main);
+  margin-bottom: 2px;
+}
+
+.stock {
+  font-size: var(--small-size);
+  color: var(--gray-400);
+}
+
+.addButton {
+  background: var(--blue-main);
+  color: var(--gray-100);
+  border: none;
+  border-radius: var(--radius-small);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--body-size);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.addButton:hover {
+  background: #2578d4;
+  box-shadow: var(--shadow-button);
+}
+
+.addButton:active {
+  transform: translateY(1px);
+}
+
+.addButton:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.addButton:disabled:hover {
+  transform: none;
+}
+
+/* 플레이스홀더 이미지 */
+.placeholderImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-small);
+}
+
+.placeholderText {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-align: center;
+}
+
+/* Tablet Styles */
+@media (max-width: var(--breakpoint-tablet)) {
+  .imageContainer {
+    height: 180px;
+  }
+  
+  .name {
+    font-size: 18px;
+  }
+}
+
+/* Mobile Styles */  
+@media (max-width: var(--breakpoint-mobile)) {
+  .card {
+    padding: var(--spacing-sm);
+  }
+  
+  .imageContainer {
+    height: 160px;
+  }
+  
+  .name {
+    font-size: 16px;
+  }
+  
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+  
+  .addButton {
+    width: 100%;
+  }
+}

@@ -1,0 +1,217 @@
+/* SealGrid Styles - 띠부씰 그리드 레이아웃 */
+
+.container {
+  width: 100%;
+}
+
+/* 통계 정보 */
+.stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--blue-light) 0%, var(--gray-100) 100%);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-card);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--blue-main);
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.statLabel {
+  font-size: var(--body-size);
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+/* 섹션 */
+.section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHeader {
+  margin-bottom: var(--spacing-lg);
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: 0;
+}
+
+.sectionIcon {
+  font-size: 20px;
+  color: var(--blue-main);
+}
+
+/* 그리드 레이아웃 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: var(--spacing-2xl);
+}
+
+.emptyContent {
+  text-align: center;
+  max-width: 300px;
+}
+
+.emptyIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+  opacity: 0.6;
+  display: block;
+}
+
+.emptyTitle {
+  font-size: var(--title-size);
+  color: var(--gray-500);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.emptyDescription {
+  font-size: var(--body-size);
+  color: var(--gray-400);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet Styles */
+@media (max-width: var(--breakpoint-tablet)) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .stats {
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .statNumber {
+    font-size: 28px;
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+  }
+  
+  .emptyState {
+    min-height: 300px;
+    padding: var(--spacing-xl);
+  }
+  
+  .emptyIcon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: var(--breakpoint-mobile)) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .stats {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .statItem {
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .statNumber {
+    font-size: 24px;
+  }
+  
+  .statLabel {
+    font-size: var(--small-size);
+  }
+  
+  .sectionTitle {
+    font-size: 18px;
+    gap: var(--spacing-xs);
+  }
+  
+  .sectionIcon {
+    font-size: 16px;
+  }
+  
+  .section {
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .emptyState {
+    min-height: 250px;
+    padding: var(--spacing-lg);
+  }
+  
+  .emptyIcon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .emptyTitle {
+    font-size: 18px;
+  }
+  
+  .emptyDescription {
+    font-size: var(--small-size);
+  }
+}
+
+/* Large Screen Optimization */
+@media (min-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: var(--spacing-xl);
+  }
+  
+  .stats {
+    gap: var(--spacing-2xl);
+  }
+  
+  .statNumber {
+    font-size: 36px;
+  }
+}

@@ -1,0 +1,203 @@
+@import "../styles/common-variables.css";
+
+.page {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+}
+
+.main {
+  padding: 4.375rem 0 var(--spacing-xl) 0;
+  max-width: 393px;
+  margin: 0 auto;
+}
+
+/* 수집 현황 카드 */
+.collectionCard {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 20px 20px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.collectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-600);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.collectionCount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 25px;
+}
+
+.countNumber {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue-main);
+  line-height: 1;
+}
+
+.countSeparator {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-400);
+  line-height: 1;
+  margin: 0 2px;
+}
+
+.countTotal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-400);
+  line-height: 1;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--small-size);
+  color: var(--gray-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.progressLabel {
+  font-weight: 400;
+}
+
+.progressRemaining {
+  font-weight: 400;
+  color: var(--gray-500);
+}
+
+.remainingNumber {
+  color: var(--blue-main);
+}
+
+.progressBar {
+  height: 11px;
+  background-color: var(--gray-200);
+  border-radius: 5.5px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--blue-main);
+  transition: width 0.3s ease;
+}
+
+/* 정렬 섹션 */
+.sortSection {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 띠부씰 그리드 */
+.sealsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 15px;
+}
+
+.sealCard {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 2px solid #e8e8e8;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 108/128;
+}
+
+.sealCard.collected {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.sealCard.uncollected {
+  opacity: 0.6;
+}
+
+.sealHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 8px 4px 8px;
+}
+
+.sealBadge {
+  width: 24px;
+  height: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badgeNumber {
+  color: white;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.sealName {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gray-600);
+  line-height: 1.2;
+  flex: 1;
+}
+
+.sealName.longName {
+  font-size: 8px;
+}
+
+.sealImageWrapper {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.sealImage {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+}
+
+.sealLocation {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--gray-500);
+  line-height: 1.2;
+  padding: 4px 8px 8px 8px;
+  text-align: center;
+}
+
+/* 모바일 반응형 */
+@media (max-width: var(--breakpoint-mobile)) {
+  .main {
+    max-width: 100%;
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+
+  .collectionCard {
+    padding: 30px 12px;
+  }
+
+  .sealsGrid {
+    gap: var(--spacing-sm);
+  }
+}

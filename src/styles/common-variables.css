@@ -15,6 +15,9 @@
   /* Colors */
   --blue-main: #2d8ae7;
   --blue-light: #eff7ff;
+  --pink-main: #ff0f67;
+  --cyan-main: #00d2bd;
+  --gray-border: #e8e8e8;
 
   /* Shadows */
   --shadow-card: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);

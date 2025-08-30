@@ -1,0 +1,180 @@
+/* 피그마 디자인 정확 구현 - SealCard */
+
+.card {
+  width: 108px;
+  height: 128px;
+  background-color: var(--gray-100);
+  border-radius: 5.597px;
+  border: 0.982px solid var(--gray-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-family);
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+
+/* 번호 배지 */
+.numberBadge {
+  position: absolute;
+  top: 5.015px;
+  left: 9.946px;
+  width: 23.871px;
+  height: 12.036px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.badgeNumber {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--gray-100);
+  text-align: center;
+  letter-spacing: -0.3004px;
+  line-height: 1;
+}
+
+/* 캐릭터 이미지 */
+.imageContainer {
+  width: 71.724px;
+  height: 67.097px;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+/* 컨텐츠 영역 */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8.069px;
+  gap: 4.011px;
+}
+
+.name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-align: center;
+  letter-spacing: -0.3004px;
+  margin: 0;
+  line-height: 1;
+}
+
+.description {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--gray-500);
+  text-align: center;
+  letter-spacing: -0.3004px;
+  line-height: 1;
+}
+
+/* 카드 상태별 스타일은 인라인 스타일로 처리 */
+/* 01번 - 파란색 테두리: #2d8ae7 */
+/* 02번 - 분홍색 테두리: #ff0f67 */  
+/* 03번 - 청록색 테두리: #00d2bd */
+/* 기타 - 회색 테두리: #e8e8e8 */
+
+/* 플레이스홀더 이미지 */
+.placeholderImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-200);
+  border-radius: 50%;
+}
+
+.placeholderText {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-400);
+  text-align: center;
+}
+
+/* 반응형 디자인 */
+@media (max-width: var(--breakpoint-tablet)) {
+  .card {
+    width: 100px;
+    height: 120px;
+  }
+  
+  .imageContainer {
+    width: 65px;
+    height: 60px;
+    margin-top: 28px;  
+  }
+  
+  .numberBadge {
+    width: 22px;
+    height: 11px;
+    top: 4px;
+    left: 8px;
+  }
+  
+  .badgeNumber {
+    font-size: 7px;
+  }
+  
+  .name {
+    font-size: 9px;
+  }
+  
+  .description {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: var(--breakpoint-mobile)) {
+  .card {
+    width: 120px;
+    height: 140px;
+  }
+  
+  .imageContainer {
+    width: 75px;
+    height: 70px;
+    margin-top: 32px;
+  }
+  
+  .numberBadge {
+    width: 25px;
+    height: 13px;
+    top: 5px;
+    left: 10px;
+  }
+  
+  .badgeNumber {
+    font-size: 8px;
+  }
+  
+  .name {
+    font-size: 11px;
+  }
+  
+  .description {
+    font-size: 9px;
+  }
+}
