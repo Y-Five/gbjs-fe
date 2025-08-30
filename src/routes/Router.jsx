@@ -15,6 +15,7 @@ import AccountEditPage from '../pages/AccountEditPage';
 import AccountWithdrawalPage from '../pages/AccountWithdrawalPage';
 import AccountWithdrawalCompletePage from '../pages/AccountWithdrawalCompletePage';
 import SavedCoursePage from '../pages/SavedCoursePage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 export default function AppRouter() {
   return (
@@ -43,6 +44,7 @@ export default function AppRouter() {
           element={<AccountWithdrawalCompletePage />}
         />
         <Route path="/saved-course" element={<SavedCoursePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
