@@ -1,4 +1,4 @@
-@import "../../styles/tour-variables.css";
+@import '../../styles/tour-variables.css';
 
 .resultsContainer {
   padding: 0 20px 40px 20px;
@@ -111,4 +111,67 @@
   color: #5e5e5e;
   margin: 0;
   margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ttsBadge {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 16px;
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #457b9d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: #5e5e5e;
+  margin: 0;
+}
+
+.noMoreData,
+.noResults {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.noMoreData p,
+.noResults p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: #5e5e5e;
+  margin: 0;
+  text-align: center;
 }

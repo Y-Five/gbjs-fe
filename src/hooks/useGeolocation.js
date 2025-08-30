@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 export const useGeolocation = () => {
   const [location, setLocation] = useState({
     loaded: false,
-    coordinates: { lat: "", lng: "" },
+    coordinates: { lat: '', lng: '' },
     address: {
-      province: "", // 시/도
-      city: "", // 시/군/구
-      district: "", // 읍/면/동
+      province: '', // 시/도
+      city: '', // 시/군/구
+      district: '', // 읍/면/동
     },
     error: null,
   });
+
+  const hasInitialLocation = useRef(false); // 초기 위치를 가져왔는지 추적
 
   // OpenStreetMap Nominatim API를 사용하여 좌표를 주소로 변환
   const getAddressFromCoords = async (latitude, longitude) => {
@@ -20,57 +22,69 @@ export const useGeolocation = () => {
       );
 
       if (!response.ok) {
-        throw new Error("주소 변환 실패");
+        throw new Error('주소 변환 실패');
       }
 
       const data = await response.json();
       const addressComponents = data.address || {};
 
       // 서울특별시, 광역시 등의 경우 처리
-      let province = "";
-      let city = "";
-      let district = "";
-      
-      if (addressComponents.city && (addressComponents.city.includes("특별시") || addressComponents.city.includes("광역시"))) {
+      let province = '';
+      let city = '';
+      let district = '';
+
+      if (
+        addressComponents.city &&
+        (addressComponents.city.includes('특별시') ||
+          addressComponents.city.includes('광역시'))
+      ) {
         // 서울특별시, 부산광역시 등의 경우
         province = addressComponents.city;
-        city = addressComponents.borough || addressComponents.county || "";
-        district = addressComponents.quarter || addressComponents.neighbourhood || addressComponents.suburb || "";
+        city = addressComponents.borough || addressComponents.county || '';
+        district =
+          addressComponents.quarter ||
+          addressComponents.neighbourhood ||
+          addressComponents.suburb ||
+          '';
       } else {
         // 일반 도시의 경우
-        province = addressComponents.province || addressComponents.state || "";
-        city = addressComponents.city || addressComponents.county || "";
-        district = addressComponents.suburb || addressComponents.town || addressComponents.village || "";
+        province = addressComponents.province || addressComponents.state || '';
+        city = addressComponents.city || addressComponents.county || '';
+        district =
+          addressComponents.suburb ||
+          addressComponents.town ||
+          addressComponents.village ||
+          '';
       }
 
       if (
         province &&
-        !province.includes("도") &&
-        !province.includes("특별시") &&
-        !province.includes("광역시")
+        !province.includes('도') &&
+        !province.includes('특별시') &&
+        !province.includes('광역시')
       ) {
-        province = province + "도";
+        province = province + '도';
       }
       if (
         city &&
-        !city.includes("시") &&
-        !city.includes("군") &&
-        !city.includes("구")
+        !city.includes('시') &&
+        !city.includes('군') &&
+        !city.includes('구')
       ) {
-        city = city + "시";
+        city = city + '시';
       }
 
       return {
-        province: province || "",
-        city: city || "",
-        district: district || "",
+        province: province || '',
+        city: city || '',
+        district: district || '',
       };
     } catch (error) {
-      console.error("주소 변환 실패:", error);
+      console.error('주소 변환 실패:', error);
       return {
-        province: "",
-        city: "",
-        district: "",
+        province: '',
+        city: '',
+        district: '',
       };
     }
   };
@@ -88,29 +102,33 @@ export const useGeolocation = () => {
       address,
       error: null,
     });
+
+    hasInitialLocation.current = true; // 초기 위치 설정 완료
   };
 
   const onError = (error) => {
     setLocation({
       loaded: true,
-      coordinates: { lat: "", lng: "" },
+      coordinates: { lat: '', lng: '' },
       address: {
-        province: "",
-        city: "",
-        district: "",
+        province: '',
+        city: '',
+        district: '',
       },
       error: {
         code: error.code,
         message: error.message,
       },
     });
+
+    hasInitialLocation.current = true; // 에러가 발생해도 초기 시도 완료로 간주
   };
 
   const requestLocation = () => {
-    if (!("geolocation" in navigator)) {
+    if (!('geolocation' in navigator)) {
       onError({
         code: 0,
-        message: "Geolocation not supported",
+        message: 'Geolocation not supported',
       });
       return;
     }
@@ -126,31 +144,34 @@ export const useGeolocation = () => {
     requestLocation();
 
     // 권한 변경 감지
-    if ("permissions" in navigator) {
+    if ('permissions' in navigator) {
       navigator.permissions
-        .query({ name: "geolocation" })
+        .query({ name: 'geolocation' })
         .then((permission) => {
-          permission.addEventListener("change", () => {
-            if (permission.state === "granted") {
+          permission.addEventListener('change', () => {
+            if (permission.state === 'granted' && !hasInitialLocation.current) {
               requestLocation();
             }
           });
         });
     }
 
-    // 페이지 포커스 시 재시도 (권한 허용 후 돌아왔을 때)
+    // 페이지 포커스 시 재시도 (권한 허용 후 돌아왔을 때만, 초기 위치가 없을 때만)
     const handleFocus = () => {
-      if (document.visibilityState === "visible") {
+      if (
+        document.visibilityState === 'visible' &&
+        !hasInitialLocation.current
+      ) {
         requestLocation();
       }
     };
 
-    document.addEventListener("visibilitychange", handleFocus);
-    window.addEventListener("focus", handleFocus);
+    document.addEventListener('visibilitychange', handleFocus);
+    window.addEventListener('focus', handleFocus);
 
     return () => {
-      document.removeEventListener("visibilitychange", handleFocus);
-      window.removeEventListener("focus", handleFocus);
+      document.removeEventListener('visibilitychange', handleFocus);
+      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 

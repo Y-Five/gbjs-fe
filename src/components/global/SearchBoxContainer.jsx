@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchBox from "./SearchBox";
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import SearchBox from './SearchBox';
 
 export default function SearchBoxContainer({
-  placeholder = "찾고 있는 장소가 있나요?",
+  placeholder = '찾고 있는 장소가 있나요?',
   onSearch,
   onInputClick,
-  value = "",
+  value = '',
   onChange,
   readOnly = false,
   autoFocus = false,
   noMargin = false,
-  className = "",
+  className = '',
 }) {
   const navigate = useNavigate();
-  const [internalValue, setInternalValue] = useState("");
-  
+  const location = useLocation();
+  const [internalValue, setInternalValue] = useState('');
+
   const isControlled = value !== undefined && onChange;
   const searchValue = isControlled ? value : internalValue;
   const handleValueChange = isControlled ? onChange : setInternalValue;
@@ -26,7 +27,7 @@ export default function SearchBoxContainer({
   };
 
   const handleKeyPress = (e) => {
-    if (e.key !== "Enter") return;
+    if (e.key !== 'Enter') return;
     handleSearch();
   };
 
@@ -35,23 +36,29 @@ export default function SearchBoxContainer({
       onInputClick();
       return;
     }
-    
+
     if (readOnly) {
-      const searchQuery = searchValue ? `?q=${encodeURIComponent(searchValue)}` : "";
-      navigate(`/search${searchQuery}`);
+      const searchQuery = searchValue
+        ? `?q=${encodeURIComponent(searchValue)}`
+        : '';
+      navigate(`/search${searchQuery}`, {
+        state: { from: location.pathname },
+      });
     }
   };
 
-  const searchIconClickHandler = readOnly ? handleClick : handleSearch;
+  const handleInputChange = (e) => {
+    handleValueChange(e.target.value);
+  };
 
   return (
     <SearchBox
       placeholder={placeholder}
       searchValue={searchValue}
-      onValueChange={(e) => handleValueChange(e.target.value)}
+      onValueChange={handleInputChange}
       onKeyPress={handleKeyPress}
       onClick={handleClick}
-      onSearchIconClick={searchIconClickHandler}
+      onSearchIconClick={readOnly ? handleClick : handleSearch}
       readOnly={readOnly}
       autoFocus={autoFocus}
       noMargin={noMargin}
