@@ -1,16 +1,16 @@
-import CourseCardSection from "../global/CourseCardSection"; // 경로는 실제 위치에 맞게 조정
-import spotImg from "../../assets/images/mountain.jpg";
+import CourseCardSection from '../global/CourseCardSection'; // 경로는 실제 위치에 맞게 조정
+import spotImg from '../../assets/images/festival1.png';
 
 const popularCards = [
   {
     image: spotImg,
-    name: "첨성대",
-    location: "# 아름다운 야경\n# 유명 명소",
+    name: '첨성대',
+    location: '# 아름다운 야경\n# 유명 명소',
   },
   {
     image: spotImg,
-    name: "첨성대",
-    location: "# 아름다운 야경\n# 유명 명소",
+    name: '첨성대',
+    location: '# 아름다운 야경\n# 유명 명소',
   },
 ];
 

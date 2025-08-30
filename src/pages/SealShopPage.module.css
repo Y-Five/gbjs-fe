@@ -11,7 +11,6 @@
   margin: 0 auto;
 }
 
-/* 상단 배너 */
 .banner {
   margin-bottom: 30px;
   background-color: #fff;
@@ -57,13 +56,94 @@
   object-fit: contain;
 }
 
-/* 수집 현황 카드 */
 .collectionCard {
   margin-bottom: 30px;
   background-color: #fff;
   border-radius: 12px;
   padding: 30px 20px;
   box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.collectionCard.blurred {
+  opacity: 0.7;
+}
+
+.loginOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.99);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 12px;
+}
+
+.loginMessage {
+  text-align: center;
+  color: #333;
+  z-index: 11;
+  position: relative;
+}
+
+.loginText {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #666;
+}
+
+.loginButtonGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.loginButton {
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: none !important;
+  z-index: 12;
+  position: relative;
+}
+
+.loginButton:hover {
+  background: #1b75d0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 117, 208, 0.4);
+}
+
+.loginOverlay .allSealsButton {
+  background: var(--blue-light);
+  color: var(--blue-main);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: none !important;
+  z-index: 12;
+  position: relative;
+}
+
+.loginOverlay .allSealsButton:hover {
+  background: #e1f0ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 138, 231, 0.2);
 }
 
 .collectionTitle {
@@ -103,10 +183,7 @@
   margin-bottom: var(--spacing-xs);
 }
 
-.progressLabel {
-  font-weight: 400;
-}
-
+.progressLabel,
 .progressRemaining {
   font-weight: 400;
 }
@@ -161,7 +238,6 @@
   background-color: #1b75d0;
 }
 
-/* 교환상품 섹션 */
 .exchangeSection {
   margin-top: var(--spacing-2xl);
 }
@@ -197,11 +273,22 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 225px;
+  cursor: pointer;
 }
 
 .productCard:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.productCard.insufficient {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.productCard.insufficient:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
 .productImage {
@@ -292,24 +379,13 @@
   margin: 0;
 }
 
-.errorContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+.emptyState {
   text-align: center;
-  background-color: #fff;
-  border-radius: 12px;
-  margin: 20px 0;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
 }
 
-.errorContainer p {
-  font-size: 14px;
-  color: var(--gray-500);
-  margin: 0;
-}
-
-/* 모바일 반응형 */
 @media (max-width: var(--breakpoint-mobile)) {
   .main {
     max-width: 100%;

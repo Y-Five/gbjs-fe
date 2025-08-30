@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { getAddressFromCoordinates } from '../utils/addressUtils';
 
 export const useGeolocation = () => {
   const [location, setLocation] = useState({
@@ -17,67 +18,15 @@ export const useGeolocation = () => {
   // OpenStreetMap Nominatim API를 사용하여 좌표를 주소로 변환
   const getAddressFromCoords = async (latitude, longitude) => {
     try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=ko`
-      );
+      const fullAddress = await getAddressFromCoordinates(latitude, longitude);
 
-      if (!response.ok) {
-        throw new Error('주소 변환 실패');
-      }
-
-      const data = await response.json();
-      const addressComponents = data.address || {};
-
-      // 서울특별시, 광역시 등의 경우 처리
-      let province = '';
-      let city = '';
-      let district = '';
-
-      if (
-        addressComponents.city &&
-        (addressComponents.city.includes('특별시') ||
-          addressComponents.city.includes('광역시'))
-      ) {
-        // 서울특별시, 부산광역시 등의 경우
-        province = addressComponents.city;
-        city = addressComponents.borough || addressComponents.county || '';
-        district =
-          addressComponents.quarter ||
-          addressComponents.neighbourhood ||
-          addressComponents.suburb ||
-          '';
-      } else {
-        // 일반 도시의 경우
-        province = addressComponents.province || addressComponents.state || '';
-        city = addressComponents.city || addressComponents.county || '';
-        district =
-          addressComponents.suburb ||
-          addressComponents.town ||
-          addressComponents.village ||
-          '';
-      }
-
-      if (
-        province &&
-        !province.includes('도') &&
-        !province.includes('특별시') &&
-        !province.includes('광역시')
-      ) {
-        province = province + '도';
-      }
-      if (
-        city &&
-        !city.includes('시') &&
-        !city.includes('군') &&
-        !city.includes('구')
-      ) {
-        city = city + '시';
-      }
+      // 주소를 컴포넌트로 분리
+      const addressParts = fullAddress.split(' ');
 
       return {
-        province: province || '',
-        city: city || '',
-        district: district || '',
+        province: addressParts[0] || '',
+        city: addressParts[1] || '',
+        district: addressParts[2] || '',
       };
     } catch (error) {
       console.error('주소 변환 실패:', error);
@@ -91,17 +40,32 @@ export const useGeolocation = () => {
 
   const onSuccess = async (position) => {
     const { latitude, longitude } = position.coords;
-    const address = await getAddressFromCoords(latitude, longitude);
 
-    setLocation({
-      loaded: true,
-      coordinates: {
-        lat: latitude,
-        lng: longitude,
-      },
-      address,
-      error: null,
-    });
+    // 초기 로드 시에만 주소 변환 API 호출
+    if (!hasInitialLocation.current) {
+      const address = await getAddressFromCoords(latitude, longitude);
+
+      setLocation({
+        loaded: true,
+        coordinates: {
+          lat: latitude,
+          lng: longitude,
+        },
+        address,
+        error: null,
+      });
+    } else {
+      // 이미 주소가 있으면 주소 변환 API 호출하지 않음
+      setLocation((prev) => ({
+        ...prev,
+        loaded: true,
+        coordinates: {
+          lat: latitude,
+          lng: longitude,
+        },
+        error: null,
+      }));
+    }
 
     hasInitialLocation.current = true; // 초기 위치 설정 완료
   };
