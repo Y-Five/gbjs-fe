@@ -33,7 +33,6 @@ function getCookie(name) {
 // 전체 띠부씰 조회 (로그인 상태에 따라 다른 엔드포인트 사용)
 export async function getAllSeals(sortBy = 'NUMBER') {
   try {
-    // 로그인 상태 확인
     const accessToken = getCookie('ACCESS_TOKEN');
     const endpoint = accessToken ? '/api/seals/user' : '/api/seals';
 
@@ -41,11 +40,7 @@ export async function getAllSeals(sortBy = 'NUMBER') {
       params: { sortBy },
     });
 
-    // 응답 데이터 안전하게 처리
     const payload = response?.data ?? response;
-    console.log('getAllSeals raw response:', response);
-    console.log('getAllSeals payload:', payload);
-
     return payload;
   } catch (error) {
     console.error('All seals API Error details:', {
@@ -63,21 +58,67 @@ export async function getAllSeals(sortBy = 'NUMBER') {
   }
 }
 
-// 회원 띠부씰 조회 (기존 함수 유지)
+// 회원 띠부씰 조회
 export async function getUserSeals(sortBy = 'NUMBER') {
   try {
     const response = await APIService.private.get('/api/seals/user', {
       params: { sortBy },
     });
 
-    // 응답 데이터 안전하게 처리
     const payload = response?.data ?? response;
-    console.log('getUserSeals raw response:', response);
-    console.log('getUserSeals payload:', payload);
-
     return payload;
   } catch (error) {
     console.error('User seals API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}
+
+// 띠부씰 획득
+export async function collectSeal(sealId, latitude, longitude) {
+  try {
+    const response = await APIService.private.post('/api/seals/collect', null, {
+      params: { sealId, latitude, longitude },
+    });
+
+    const payload = response?.data ?? response;
+    return payload;
+  } catch (error) {
+    console.error('Collect seal API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}
+
+// 근처 띠부씰 조회
+export async function getNearbySeals(latitude, longitude) {
+  try {
+    const response = await APIService.private.get('/api/seals/nearby', {
+      params: { latitude, longitude },
+    });
+
+    const payload = response?.data ?? response;
+    return payload;
+  } catch (error) {
+    console.error('Nearby seals API Error details:', {
       message: error.message,
       status: error.response?.status,
       statusText: error.response?.statusText,
