@@ -6,6 +6,7 @@ import CourseDetailPage from "../pages/CourseDetailPage";
 import AdministrativePage from "../pages/AdministrativePage";
 import SearchPage from "../pages/SearchPage";
 import PlaceDetailPage from "../pages/PlaceDetailPage";
+import FestivalDetailPage from "../pages/FestivalDetailPage";
 import ChatPage from "../pages/ChatPage";
 import MyPage from "../pages/MyPage";
 import AccountEditPage from "../pages/AccountEditPage";
@@ -23,11 +24,15 @@ export default function AppRouter() {
         <Route path="/administrative" element={<AdministrativePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/place/:contentId" element={<PlaceDetailPage />} />
+        <Route path="/festival/:contentid" element={<FestivalDetailPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account-edit" element={<AccountEditPage />} />
         <Route path="/account-withdrawal" element={<AccountWithdrawalPage />} />
-        <Route path="/account-withdrawal-complete" element={<AccountWithdrawalCompletePage />} />
+        <Route
+          path="/account-withdrawal-complete"
+          element={<AccountWithdrawalCompletePage />}
+        />
       </Routes>
     </Router>
   );

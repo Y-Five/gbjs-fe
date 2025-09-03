@@ -2,9 +2,29 @@ import { useState } from "react";
 import styles from "./GyeongbukMap.module.css";
 
 const REGION_NAMES = [
-  "안동시", "봉화군", "청도군", "청송군", "칠곡군", "김천시", "고령군", "구미시",
-  "군위군", "경주시", "경산시", "문경시", "포항시", "상주시", "성주군", "의성군",
-  "울진군", "울릉군", "예천군", "영덕군", "영주시", "영양군", "영천시"
+  "안동시",
+  "봉화군",
+  "청도군",
+  "청송군",
+  "칠곡군",
+  "김천시",
+  "고령군",
+  "구미시",
+  "군위군",
+  "경주시",
+  "경산시",
+  "문경시",
+  "포항시",
+  "상주시",
+  "성주군",
+  "의성군",
+  "울진군",
+  "울릉군",
+  "예천군",
+  "영덕군",
+  "영주시",
+  "영양군",
+  "영천시",
 ];
 
 // SVG 컴포넌트
@@ -33,8 +53,13 @@ import Yeongyang from "./svg/Yeongyang";
 import Yeongcheon from "./svg/Yeongcheon";
 import Dokdo from "./svg/Dokdo";
 
-export default function GyeongbukMap({ onSelect, multiSelect = false, selectAllTrigger }) {
-  const [selected, setSelected] = useState([]);
+export default function GyeongbukMap({
+  onSelect,
+  multiSelect = false,
+  selectAllTrigger,
+  defaultSelected = [],
+}) {
+  const [selected, setSelected] = useState(defaultSelected);
 
   const isSelected = (name) => selected.includes(name);
 
