@@ -13,6 +13,7 @@ import MyPage from "../pages/MyPage";
 import AccountEditPage from "../pages/AccountEditPage";
 import AccountWithdrawalPage from "../pages/AccountWithdrawalPage";
 import AccountWithdrawalCompletePage from "../pages/AccountWithdrawalCompletePage";
+import SavedCoursePage from "../pages/SavedCoursePage";
 
 export default function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/tour" element={<TourPage />} />
         <Route path="/sealtour" element={<SealTourPage />} />
         <Route path="/course" element={<CourseDetailPage />} />
+        <Route path="/course-detail" element={<CourseDetailPage />} />
         <Route path="/administrative" element={<AdministrativePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/place/:contentId" element={<PlaceDetailPage />} />
@@ -31,10 +33,8 @@ export default function AppRouter() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account-edit" element={<AccountEditPage />} />
         <Route path="/account-withdrawal" element={<AccountWithdrawalPage />} />
-        <Route
-          path="/account-withdrawal-complete"
-          element={<AccountWithdrawalCompletePage />}
-        />
+        <Route path="/account-withdrawal-complete" element={<AccountWithdrawalCompletePage />} />
+        <Route path="/saved-course" element={<SavedCoursePage />} />
       </Routes>
     </Router>
   );

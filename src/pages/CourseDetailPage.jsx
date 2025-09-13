@@ -9,7 +9,10 @@ import { sealtourService } from "../apis/sealtour";
 import styles from "./CourseDetailPage.module.css";
 import { useState, useEffect } from "react";
 
-export default function CourseDetailPage() {
+export default function CourseDetailPage({ 
+  headerTitle: propHeaderTitle = "띠부씰 코스", 
+  showSaveButton: propShowSaveButton = true 
+}) {
   const [selectedDay, setSelectedDay] = useState(1);
   const [courseData, setCourseData] = useState(null);
   const [schedules, setSchedules] = useState({});

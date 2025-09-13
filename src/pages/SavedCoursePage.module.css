@@ -1,0 +1,16 @@
+.savedCourseContainer {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+}
+
+.content {
+  padding: 4.375rem var(--tour-container-padding) 6rem var(--tour-container-padding);
+  background-color: var(--blue-light);
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .content {
+    padding: 16px 16px 5rem 16px;
+  }
+}

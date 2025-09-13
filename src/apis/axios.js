@@ -50,6 +50,14 @@
 import axios from "axios";
 import qs from "qs";
 
+function getCookie(name) {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+}
+
 /**
  * 토큰이 필요없는 일반 요청을 위한 Axios 인스턴스
  * 주로 로그인, 회원가입 등 인증 전 요청에 사용
@@ -148,7 +156,6 @@ privateApi.interceptors.request.use(
     return config;
   },
   (error) => {
-    // 요청 전 에러 발생 시 에러 반환
     return Promise.reject(error);
   }
 );
