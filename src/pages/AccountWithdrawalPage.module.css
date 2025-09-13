@@ -13,10 +13,3 @@
   display: flex;
   flex-direction: column;
 }
-
-/* 모바일 최적화 */
-@media (max-width: 768px) {
-  .content {
-    padding: 16px;
-  }
-} 

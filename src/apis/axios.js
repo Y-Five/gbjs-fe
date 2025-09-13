@@ -112,18 +112,6 @@ const privateApi = axios.create({
 });
 
 /**
- * 쿠키에서 값을 가져오는 헬퍼 함수
- * @param {string} name - 쿠키 이름
- * @returns {string|null} - 쿠키 값 또는 null
- */
-const getCookie = (name) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
-  return null;
-};
-
-/**
  * 디버깅용 쿠키 확인 함수
  */
 const debugCookies = () => {

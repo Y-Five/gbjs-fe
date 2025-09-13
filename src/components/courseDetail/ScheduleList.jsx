@@ -34,13 +34,15 @@ export default function ScheduleList({
         <span className={styles.title}>
           {formatDate(date)} {location} 코스
         </span>
-        <button
-          className={styles.regenerateBtn}
-          onClick={onRegenerate}
-          disabled={isRegenerating}
-        >
-          {isRegenerating ? "재생성 중..." : "재생성"}
-        </button>
+        {onRegenerate && (
+          <button
+            className={styles.regenerateBtn}
+            onClick={onRegenerate}
+            disabled={isRegenerating}
+          >
+            {isRegenerating ? "재생성 중..." : "재생성"}
+          </button>
+        )}
       </p>
 
       <ul className={styles.ul}>

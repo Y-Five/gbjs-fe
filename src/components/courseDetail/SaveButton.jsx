@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./SaveButton.module.css";
 import { sealtourService } from "../../apis/sealtour";
 
 export default function SaveButton({ courseData, onSaveSuccess }) {
+  const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
@@ -21,6 +23,8 @@ export default function SaveButton({ courseData, onSaveSuccess }) {
         if (onSaveSuccess) {
           onSaveSuccess(response.data);
         }
+        // 저장 성공 시 저장된 코스 페이지로 이동
+        navigate("/saved-course");
       } else {
         alert("코스 저장에 실패했습니다. 다시 시도해주세요.");
       }

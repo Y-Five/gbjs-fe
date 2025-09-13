@@ -28,8 +28,10 @@ export async function checkNicknameAvailability(nickname) {
 
 // 닉네임 변경
 export async function updateNickname(newNickname) {
-  const response = await APIService.private.put("/api/users/nickname", {
-    newNickname,
+  const response = await APIService.private.put("/api/users/nickname", null, {
+    params: {
+      newNickname,
+    },
   });
   const payload = response?.data ?? response;
   return payload;
@@ -66,9 +68,15 @@ export async function togglePushNotificationConsent() {
 
 // TTS 설정 업데이트 (FEMALE_A, FEMALE_B, MALE_C, MALE_D)
 export async function updateTtsSetting(ttsSetting) {
-  const response = await APIService.private.put("/api/users/tts-setting", {
-    ttsSetting,
-  });
+  const response = await APIService.private.put(
+    "/api/users/tts-setting",
+    null,
+    {
+      params: {
+        ttsSetting,
+      },
+    }
+  );
   return response?.data ?? response;
 }
 

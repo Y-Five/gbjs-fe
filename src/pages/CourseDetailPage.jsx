@@ -8,11 +8,26 @@ import { sealtourService } from "../apis/sealtour";
 
 import styles from "./CourseDetailPage.module.css";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export default function CourseDetailPage({ 
-  headerTitle: propHeaderTitle = "띠부씰 코스", 
-  showSaveButton: propShowSaveButton = true 
+export default function CourseDetailPage({
+  headerTitle: propHeaderTitle = "띠부씰 코스",
+  showSaveButton: propShowSaveButton = true,
 }) {
+  const location = useLocation();
+  const state = location.state || {};
+
+  // state에서 props 가져오기 (저장된 코스에서 온 경우)
+  const finalHeaderTitle = state.headerTitle || propHeaderTitle;
+  const finalShowSaveButton =
+    state.showSaveButton !== undefined
+      ? state.showSaveButton
+      : propShowSaveButton;
+  const showRegenerateButton =
+    state.showRegenerateButton !== undefined
+      ? state.showRegenerateButton
+      : true;
   const [selectedDay, setSelectedDay] = useState(1);
   const [courseData, setCourseData] = useState(null);
   const [schedules, setSchedules] = useState({});
@@ -73,7 +88,11 @@ export default function CourseDetailPage({
 
     setIsRegenerating(true);
     try {
-      const response = await sealtourService.generateCourse(originalParams);
+      const response = await sealtourService.generateCourse(
+        originalParams.startDate,
+        originalParams.endDate,
+        originalParams.locations
+      );
 
       if (response.code === "SUCCESS") {
         // 새로운 코스 데이터를 localStorage에 저장
@@ -97,7 +116,7 @@ export default function CourseDetailPage({
 
   return (
     <>
-      <BackHeader title={courseData?.title || "띠부씰 코스"} />
+      <BackHeader title={finalHeaderTitle} />
       <div className={styles.main}>
         <MapPreview courseData={courseData} />
         <DayTabs
@@ -109,12 +128,17 @@ export default function CourseDetailPage({
           day={selectedDay}
           schedules={currentSchedules[selectedDay] || []}
           courseData={courseData}
-          onRegenerate={handleRegenerate}
+          onRegenerate={showRegenerateButton ? handleRegenerate : null}
           isRegenerating={isRegenerating}
         />
-        <SaveButton courseData={courseData} />
+        {finalShowSaveButton && <SaveButton courseData={courseData} />}
         <StickerList selectedDay={selectedDay} courseData={courseData} />
       </div>
     </>
   );
 }
+
+CourseDetailPage.propTypes = {
+  headerTitle: PropTypes.string,
+  showSaveButton: PropTypes.bool,
+};
