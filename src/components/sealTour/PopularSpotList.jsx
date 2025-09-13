@@ -1,25 +1,49 @@
-import CourseCardSection from "../global/CourseCardSection"; // 경로는 실제 위치에 맞게 조정
-import spotImg from "../../assets/images/mountain.jpg";
-
-const popularCards = [
-  {
-    image: spotImg,
-    name: "첨성대",
-    location: "# 아름다운 야경\n# 유명 명소",
-  },
-  {
-    image: spotImg,
-    name: "첨성대",
-    location: "# 아름다운 야경\n# 유명 명소",
-  },
-];
+import { useState, useEffect } from "react";
+import CourseCardSection from "../global/CourseCardSection";
+import { sealtourService } from "../../apis/sealtour";
 
 export default function PopularSpotList() {
+  const [spots, setSpots] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // API 데이터 가져오기
+  const fetchPopularSpots = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await sealtourService.getPopularSpots();
+      setSpots(response.data || []);
+    } catch (err) {
+      console.error("인기 관광지 데이터 조회 실패:", err);
+      setError(err);
+      setSpots([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 컴포넌트 마운트 시 데이터 로드
+  useEffect(() => {
+    fetchPopularSpots();
+  }, []);
+
+  // API 응답 데이터를 CourseCardSection 형식으로 변환
+  const popularCards = spots.map((spot) => ({
+    image: spot.imageUrl,
+    name: spot.name,
+    location: spot.hashtag
+      ? spot.hashtag.map((tag) => `# ${tag}`).join("\n")
+      : "",
+  }));
+
   return (
     <CourseCardSection
       title="인기 띠부씰 관광지"
       sub="요즘 인기 있는 관광지에서 띠부씰을 모아보세요!"
       cards={popularCards}
+      loading={loading}
+      error={error}
     />
   );
 }

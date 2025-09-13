@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import TourPage from "../pages/TourPage";
 import SealTourPage from "../pages/SealTourPage";
@@ -6,6 +7,7 @@ import CourseDetailPage from "../pages/CourseDetailPage";
 import AdministrativePage from "../pages/AdministrativePage";
 import SearchPage from "../pages/SearchPage";
 import PlaceDetailPage from "../pages/PlaceDetailPage";
+import FestivalDetailPage from "../pages/FestivalDetailPage";
 import ChatPage from "../pages/ChatPage";
 import MyPage from "../pages/MyPage";
 import AccountEditPage from "../pages/AccountEditPage";
@@ -17,6 +19,7 @@ export default function AppRouter() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/tour" element={<TourPage />} />
         <Route path="/sealtour" element={<SealTourPage />} />
@@ -25,6 +28,7 @@ export default function AppRouter() {
         <Route path="/administrative" element={<AdministrativePage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/place/:contentId" element={<PlaceDetailPage />} />
+        <Route path="/festival/:contentid" element={<FestivalDetailPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account-edit" element={<AccountEditPage />} />

@@ -8,7 +8,7 @@
   width: 100%;
   padding: 20px;
   background: var(--blue-main);
-  color: #FFF;
+  color: #fff;
   font-size: 20px;
   font-weight: 600;
   line-height: 21.833px;
@@ -20,17 +20,10 @@
 }
 
 .submitButton:hover:not(.disabled) {
-  background: #A8A8A8;
+  background: #a8a8a8;
 }
 
 .submitButton.disabled {
   background: #ccc;
   cursor: not-allowed;
 }
-
-/* 모바일 최적화 */
-@media (max-width: 768px) {
-  .bottomSection {
-    padding: 16px;
-  }
-} 

@@ -1,0 +1,259 @@
+.container {
+  min-height: 100vh;
+  background-color: #eff7ff;
+  position: relative;
+}
+
+/* 헤더 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #2d8ae7;
+  padding: 21px 13px 17px 13px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin-left: 13px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerContent {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.headerTitle {
+  color: #ffffff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 15px;
+  margin: 0 0 7px 0;
+}
+
+.headerSubtitle {
+  color: #ffffff;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 15px;
+  margin: 0;
+}
+
+/* 메인 이미지 */
+.mainImage {
+  margin-top: 78px;
+  height: 336px;
+  overflow: hidden;
+}
+
+.mapIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 상세 정보 카드 */
+.detailCard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* 카카오맵 버튼 */
+.mapButton {
+  background-color: #eff7ff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5e5e5e;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  justify-content: flex-start;
+}
+
+.mapButton svg {
+  color: #5e5e5e;
+}
+
+/* 축제 제목 */
+.festivalTitle {
+  color: #1a1a1a;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 0.8319999694824218em;
+  margin: 0 0 12px 0;
+}
+
+/* 축제 기간 */
+.festivalDate {
+  color: #5e5e5e;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.0399999618530273em;
+  margin: 0 0 20px 0;
+}
+
+/* 축제 설명 컨테이너 */
+.descriptionContainer {
+  margin: 0 0 20px 0;
+}
+
+/* 축제 설명 */
+.description {
+  color: #1a1a1a;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7142857142857142em;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.description.collapsed {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.7142857142857142em;
+  max-height: calc(1.7142857142857142em * 3);
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 구분선 */
+.divider {
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 20px 0;
+}
+
+/* 정보 아이템 */
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.infoItem:last-child {
+  margin-bottom: 0;
+}
+
+.infoIcon {
+  color: #2d8ae7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.infoContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.infoLabel {
+  color: #1a1a1a;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.0714285714285714em;
+}
+
+.infoValue {
+  color: #1a1a1a;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.0714285714285714em;
+}
+
+/* 줄이기/더보기 버튼 */
+.toggleButton {
+  background: none;
+  border: none;
+  color: #2d8ae7;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6428571428571428em;
+  cursor: pointer;
+  padding: 0;
+  margin: 8px 0 0 0;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.toggleButton:hover {
+  color: #1f6bb8;
+}
+
+/* 로딩 및 에러 상태 */
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #5e5e5e;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.error {
+  color: #ff5858;
+}
+
+.backButton {
+  background-color: #2d8ae7;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+}
