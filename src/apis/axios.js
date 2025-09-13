@@ -1,11 +1,16 @@
 /***
  * axios.js 사용 예시
  *
+ * 쿠키 기반 인증 시스템
+ * - 백엔드에서 자동으로 ACCESS_TOKEN, REFRESH_TOKEN을 쿠키에 설정
+ * - 토큰 만료 시 자동으로 /api/auth/refresh로 재발급 요청
+ * - withCredentials: true로 설정하여 쿠키 자동 포함
+ *
  * 1. 토큰이 필요없는 요청 (public)
  * EX: GET 전체 게시글
  * try {
  *   const response = await APIService.public.get('/api/posts');
- *   console.log();
+ *   console.log(response);
  * } catch (error) {
  *   console.error(error);
  * }
@@ -17,7 +22,7 @@
  *     title: '제목',
  *     content: '내용'
  *   });
- *   console.log();
+ *   console.log(response);
  * } catch (error) {
  *   console.error(error);
  * }
@@ -28,12 +33,12 @@
  *     title: '수정된 제목',
  *     content: '수정된 내용'
  *   });
- *   console.log();
+ *   console.log(response);
  * } catch (error) {
  *   console.error(error);
  * }
  *
- * // delete
+ * // DELETE
  * try {
  *   const response = await APIService.private.delete('/posts/1');
  *   console.log(response);
@@ -42,7 +47,7 @@
  * }
  */
 
-import axios from 'axios';
+import axios from "axios";
 import qs from "qs";
 
 /**
@@ -54,6 +59,7 @@ import qs from "qs";
 const publicApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
+  withCredentials: true, // 쿠키를 포함하여 요청
   headers: {
     "Content-Type": "application/json",
   },
@@ -63,37 +69,88 @@ const publicApi = axios.create({
 });
 
 /**
+ * publicApi 응답 인터셉터
+ * 401 에러 시 로그인 페이지로 리다이렉트
+ */
+publicApi.interceptors.response.use(
+  (response) => {
+    // 정상 응답 시 그대로 반환
+    return response;
+  },
+  async (error) => {
+    // 401 에러(인증 실패)인 경우 로그인 페이지로 리다이렉트
+    if (error.response?.status === 401) {
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
+/**
  * 토큰이 필요한 인증 요청을 위한 Axios 인스턴스
  * 로그인 후 사용자 인증이 필요한 API 요청에 사용
- * publicApi와 동일한 기본 설정을 가지지만, 토큰 관련 인터셉터가 추가됨
+ * publicApi와 동일한 기본 설정을 가지지만, 쿠키 포함 및 토큰 관련 인터셉터가 추가됨
  */
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
   timeout: 30000,
-  // headers: {
-  //   // 'Content-Type': 'application/json',
-  // },
+  withCredentials: true, // 쿠키를 포함하여 요청
+  headers: {
+    "Content-Type": "application/json",
+  },
+  paramsSerializer: {
+    serialize: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
+  },
 });
+
+/**
+ * 쿠키에서 값을 가져오는 헬퍼 함수
+ * @param {string} name - 쿠키 이름
+ * @returns {string|null} - 쿠키 값 또는 null
+ */
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return null;
+};
+
+/**
+ * 디버깅용 쿠키 확인 함수
+ */
+const debugCookies = () => {
+  console.log("현재 쿠키:", document.cookie);
+  console.log("ACCESS_TOKEN:", getCookie("ACCESS_TOKEN"));
+  console.log("REFRESH_TOKEN:", getCookie("REFRESH_TOKEN"));
+};
 
 /**
  * privateApi 요청 인터셉터
  * 모든 privateApi 요청이 실행되기 전에 실행되는 미들웨어
- * localStorage에서 토큰을 가져와 요청 헤더에 추가
+ * 쿠키에서 토큰을 가져와 요청 헤더에 추가
  */
 privateApi.interceptors.request.use(
   (config) => {
-    // localStorage에서 토큰 가져오기
-    const token = localStorage.getItem('accessToken');
+    // 디버깅: 쿠키 상태 확인
+    debugCookies();
+
+    // 쿠키에서 ACCESS_TOKEN 가져오기
+    const token = getCookie("ACCESS_TOKEN");
+    console.log("privateApi 요청 - 토큰:", token ? "존재함" : "없음");
+
     if (token) {
       // Authorization 헤더에 Bearer 토큰 추가
       config.headers.Authorization = `Bearer ${token}`;
+      console.log("Authorization 헤더 추가됨");
+    } else {
+      console.log("토큰이 없어서 Authorization 헤더 추가 안됨");
     }
     return config;
   },
   (error) => {
     // 요청 전 에러 발생 시 에러 반환
     return Promise.reject(error);
-  },
+  }
 );
 
 /**
@@ -116,31 +173,28 @@ privateApi.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // 리프레시 토큰으로 새 액세스 토큰 발급 시도
-        const refreshToken = localStorage.getItem('refreshToken');
-        const response = await publicApi.post('api/auth/reissue', {
-          refreshToken,
-        });
-        const newToken = response.data.token;
+        // 쿠키에 있는 리프레시 토큰으로 새 액세스 토큰 발급 시도
+        // 백엔드에서 자동으로 쿠키를 설정하므로 별도로 토큰을 전달할 필요 없음
+        await publicApi.post("/api/auth/refresh");
 
-        // 새 access 토큰 저장
-        localStorage.setItem('accessToken', newToken);
-
+        // 백엔드에서 쿠키에 새 토큰을 설정했으므로
         // 새 토큰으로 원래 요청 재시도
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        const newToken = getCookie("ACCESS_TOKEN");
+        if (newToken) {
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        }
         return privateApi(originalRequest);
       } catch (refreshError) {
         // 리프레시 토큰도 만료된 경우
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        // 쿠키는 백엔드에서 자동으로 삭제됨
         // 로그인 페이지로 리다이렉트
-        window.location.href = '/start';
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
     // 다른 에러의 경우 그대로 에러 반환
     return Promise.reject(error);
-  },
+  }
 );
 
 /**

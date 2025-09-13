@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import TourPage from "../pages/TourPage";
 import SealTourPage from "../pages/SealTourPage";
@@ -17,6 +18,7 @@ export default function AppRouter() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/tour" element={<TourPage />} />
         <Route path="/sealtour" element={<SealTourPage />} />
