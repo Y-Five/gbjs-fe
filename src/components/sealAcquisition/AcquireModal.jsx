@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from '../../pages/SealAcquisitionPage.module.css';
 import { SealCard } from '../global';
 
@@ -11,7 +12,14 @@ const AcquireModal = ({
 }) => {
   if (!showModal || !selectedSticker) return null;
 
+  const isCollected = selectedSticker.collected;
+  const [isFlipped, setIsFlipped] = useState(false);
+
   const getButtonContent = () => {
+    if (isCollected) {
+      return '띠부씰을 눌러 까치가 지어준 시를 확인해보세요!';
+    }
+
     if (acquiring) {
       return (
         <div className={styles.buttonContent}>
@@ -23,7 +31,7 @@ const AcquireModal = ({
     if (acquireSuccess) {
       return (
         <div className={styles.buttonContent}>
-          <span>획득 성공!</span>
+          <span>🎉 획득 성공! 🎉</span>
         </div>
       );
     }
@@ -34,11 +42,11 @@ const AcquireModal = ({
   const getButtonClassName = () => {
     let className = styles.modalAcquireButton;
 
-    if (acquiring) {
+    if (isCollected) {
+      className += ` ${styles.collected}`;
+    } else if (acquiring) {
       className += ` ${styles.acquiring}`;
-    }
-
-    if (acquireSuccess) {
+    } else if (acquireSuccess) {
       className += ` ${styles.success}`;
     }
 
@@ -48,15 +56,36 @@ const AcquireModal = ({
   const getModalCardClassName = () => {
     let className = styles.modalCard;
 
-    if (acquiring) {
-      className += ` ${styles.rotating}`;
-    }
+    if (!isCollected) {
+      className += ` ${styles.notCollected}`;
+      if (acquiring) {
+        className += ` ${styles.rotating}`;
+      }
 
-    if (acquireSuccess) {
-      className += ` ${styles.filled}`;
+      if (acquireSuccess) {
+        className += ` ${styles.filled}`;
+      }
+    } else {
+      className += ` ${styles.collected}`;
     }
 
     return className;
+  };
+
+  const handleButtonClick = () => {
+    if (isCollected) {
+      // 수집된 스티커의 경우 카드 회전
+      setIsFlipped(!isFlipped);
+    } else {
+      onAcquire();
+    }
+  };
+
+  const handleCardClick = () => {
+    if (isCollected) {
+      // 수집된 스티커의 경우 카드 회전
+      setIsFlipped(!isFlipped);
+    }
   };
 
   return (
@@ -65,25 +94,51 @@ const AcquireModal = ({
         className={styles.modalContainer}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={getModalCardClassName()}>
+        <div
+          className={`${getModalCardClassName()} ${
+            isFlipped ? styles.flipped : ''
+          }`}
+          onClick={handleCardClick}
+        >
           <div className={styles.modalSealCardWrapper}>
-            <SealCard
-              seal={{
-                id: selectedSticker.sealId,
-                number: selectedSticker.number,
-                spotName: selectedSticker.spot_name,
-                locationName: selectedSticker.location_name,
-                rarity: selectedSticker.rarity,
-                frontImageUrl: selectedSticker.frontImageUrl,
-              }}
-              noBorderRadius={true}
-              noBorder={true}
-              size="large"
-            />
+            <div className={styles.cardInner}>
+              <div className={styles.cardFront}>
+                <SealCard
+                  seal={{
+                    id: selectedSticker.id,
+                    number: selectedSticker.number,
+                    spotName: selectedSticker.spotName,
+                    locationName: selectedSticker.locationName,
+                    rarity: selectedSticker.rarity,
+                    frontImageUrl: selectedSticker.frontImageUrl,
+                    collected: isCollected,
+                  }}
+                  size="large"
+                  imageOnly={true}
+                />
+              </div>
+              {isCollected && selectedSticker.backImageUrl && (
+                <div className={styles.cardBack}>
+                  <SealCard
+                    seal={{
+                      id: selectedSticker.id,
+                      number: selectedSticker.number,
+                      spotName: selectedSticker.spotName,
+                      locationName: selectedSticker.locationName,
+                      rarity: selectedSticker.rarity,
+                      frontImageUrl: selectedSticker.backImageUrl,
+                      collected: isCollected,
+                    }}
+                    size="large"
+                    imageOnly={true}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className={styles.modalButtonWrapper}>
-          <button className={getButtonClassName()} onClick={onAcquire}>
+          <button className={getButtonClassName()} onClick={handleButtonClick}>
             {getButtonContent()}
           </button>
         </div>

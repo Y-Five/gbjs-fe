@@ -3,7 +3,7 @@
 /* 띠부씰 카드 */
 .sealCard {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 2px solid #e8e8e8;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -19,6 +19,16 @@
   pointer-events: none;
   display: flex;
   flex-direction: column;
+}
+
+/* 이미지만 표시하는 카드 */
+.sealCard.imageOnly {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .sealCard img {
@@ -219,6 +229,14 @@
   object-fit: contain;
   max-width: 100%;
   max-height: 100%;
+}
+
+/* 이미지만 표시하는 스타일 */
+.sealImageOnly {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .sealLocation {
