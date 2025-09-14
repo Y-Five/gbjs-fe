@@ -1,24 +1,30 @@
 import styles from '../../pages/SealAcquisitionPage.module.css';
-import { SealCard } from '../global';
+import { SealCard, SkeletonCard } from '../global';
 
-const NearbySection = ({ stickers, onStickerClick, formatDistance }) => {
+const NearbySection = ({
+  stickers,
+  onStickerClick,
+  formatDistance,
+  loading = false,
+}) => {
   const renderStickerCard = (sticker) => (
-    <div key={sticker.sealId} className={styles.stickerCardWrapper}>
+    <div className={styles.stickerCardWrapper}>
       <div
         className={styles.stickerCard}
         onClick={() => onStickerClick(sticker)}
       >
         <SealCard
           seal={{
-            id: sticker.sealId,
+            id: sticker.id,
             number: sticker.number,
-            spotName: sticker.spot_name,
-            locationName: sticker.location_name,
+            spotName: sticker.spotName,
+            locationName: sticker.locationName,
             rarity: sticker.rarity,
             frontImageUrl: sticker.frontImageUrl,
             collected: sticker.collected || false,
           }}
           size="medium"
+          imageOnly={true}
         />
       </div>
       <div className={styles.distanceBadge}>
@@ -31,24 +37,60 @@ const NearbySection = ({ stickers, onStickerClick, formatDistance }) => {
     </div>
   );
 
+  const renderSkeletonCard = () => (
+    <div className={styles.stickerCardWrapper}>
+      <div className={styles.stickerCard}>
+        <div className={styles.sealSkeleton}>
+          <div className={styles.sealSkeletonImage}></div>
+          <div className={styles.sealSkeletonBadge}></div>
+          <div className={styles.sealSkeletonName}></div>
+        </div>
+      </div>
+      <div className={styles.distanceBadge}>
+        <div className={styles.skeletonDistanceText}></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.nearbySection}>
       <div className={styles.nearbyHeader}>
         <div className={styles.nearbyTitleRow}>
-          <h2 className={styles.nearbyTitle}>근처 스티커</h2>
+          <h2 className={styles.nearbyTitle}>근처 경북씰</h2>
         </div>
         <p className={styles.nearbyDescription}>
-          내 위치에서 1km 이내로 모을 수 있는 스티커가 보여요.
+          내 위치에서 1km 이내로 모을 수 있는 경북씰이 보여요.
         </p>
       </div>
 
       <div className={styles.stickerGrid}>
-        <div className={styles.stickerRow}>
-          {stickers.slice(0, 2).map(renderStickerCard)}
-        </div>
-        <div className={styles.stickerRow}>
-          {stickers.slice(2, 4).map(renderStickerCard)}
-        </div>
+        {loading ? (
+          <>
+            <div className={styles.stickerRow}>
+              {Array.from({ length: 2 }).map((_, index) => (
+                <div key={`skeleton-${index}`}>{renderSkeletonCard()}</div>
+              ))}
+            </div>
+            <div className={styles.stickerRow}>
+              {Array.from({ length: 2 }).map((_, index) => (
+                <div key={`skeleton-${index + 2}`}>{renderSkeletonCard()}</div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.stickerRow}>
+              {stickers.slice(0, 2).map((sticker) => (
+                <div key={sticker.id}>{renderStickerCard(sticker)}</div>
+              ))}
+            </div>
+            <div className={styles.stickerRow}>
+              {stickers.slice(2, 4).map((sticker) => (
+                <div key={sticker.id}>{renderStickerCard(sticker)}</div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
