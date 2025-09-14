@@ -6,7 +6,7 @@ import {
   NearbySection,
   AcquireModal,
 } from '../components/sealAcquisition';
-import { AlertModal } from '../components/global';
+import { AlertModal, Toast } from '../components/global';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { useAuth } from '../hooks/useAuth';
 import { getUserSeals, collectSeal, getNearbySeals } from '../apis/sealApi';
@@ -23,8 +23,10 @@ export default function SealAcquisitionPage() {
   const [selectedSticker, setSelectedSticker] = useState(null);
   const [acquiring, setAcquiring] = useState(false);
   const [acquireSuccess, setAcquireSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [nearbyLoading, setNearbyLoading] = useState(false);
 
   // useGeolocation 훅 사용
   const geolocation = useGeolocation();
@@ -34,34 +36,11 @@ export default function SealAcquisitionPage() {
     setAddress(newAddress);
   }, []);
 
-  const handleNearbySealsUpdate = useCallback(
-    async (newStickers) => {
-      // 로그인 상태 확인이 완료되고 로그인된 경우에만 사용자의 수집 현황을 가져와서 근처 스티커와 비교
-      if (!authLoading && isLoggedIn) {
-        try {
-          const data = await getUserSeals('NUMBER');
-          const userSeals = data?.data?.seals || data?.seals || [];
-
-          // 근처 스티커에 수집 상태 추가
-          const stickersWithCollectionStatus = newStickers.map((sticker) => ({
-            ...sticker,
-            collected: userSeals.some(
-              (userSeal) => userSeal.id === sticker.sealId
-            ),
-          }));
-
-          setStickers(stickersWithCollectionStatus);
-          return;
-        } catch (error) {
-          console.error('사용자 수집 현황 조회 실패:', error);
-        }
-      }
-
-      // 로그인되지 않았거나 API 호출 실패 시 원본 데이터 사용
-      setStickers(newStickers);
-    },
-    [isLoggedIn, authLoading]
-  );
+  const handleNearbySealsUpdate = useCallback(async (newStickers) => {
+    // getNearbySeals API 응답에는 이미 collected 상태와 backImageUrl이 포함되어 있음
+    console.log('근처 스티커 업데이트:', newStickers);
+    setStickers(newStickers);
+  }, []);
 
   const handleStickerClick = useCallback((sticker) => {
     setSelectedSticker(sticker);
@@ -86,12 +65,15 @@ export default function SealAcquisitionPage() {
 
       // 획득 API 호출
       const data = await collectSeal(
-        selectedSticker.sealId,
+        selectedSticker.id,
         currentLocation.lat,
         currentLocation.lng
       );
 
-      if (data.code === 'SUCCESS' && data.data?.success) {
+      console.log('API 응답 확인:', data);
+      console.log('success 값:', data.success, typeof data.success);
+
+      if (data.success === true) {
         // 성공 모션 표시
         setAcquireSuccess(true);
 
@@ -101,6 +83,7 @@ export default function SealAcquisitionPage() {
           setShowCompletionModal(true);
           setAcquiring(false);
           setAcquireSuccess(false);
+          setSelectedSticker(null); // 선택된 스티커 초기화
 
           // 획득 성공 후 근처 스티커 수집 상태 새로고침
           if (geolocation.coordinates.lat && geolocation.coordinates.lng) {
@@ -111,12 +94,16 @@ export default function SealAcquisitionPage() {
 
             // 근처 스티커 다시 가져오기
             try {
-              const data = await getNearbySeals(
+              const nearbyData = await getNearbySeals(
                 currentLocation.lat,
                 currentLocation.lng
               );
-              if (data.code === 'SUCCESS' && data.data?.nearbySeals) {
-                handleNearbySealsUpdate(data.data.nearbySeals);
+              console.log('근처 스티커 새로고침 응답:', nearbyData);
+              if (
+                nearbyData.code === 'SUCCESS' &&
+                nearbyData.data?.nearbySeals
+              ) {
+                handleNearbySealsUpdate(nearbyData.data.nearbySeals);
               }
             } catch (error) {
               console.error('근처 스티커 새로고침 실패:', error);
@@ -127,15 +114,15 @@ export default function SealAcquisitionPage() {
         // 실패 모션 표시 (회전 애니메이션 유지)
         setAcquireSuccess(false);
 
-        // 5초 후 에러 모달 표시
+        // 5초 후 토스트 메시지 표시
         setTimeout(() => {
           setAcquiring(false);
 
           // 거리별 에러 메시지 설정
           const distance = selectedSticker.distance;
           const isUlleungdo =
-            selectedSticker.location_name?.includes('울릉') ||
-            selectedSticker.spot_name?.includes('울릉');
+            selectedSticker.locationName?.includes('울릉') ||
+            selectedSticker.spotName?.includes('울릉');
 
           let errorMsg = data.message;
           if (!errorMsg) {
@@ -146,25 +133,38 @@ export default function SealAcquisitionPage() {
             }
           }
 
-          setErrorMessage(errorMsg);
-          setShowErrorModal(true);
+          setToastMessage(errorMsg);
+          setShowToast(true);
+          setSelectedSticker(null); // 선택된 스티커 초기화
         }, 5000);
       }
     } catch (error) {
       console.error('획득 API 호출 실패:', error);
 
+      // JWT 토큰 오류 (401) 처리
+      if (
+        error.response?.status === 401 ||
+        error.response?.data?.code === 401
+      ) {
+        setAcquiring(false);
+        setShowAcquireModal(false);
+        setShowLoginModal(true);
+        setSelectedSticker(null);
+        return;
+      }
+
       // 실패 모션 표시 (회전 애니메이션 유지)
       setAcquireSuccess(false);
 
-      // 5초 후 에러 모달 표시
+      // 5초 후 토스트 메시지 표시
       setTimeout(() => {
         setAcquiring(false);
 
         // 거리별 에러 메시지 설정
         const distance = selectedSticker.distance;
         const isUlleungdo =
-          selectedSticker.location_name?.includes('울릉') ||
-          selectedSticker.spot_name?.includes('울릉');
+          selectedSticker.locationName?.includes('울릉') ||
+          selectedSticker.spotName?.includes('울릉');
 
         let errorMsg = '획득에 실패했습니다. ';
         if (isUlleungdo) {
@@ -173,20 +173,32 @@ export default function SealAcquisitionPage() {
           errorMsg += '500m 이내에서 다시 시도해주세요.';
         }
 
-        setErrorMessage(errorMsg);
-        setShowErrorModal(true);
+        setToastMessage(errorMsg);
+        setShowToast(true);
+        setSelectedSticker(null); // 선택된 스티커 초기화
       }, 5000);
     }
   };
 
   const handleCompletionConfirm = () => {
     setShowCompletionModal(false);
+    setSelectedSticker(null); // 선택된 스티커 초기화
     // 획득 완료 후 처리 로직
   };
 
-  const handleErrorModalClose = () => {
-    setShowErrorModal(false);
-    setErrorMessage('');
+  const handleToastClose = () => {
+    setShowToast(false);
+    setToastMessage('');
+  };
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleLoginConfirm = () => {
+    setShowLoginModal(false);
+    // 로그인 페이지로 이동
+    window.location.href = '/login';
   };
 
   const formatDistance = useCallback((distance) => {
@@ -209,12 +221,14 @@ export default function SealAcquisitionPage() {
           onNearbySealsUpdate={handleNearbySealsUpdate}
           onStickerSelect={handleStickerClick}
           geolocation={geolocation}
+          onLoadingChange={setNearbyLoading}
         />
 
         <NearbySection
           stickers={stickers}
           onStickerClick={handleStickerClick}
           formatDistance={formatDistance}
+          loading={nearbyLoading}
         />
       </main>
 
@@ -234,12 +248,20 @@ export default function SealAcquisitionPage() {
         message="스티커 획득이 완료되었습니다"
       />
 
+      <Toast
+        message={toastMessage}
+        type="error"
+        duration={4000}
+        onClose={handleToastClose}
+      />
+
       <AlertModal
-        showModal={showErrorModal}
-        onClose={handleErrorModalClose}
-        onConfirm={handleErrorModalClose}
-        message={errorMessage}
-        isError={true}
+        showModal={showLoginModal}
+        onClose={handleLoginModalClose}
+        onConfirm={handleLoginConfirm}
+        message="로그인이 필요합니다. 로그인하시겠습니까?"
+        confirmText="로그인하러가기"
+        cancelText="취소"
       />
     </div>
   );
