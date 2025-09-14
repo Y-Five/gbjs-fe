@@ -10,6 +10,10 @@ export default function SealShopContainer({ children }) {
   const [totalSeals, setTotalSeals] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [productsLoading, setProductsLoading] = useState(true);
+  const [userSealsLoading, setUserSealsLoading] = useState(true);
+  const [productsError, setProductsError] = useState(false);
+  const [userSealsError, setUserSealsError] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showInsufficientModal, setShowInsufficientModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -29,11 +33,15 @@ export default function SealShopContainer({ children }) {
     } else {
       setCollectedSeals(0);
       setTotalSeals(0);
+      setUserSealsLoading(false);
+      setUserSealsError(false);
     }
   }, [isLoggedIn]);
 
   const fetchUserSeals = async () => {
     try {
+      setUserSealsLoading(true);
+      setUserSealsError(false);
       const sealsResponse = await getUserSeals();
 
       if (sealsResponse?.data) {
@@ -45,12 +53,17 @@ export default function SealShopContainer({ children }) {
       }
     } catch (sealsError) {
       console.error('사용자 띠부씰 조회 실패:', sealsError);
+      setUserSealsError(true);
+    } finally {
+      setUserSealsLoading(false);
     }
   };
 
   const fetchData = async () => {
     try {
       setLoading(true);
+      setProductsLoading(true);
+      setProductsError(false);
 
       const productsResponse = await getSealProducts();
       const productsData =
@@ -60,12 +73,16 @@ export default function SealShopContainer({ children }) {
       // 로그인된 경우 사용자 띠부씰 데이터 가져오기
       if (isLoggedIn) {
         await fetchUserSeals();
+      } else {
+        setUserSealsLoading(false);
       }
     } catch (error) {
       console.error('데이터 로딩 실패:', error);
       setProducts([]);
+      setProductsError(true);
     } finally {
       setLoading(false);
+      setProductsLoading(false);
     }
   };
 
@@ -109,12 +126,24 @@ export default function SealShopContainer({ children }) {
     setShowInsufficientModal(false);
   };
 
+  const handleRetryProducts = () => {
+    fetchData();
+  };
+
+  const handleRetryUserSeals = () => {
+    fetchUserSeals();
+  };
+
   const contextValue = {
     // 상태
     collectedSeals,
     totalSeals,
     products,
     loading,
+    productsLoading,
+    userSealsLoading,
+    productsError,
+    userSealsError,
     selectedProduct,
     showInsufficientModal,
     showLoginModal,
@@ -127,6 +156,8 @@ export default function SealShopContainer({ children }) {
     handleLoginClick,
     handleCloseLoginModal,
     handleCloseInsufficientModal,
+    handleRetryProducts,
+    handleRetryUserSeals,
   };
 
   return children(contextValue);

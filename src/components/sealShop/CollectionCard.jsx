@@ -9,6 +9,9 @@ const CollectionCard = forwardRef(
       onAllSealsClick,
       onShopButtonClick,
       isLoggedIn,
+      userSealsLoading,
+      userSealsError,
+      onRetryUserSeals,
     },
     ref
   ) => {
@@ -47,24 +50,70 @@ const CollectionCard = forwardRef(
 
         <h3 className={styles.collectionTitle}>띠부씰 수집 현황</h3>
 
-        <div className={styles.collectionCount}>
-          <span className={styles.countNumber}>{collectedSeals}</span>
-          <span className={styles.countUnit}>개</span>
-        </div>
+        {userSealsLoading ? (
+          <>
+            <div className={styles.collectionCount}>
+              <div className={styles.skeletonCountNumber}></div>
+              <div className={styles.skeletonCountUnit}></div>
+            </div>
 
-        <div className={styles.progressInfo}>
-          <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
-          <span className={styles.progressRemaining}>
-            {remainingSeals}개 남음
-          </span>
-        </div>
+            <div className={styles.progressInfo}>
+              <div className={styles.skeletonProgressLabel}></div>
+              <div className={styles.skeletonProgressRemaining}></div>
+            </div>
 
-        <div className={styles.progressBar}>
-          <div
-            className={styles.progressFill}
-            style={{ width: `${progressPercentage}%` }}
-          />
-        </div>
+            <div className={styles.progressBar}>
+              <div className={styles.skeletonProgressFill}></div>
+            </div>
+          </>
+        ) : userSealsError ? (
+          <>
+            <div className={styles.collectionCount}>
+              <span className={styles.countNumber}>-</span>
+              <span className={styles.countUnit}>개</span>
+            </div>
+
+            <div className={styles.progressInfo}>
+              <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
+              <span className={styles.progressRemaining}>-개 남음</span>
+            </div>
+
+            <div className={styles.progressBar}>
+              <div className={styles.progressFill} style={{ width: '0%' }} />
+            </div>
+
+            <div className={styles.retryContainer}>
+              <button
+                className={styles.retryButton}
+                onClick={onRetryUserSeals}
+                disabled={userSealsLoading}
+              >
+                {userSealsLoading ? '불러오는 중...' : '다시 불러오기'}
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.collectionCount}>
+              <span className={styles.countNumber}>{collectedSeals}</span>
+              <span className={styles.countUnit}>개</span>
+            </div>
+
+            <div className={styles.progressInfo}>
+              <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
+              <span className={styles.progressRemaining}>
+                {remainingSeals}개 남음
+              </span>
+            </div>
+
+            <div className={styles.progressBar}>
+              <div
+                className={styles.progressFill}
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
+          </>
+        )}
 
         <div className={styles.buttonGroup}>
           <button className={styles.shopButton} onClick={onShopButtonClick}>
