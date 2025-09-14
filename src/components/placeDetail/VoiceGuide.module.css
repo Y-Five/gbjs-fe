@@ -1,117 +1,293 @@
-@import "../../styles/common-variables.css";
+@import '../../styles/common-variables.css';
+
+/* 음성 가이드 컨테이너 */
+.voiceGuideContainer {
+  position: relative;
+  margin: 40px 0;
+}
 
 /* 음성 가이드 섹션 */
 .voiceGuideTitle {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 15px;
   color: #1a1a1a;
-  margin: 40px 0 20px 0;
+  margin: 0 0 20px 0;
   padding-left: 29px;
 }
 
+/* TTS 선택기 */
+.ttsSelectorWrapper {
+  position: relative;
+  margin: 0 20px 20px;
+}
+
+.ttsSelector {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.ttsSelector::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* 스크롤 그라데이션 */
+.leftGradient,
+.rightGradient {
+  position: absolute;
+  top: 0;
+  bottom: 4px;
+  width: 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leftGradient {
+  left: 0;
+  background: linear-gradient(to right, #eff7ff, transparent);
+}
+
+.rightGradient {
+  right: 0;
+  background: linear-gradient(to left, #eff7ff, transparent);
+}
+
+.ttsOption {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #5e5e5e;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ttsOption:hover {
+  border-color: #2d8ae7;
+  color: #2d8ae7;
+}
+
+.ttsOption.selected {
+  background-color: #2d8ae7;
+  border-color: #2d8ae7;
+  color: #ffffff;
+}
+
+/* 음성 가이드 래퍼 */
 .voiceGuideWrapper {
   position: relative;
-  margin: 0 20px 40px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
+/* 까치 이미지 - 박스 밖에 위치 */
+.magpieImage {
+  width: 156px;
+  height: 156px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* 음성 가이드 카드 */
 .voiceGuideCard {
-  position: relative;
   width: 100%;
-  min-height: 388px;
-  background: #ffffff;
-  border-radius: var(--radius-medium);
-  box-shadow: var(--shadow-card);
-  padding-bottom: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  min-height: 254px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.mascot {
-  position: absolute;
-  top: 25.56px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 142.86px;
-  height: 133.64px;
-  object-fit: contain;
+/* 스와이프 애니메이션 */
+.swipeLeft {
+  animation: swipeLeftAnimation 0.2s ease-out;
 }
 
-.audioControls {
-  position: absolute;
-  top: 179.72px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 159px;
-  height: 31.3px;
+.swipeRight {
+  animation: swipeRightAnimation 0.2s ease-out;
 }
 
-.playButton {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: 1px solid #8f8f8f;
-  border-radius: 5px;
-  cursor: pointer;
+@keyframes swipeLeftAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+    box-shadow: 0px 0px 20px 0px rgba(45, 138, 231, 0.3);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes swipeRightAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+    box-shadow: 0px 0px 20px 0px rgba(45, 138, 231, 0.3);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* 슬라이드 네비게이션 */
+.slideNavigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 14px;
-  gap: 10px;
-  position: relative;
+  padding: 16px 20px 0;
+  gap: 12px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: #2d8ae7;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:hover {
+  background-color: rgba(45, 138, 231, 0.1);
+  transform: scale(1.1);
+}
+
+.slideIndicator {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.indicatorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicatorDot.active {
+  background-color: #2d8ae7;
+  transform: scale(1.2);
+}
+
+.indicatorDot:hover {
+  background-color: #2d8ae7;
+  opacity: 0.7;
+}
+
+.cardContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 오디오 컨트롤 */
+.audioControls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.playButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border: 1px solid #8f8f8f;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.playButton:hover {
+  border-color: #2d8ae7;
+  color: #2d8ae7;
 }
 
 .playButton.playing {
   border-color: #2d8ae7;
-  background-color: #ffffff;
-}
-
-.playText {
-  font-family: "Pretendard", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.35px;
-  color: #8f8f8f;
-  white-space: nowrap;
-}
-
-.playing .playText {
   color: #2d8ae7;
 }
 
+.playText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: inherit;
+}
+
 .playIcon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: #8f8f8f;
+  color: inherit;
 }
 
 .pauseIcon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
   display: flex;
+  gap: 2px;
   align-items: center;
-  justify-content: center;
-  gap: 3px;
 }
 
 .pauseBar {
-  width: 3px;
-  height: 12px;
-  background-color: #2d8ae7;
-  border-radius: 1.5px;
+  width: 2px;
+  height: 10px;
+  background-color: currentColor;
+  border-radius: 1px;
 }
 
-
+/* 진행률 섹션 */
 .progressSection {
-  position: absolute;
-  top: 233px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 256px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+  width: 80%;
+  align-self: center;
+}
+
+.timeInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+}
+
+.currentTime,
+.duration {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.2;
 }
 
 .progressBar {
@@ -120,74 +296,44 @@
 
 .progressTrack {
   width: 100%;
-  height: 13px;
+  height: 12px;
   background-color: #eff7ff;
-  border-radius: 100px;
-  position: relative;
+  border-radius: 6px;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .progressFill {
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
   background-color: #2d8ae7;
-  border-radius: 100px;
+  border-radius: 6px;
   transition: width 0.3s ease-out;
-  min-width: 13px;
+  min-width: 1.5px;
 }
 
-.timeInfo {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 8px;
-}
-
-.currentTime,
-.duration {
-  font-family: "Pretendard", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 25.24px;
-  letter-spacing: -0.35px;
-  color: #1a1a1a;
-}
-
-/* 카드 내 구분선 */
+/* 구분선 */
 .dividerInCard {
-  position: absolute;
-  top: 297px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 298px;
+  width: 100%;
   height: 1px;
   background-color: #e5e5e5;
+  margin: 8px 0;
 }
 
-/* 자막보기 버튼 */
+/* 자막 버튼 */
 .subtitleButton {
-  position: absolute;
-  top: 316px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 50px;
-  width: 302px;
-  height: 42px;
-  background: transparent;
+  background: none;
   border: 1px solid #a8a8a8;
   border-radius: 5px;
-  font-family: "Pretendard", sans-serif;
-  font-size: 14px;
+  padding: 12px 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
   font-weight: 600;
-  line-height: 16.71px;
   color: #a8a8a8;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  text-align: center;
 }
 
 .subtitleButton:hover {
@@ -197,63 +343,70 @@
 
 /* 자막 내용 */
 .subtitleContent {
-  margin-top: 395px;
-  padding: 0 27px 35px;
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
 }
 
 .subtitleContent p {
-  font-family: "Pretendard", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  letter-spacing: -0.4px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
   color: #1a1a1a;
-  white-space: pre-wrap;
   margin: 0;
 }
 
 /* 플로팅 컨트롤 버튼 */
 .floatingControlButton {
   position: fixed;
-  bottom: 100px;
-  right: 21px;
-  width: 58px;
-  height: 58px;
-  background: #ffffff;
-  border: 1px solid #2d8ae7;
+  bottom: 30px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #2d8ae7;
+  border: none;
   border-radius: 50%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  box-shadow: 0px 4px 12px rgba(45, 138, 231, 0.3);
   transition: all 0.2s ease;
   z-index: 1000;
 }
 
 .floatingControlButton:hover {
+  background-color: #1e6bb8;
   transform: scale(1.05);
-  box-shadow: var(--shadow-card-hover);
 }
 
 .floatingPlayIcon {
-  width: 22px;
-  height: 22px;
-  color: #2d8ae7;
+  color: #ffffff;
+  margin-left: 2px;
 }
 
 .floatingPauseIcon {
-  width: 24px;
-  height: 24px;
   display: flex;
+  gap: 3px;
   align-items: center;
-  justify-content: center;
-  gap: 4px;
 }
 
 .floatingPauseBar {
-  width: 4px;
+  width: 3px;
   height: 16px;
-  background-color: #2d8ae7;
-  border-radius: 2px;
+  background-color: #ffffff;
+  border-radius: 1.5px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .magpieImage {
+    width: 120px;
+    height: 120px;
+  }
+
+  .voiceGuideCard {
+    width: 100%;
+  }
 }
