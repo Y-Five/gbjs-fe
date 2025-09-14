@@ -7,8 +7,9 @@ export default function Sidebar({ isOpen, onClose }) {
 
   const menuItems = [
     { key: 'home', label: '홈', path: '/' },
-    { key: 'map', label: '띠부씰 지도', path: '/sealtour' },
-    { key: 'product', label: '띠부씰 상품', path: '/sealshop' },
+    { key: 'map', label: '경북씰 지도', path: '/sealtour' },
+    { key: 'product', label: '경북씰 상품', path: '/sealshop' },
+    { key: 'acquisition', label: '경북씰 획득', path: '/getseals' },
     { key: 'tour', label: '관광지 투어', path: '/tour' },
     { key: 'saved', label: '저장된 코스', path: '/saved-course' },
   ];
