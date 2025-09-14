@@ -12,6 +12,7 @@ const SealCard = ({
   noBorder = false,
   size = 'medium',
   skeleton = false,
+  imageOnly = true,
 }) => {
   // 색상 유틸리티 함수들
   const getRarityColor = (rarity) => {
@@ -54,6 +55,30 @@ const SealCard = ({
     );
   }
 
+  if (imageOnly) {
+    return (
+      <div
+        className={`${styles.sealCard} ${styles.imageOnly} ${
+          seal.collected ? styles.collected : styles.uncollected
+        } ${isSorting ? styles.sorting : ''} ${
+          isFlipped ? styles.flipped : ''
+        } ${noBorderRadius ? styles.noBorderRadius : ''} ${
+          noBorder ? styles.noBorder : ''
+        } ${styles[size]} ${className}`}
+        onClick={onClick}
+      >
+        <img
+          src={getSealImage(seal)}
+          alt={seal.spotName}
+          className={styles.sealImageOnly}
+          onError={(e) => {
+            e.target.src = magpieImage;
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`${styles.sealCard} ${
@@ -82,9 +107,6 @@ const SealCard = ({
           src={getSealImage(seal)}
           alt={seal.spotName}
           className={styles.sealImage}
-          style={{
-            filter: !seal.collected ? 'grayscale(100%)' : 'none',
-          }}
           onError={(e) => {
             e.target.src = magpieImage;
           }}
