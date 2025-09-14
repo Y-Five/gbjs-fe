@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useGeolocation } from './useGeolocation';
 import { getSpotList } from '../apis/spotApi';
 
-export const useSearchData = (searchQuery, sortBy) => {
+export const useSearchData = (searchQuery, sortBy, searchBy = null) => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -52,6 +52,7 @@ export const useSearchData = (searchQuery, sortBy) => {
           10,
           query,
           sortBy.key,
+          searchBy,
           latitude,
           longitude
         );
@@ -105,7 +106,7 @@ export const useSearchData = (searchQuery, sortBy) => {
         isRequestingRef.current = false;
       }
     },
-    [sortBy.key]
+    [sortBy.key, searchBy]
   );
 
   const executeSearch = useCallback(() => {
@@ -124,7 +125,7 @@ export const useSearchData = (searchQuery, sortBy) => {
       setHasMore(true);
       fetchSpotList(1, false, searchQuery);
     }
-  }, [sortBy.key, fetchSpotList]);
+  }, [sortBy.key, searchBy, fetchSpotList]);
 
   const lastElementRef = useCallback(
     (node) => {
