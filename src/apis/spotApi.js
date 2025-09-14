@@ -5,6 +5,7 @@ export async function getSpotList(
   pageSize = 10,
   keyword,
   sortBy = 'DISTANCE',
+  searchBy = null,
   latitude = 36.5759985,
   longitude = 128.505832
 ) {
@@ -31,8 +32,43 @@ export async function getSpotList(
       };
     }
 
+    if (searchBy) {
+      params.searchBy = searchBy;
+    }
+
     const response = await APIService.private.get('/api/spots', { params });
     return response?.data ?? response;
+  } catch (error) {
+    console.error('API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}
+
+export async function getSpotById(
+  contentId,
+  latitude = 36.5759985,
+  longitude = 128.505832
+) {
+  try {
+    const params = {
+      latitude,
+      longitude,
+    };
+
+    const response = await APIService.private.get(`/api/spots/${contentId}`, {
+      params,
+    });
+    return response.data;
   } catch (error) {
     console.error('API Error details:', {
       message: error.message,
