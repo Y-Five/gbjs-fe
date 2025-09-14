@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/header/Header';
 import { LocationCard, TourSection, ChatSection } from '../components/tour';
@@ -6,6 +6,7 @@ import { SearchBoxContainer as SearchBox } from '../components/global';
 import styles from './TourPage.module.css';
 import { getPlacesWithinDistance } from '../data/placeDetailData';
 import { useGeolocation } from '../hooks/useGeolocation';
+import { getMyInfo } from '../apis/myPageApi';
 
 const MAX_DISTANCE_KM = 20;
 const MAX_DISPLAY_COUNT = 5;
@@ -14,6 +15,31 @@ export default function TourPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const geolocation = useGeolocation();
+  const [nickname, setNickname] = useState('');
+  const [isLoadingNickname, setIsLoadingNickname] = useState(true);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getMyInfo();
+        console.log('User info API response:', userInfo); // 디버깅용
+        if (userInfo && userInfo.nickname) {
+          setNickname(`${userInfo.nickname}님`);
+          console.log('Nickname set to:', userInfo.nickname); // 디버깅용
+        } else {
+          console.log('No nickname in user info or userInfo is null'); // 디버깅용
+          setNickname('게스트님'); // 기본값
+        }
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+        setNickname('게스트님'); // 에러 시 기본값
+      } finally {
+        setIsLoadingNickname(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const sortedTourData = useMemo(
     () =>
@@ -43,7 +69,11 @@ export default function TourPage() {
           onSearch={handleSearch}
           readOnly={true}
         />
-        <LocationCard location={geolocation} />
+        <LocationCard
+          location={geolocation}
+          userName={nickname}
+          isLoadingNickname={isLoadingNickname}
+        />
         <TourSection tourData={sortedTourData} onTourClick={handleTourClick} />
         <ChatSection onChatClick={handleChatClick} />
       </div>

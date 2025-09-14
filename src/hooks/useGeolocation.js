@@ -39,7 +39,9 @@ export const useGeolocation = () => {
   };
 
   const onSuccess = async (position) => {
-    const { latitude, longitude } = position.coords;
+    // 실제 사용자 위치 사용
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
 
     // 초기 로드 시에만 주소 변환 API 호출
     if (!hasInitialLocation.current) {
@@ -70,18 +72,25 @@ export const useGeolocation = () => {
     hasInitialLocation.current = true; // 초기 위치 설정 완료
   };
 
-  const onError = (error) => {
+  const onError = async (error) => {
+    console.error('위치 정보 가져오기 실패:', error);
+
+    // 위치 권한이 거부되거나 오류가 발생한 경우 fallback 좌표 사용
+    const latitude = 36.925135; // 경주시 좌표 (fallback)
+    const longitude = 128.580307;
+
+    const address = await getAddressFromCoords(latitude, longitude);
+
     setLocation({
       loaded: true,
-      coordinates: { lat: '', lng: '' },
-      address: {
-        province: '',
-        city: '',
-        district: '',
+      coordinates: {
+        lat: latitude,
+        lng: longitude,
       },
+      address,
       error: {
         code: error.code,
-        message: error.message,
+        message: error.message || '위치 정보를 가져올 수 없습니다.',
       },
     });
 
@@ -99,8 +108,8 @@ export const useGeolocation = () => {
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError, {
       enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
+      timeout: 10000, // 10초로 증가
+      maximumAge: 300000, // 5분간 캐시 사용
     });
   };
 
