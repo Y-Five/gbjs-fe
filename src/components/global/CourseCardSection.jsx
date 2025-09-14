@@ -1,4 +1,4 @@
-import styles from "./CourseCardSection.module.css";
+import styles from './CourseCardSection.module.css';
 
 export default function CourseCardSection({
   title,
@@ -7,6 +7,7 @@ export default function CourseCardSection({
   cards = [],
   loading = false,
   error = null,
+  onCardClick,
 }) {
   return (
     <section className={styles.section}>
@@ -18,7 +19,7 @@ export default function CourseCardSection({
           {tabs.map((tab, index) => (
             <button
               key={index}
-              className={`${styles.tab} ${index === 0 ? styles.active : ""}`}
+              className={`${styles.tab} ${index === 0 ? styles.active : ''}`}
             >
               {tab}
             </button>
@@ -35,7 +36,11 @@ export default function CourseCardSection({
           <div className={styles.noData}>데이터가 없습니다.</div>
         ) : (
           cards.map((card, index) => (
-            <div key={index} className={styles.card}>
+            <div
+              key={index}
+              className={styles.card}
+              onClick={() => onCardClick?.(card)}
+            >
               <div
                 className={styles.image}
                 style={{ backgroundImage: `url(${card.image})` }}
