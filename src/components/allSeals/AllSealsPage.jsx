@@ -2,9 +2,11 @@ import BackHeader from '../header/BackHeader';
 import { Dropdown, SealCard, AlertModal } from '../global';
 import {
   CollectionCard,
+  CollectionCardSkeleton,
   ViewToggle,
   SortSection,
   SealsGrid,
+  SealsGridSkeleton,
   EmptyState,
   LoadingState,
   ErrorState,
@@ -29,13 +31,21 @@ export default function AllSealsPage({
   onViewToggle,
   onLoginClick,
   onCloseLoginModal,
+  onRetry,
 }) {
   // 에러 상태
   if (error) {
     return (
       <div className={styles.page}>
         <BackHeader title="전체 띠부씰 보기" />
-        <ErrorState error={error} onBackClick={onBackClick} />
+        <main className={styles.main}>
+          <ErrorState
+            error={error}
+            onBackClick={onBackClick}
+            onRetry={onRetry}
+            isLoading={loading}
+          />
+        </main>
       </div>
     );
   }
@@ -45,10 +55,14 @@ export default function AllSealsPage({
       <BackHeader title="전체 띠부씰 보기" />
 
       <main className={styles.main}>
-        <CollectionCard
-          totalCount={totalCount}
-          collectedCount={collectedCount}
-        />
+        {loading ? (
+          <CollectionCardSkeleton />
+        ) : (
+          <CollectionCard
+            totalCount={totalCount}
+            collectedCount={collectedCount}
+          />
+        )}
 
         <ViewToggle showUserSeals={showUserSeals} onViewToggle={onViewToggle} />
 
@@ -58,7 +72,15 @@ export default function AllSealsPage({
           onSortChange={onSortChange}
         />
 
-        <SealsGrid seals={seals} isSorting={isSorting} isFlipped={isFlipped} />
+        {loading ? (
+          <SealsGridSkeleton />
+        ) : (
+          <SealsGrid
+            seals={seals}
+            isSorting={isSorting}
+            isFlipped={isFlipped}
+          />
+        )}
 
         <EmptyState
           seals={seals}

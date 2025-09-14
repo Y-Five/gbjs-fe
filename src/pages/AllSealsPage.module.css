@@ -10,7 +10,7 @@
 }
 
 .main {
-  padding: 4.375rem 0 var(--spacing-xl) 0;
+  padding: 0 0 var(--spacing-xl) 0;
   max-width: 393px;
   margin: 0 auto;
 }
@@ -60,24 +60,71 @@
   text-align: center;
   background-color: #fff;
   border-radius: 12px;
-  margin: 20px;
+  margin: 0; /* main 컨테이너의 패딩을 사용하므로 마진 제거 */
 }
 
-.errorContainer p {
-  font-size: 14px;
-  color: var(--gray-500);
-  margin: 0 0 16px 0;
+.errorIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
 }
 
-.backButton {
+.errorMessage {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.errorButtonGroup {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 200px;
+}
+
+.retryButton {
   background-color: var(--blue-main);
   color: white;
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.retryButton:hover:not(:disabled) {
+  background: #1b75d0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 117, 208, 0.3);
+}
+
+.retryButton:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.backButton {
+  background-color: var(--gray-300);
+  color: var(--gray-600);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: var(--gray-400);
+  transform: translateY(-1px);
 }
 
 /* 수집 현황 카드 */
@@ -241,7 +288,7 @@
 /* 띠부씰 카드 */
 .sealCard {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 2px solid #e8e8e8;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -381,6 +428,90 @@
   font-size: 14px;
   color: var(--gray-500);
   margin: 0;
+}
+
+/* Collection Card Skeleton Styles */
+.skeletonCountNumber {
+  width: 40px;
+  height: 32px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonCountTotal {
+  width: 30px;
+  height: 16px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonProgressRemaining {
+  width: 60px;
+  height: 12px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeletonProgressFill {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 5.5px;
+}
+
+/* Seals Grid Skeleton Styles */
+.skeletonBadge {
+  width: 20px;
+  height: 10px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 5px;
+}
+
+.skeletonSealName {
+  width: 60px;
+  height: 10px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeletonSealImage {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonLocation {
+  width: 40px;
+  height: 8px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* 모바일 반응형 */

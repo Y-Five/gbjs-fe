@@ -27,6 +27,7 @@ export default function AllSealsPage() {
         totalCount,
         collectedCount,
         refreshSeals,
+        fetchSeals,
       }) => (
         <SealsAnimationProvider>
           {({ isSorting, isFlipped, startSortingAnimation }) => (
@@ -62,6 +63,10 @@ export default function AllSealsPage() {
                   ? seals.filter((seal) => seal.collected)
                   : seals;
 
+                const handleRetry = () => {
+                  fetchSeals(sortBy);
+                };
+
                 return (
                   <AllSealsPageComponent
                     loading={loading}
@@ -81,6 +86,7 @@ export default function AllSealsPage() {
                     onViewToggle={handleViewToggle}
                     onLoginClick={handleLoginClick}
                     onCloseLoginModal={handleCloseLoginModal}
+                    onRetry={handleRetry}
                   />
                 );
               }}
