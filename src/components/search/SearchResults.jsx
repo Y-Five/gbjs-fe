@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { MicBadge, TtsBadge } from '../global';
 import styles from './SearchResults.module.css';
 
 const SearchResults = memo(function SearchResults({
@@ -52,6 +53,7 @@ const SearchResults = memo(function SearchResults({
                       </span>
                     </div>
                   )}
+                  {result.ttsExist && <MicBadge />}
                 </div>
                 <div className={styles.resultInfo}>
                   <div className={styles.titleRow}>
@@ -65,9 +67,7 @@ const SearchResults = memo(function SearchResults({
                   <p className={styles.resultDescription}>{result.addr1}</p>
                   <div className={styles.resultTags}>
                     <span>#{result.type}</span>
-                    {result.ttsExist && (
-                      <span className={styles.ttsBadge}>TTS</span>
-                    )}
+                    {result.ttsExist && <TtsBadge />}
                   </div>
                 </div>
               </div>
