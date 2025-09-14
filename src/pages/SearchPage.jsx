@@ -8,6 +8,7 @@ import {
   SearchSortSection,
 } from '../components/search';
 import { useSearchData } from '../hooks/useSearchData';
+import { FILTER_OPTIONS } from '../data/searchData';
 import styles from './SearchPage.module.css';
 
 const SearchPage = memo(function SearchPage() {
@@ -16,6 +17,7 @@ const SearchPage = memo(function SearchPage() {
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [selectedFilter, setSelectedFilter] = useState('전체');
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const isInitialized = useRef(false);
 
   const previousPage = useRef(location.state?.from || '/');
@@ -41,7 +43,7 @@ const SearchPage = memo(function SearchPage() {
     totalElements,
     lastElementRef,
     executeSearch,
-  } = useSearchData(searchQuery, sortBy);
+  } = useSearchData(searchQuery, sortBy, selectedCategory);
 
   useEffect(() => {
     if (!isInitialized.current) {
@@ -89,9 +91,24 @@ const SearchPage = memo(function SearchPage() {
     setSearchQuery(value);
   }, []);
 
-  const handleFilterChange = useCallback((filter) => {
-    setSelectedFilter(filter);
-  }, []);
+  const handleFilterChange = useCallback(
+    (filter) => {
+      setSelectedFilter(filter);
+      // FILTER_OPTIONS에서 해당 filter의 value를 찾아서 selectedCategory 설정
+      const filterOption = FILTER_OPTIONS.find(
+        (option) => option.id === filter
+      );
+      setSelectedCategory(filterOption ? filterOption.value : null);
+
+      // 카테고리가 변경되면 검색 실행
+      if (searchQuery?.trim()) {
+        setTimeout(() => {
+          executeSearch();
+        }, 0);
+      }
+    },
+    [searchQuery, executeSearch]
+  );
 
   const handleSortChange = useCallback(
     (sort) => {
