@@ -106,6 +106,29 @@
   transform: scale(1.05);
 }
 
+.locationRefreshButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.locationRefreshButton.refreshing {
+  background-color: rgba(45, 138, 231, 0.1);
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .locationAddress {
   font-family: var(--font-family);
   font-weight: 400;
@@ -165,14 +188,15 @@
 
 .nearbyHeader {
   margin-bottom: var(--spacing-lg);
+  padding: var(--section-header-padding);
 }
 
 .nearbyTitle {
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 20px;
+  font-size: var(--title-size);
   line-height: 0.832;
-  color: var(--gray-600);
+  color: var(--section-title-color);
   margin: 0;
 }
 
@@ -265,19 +289,6 @@
   margin: 0;
 }
 
-/* 스켈레톤 거리 배지 */
-.skeletonDistance {
-  background-color: #e9ecef !important;
-}
-
-.skeletonDistanceText {
-  width: 40px;
-  height: 16px;
-  background-color: #dee2e6;
-  border-radius: 4px;
-  margin: 0 auto;
-}
-
 .nearbyDescription {
   font-family: var(--font-family);
   font-weight: 400;
@@ -285,6 +296,73 @@
   line-height: 1.071;
   color: var(--gray-500);
   margin: 0;
+}
+
+/* 경북씰 스켈레톤 UI */
+.sealSkeleton {
+  width: 100%;
+  height: 200px; /* 더 긴 높이 설정 */
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 2px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.sealSkeletonImage {
+  flex: 1;
+  min-height: 140px; /* 더 긴 최소 높이 */
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  margin: 0;
+  border-radius: 2px;
+}
+
+.sealSkeletonBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 28px;
+  height: 14px;
+  background: linear-gradient(90deg, #e9ecef 25%, #dee2e6 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 7px;
+}
+
+.sealSkeletonName {
+  position: absolute;
+  top: 8px;
+  left: 44px;
+  right: 8px;
+  height: 12px;
+  background: linear-gradient(90deg, #e9ecef 25%, #dee2e6 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+/* 스켈레톤 거리 텍스트 */
+.skeletonDistanceText {
+  width: 40px;
+  height: 16px;
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .stickerGrid {
@@ -399,30 +477,76 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  width: 320px;
+  width: 400px;
+  height: 500px;
   align-items: center;
+  overflow: visible;
 }
 
 .modalCard {
-  background-color: #ffffff;
-  border: 3px solid var(--pink-main);
+  border: none;
   border-radius: 15px;
-  width: 320px;
-  height: 380px;
-  overflow: hidden;
-  box-shadow: 0px 0px 16.48px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+/* 모으지 않은 씰 - 투명 배경 */
+.modalCard.notCollected {
+  overflow: hidden;
   padding: 0;
+  background-color: transparent;
+}
+
+/* 모은 씰 - 투명 배경 */
+.modalCard.collected {
+  overflow: visible;
+  padding: 20px;
+  background-color: transparent;
 }
 
 .modalSealCardWrapper {
-  width: 100%;
-  height: 100%;
+  width: 320px;
+  height: 387.5px;
   transform: scale(1);
   border-radius: 0;
+  position: relative;
+  perspective: 1000px;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.modalCard.flipped .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  background: transparent;
 }
 
 .modalButtonWrapper {
@@ -530,15 +654,31 @@
 
 /* 획득 버튼 성공 상태 */
 .modalAcquireButton.success {
-  background-color: var(--green-main);
+  background: linear-gradient(45deg, #4caf50, #66bb6a, #4caf50);
+  background-size: 200% 200%;
   color: white;
   cursor: not-allowed;
   pointer-events: none;
-  animation: successPulse 0.5s ease-in-out;
+  animation: successPulse 0.5s ease-in-out,
+    successButtonGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
 }
 
 .modalAcquireButton.success:hover {
   background-color: var(--green-main);
+}
+
+/* 획득 버튼 수집된 상태 */
+.modalAcquireButton.collected {
+  background-color: white;
+  color: #2d8ae7;
+  border: 2px solid #2d8ae7;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 8px 16px;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 /* 카드 회전 애니메이션 */
@@ -548,7 +688,9 @@
 
 /* 카드 색상 채우기 효과 */
 .modalCard.filled {
-  animation: cardFill 0.5s ease-in-out forwards;
+  animation: cardFill 0.5s ease-in-out forwards,
+    successGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
 }
 
 /* 버튼 내부 콘텐츠 */
@@ -603,6 +745,35 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+/* 성공 시 반짝이는 효과 */
+@keyframes successGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8), 0 0 40px rgba(76, 175, 80, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+}
+
+/* 성공 버튼 그라데이션 애니메이션 */
+@keyframes successButtonGlow {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+  }
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
   }
 }
 

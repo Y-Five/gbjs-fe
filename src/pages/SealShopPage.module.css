@@ -244,19 +244,20 @@
 
 .sectionHeader {
   margin-bottom: 25px;
+  padding: var(--section-header-padding);
 }
 
 .sectionTitle {
-  font-size: 20px;
+  font-size: var(--title-size);
   font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 4px;
+  color: var(--section-title-color);
+  margin-bottom: var(--section-title-margin);
 }
 
 .sectionSubtitle {
-  font-size: 14px;
+  font-size: var(--body-size);
   font-weight: 400;
-  color: #5e5e5e;
+  color: var(--section-subtitle-color);
   line-height: 1;
 }
 
@@ -384,6 +385,57 @@
   padding: 40px 20px;
   color: #666;
   font-size: 16px;
+}
+
+.errorState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.errorIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.errorMessage {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.retryButton {
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.retryButton:hover:not(:disabled) {
+  background: #1b75d0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 117, 208, 0.3);
+}
+
+.retryButton:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.retryContainer {
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: var(--breakpoint-mobile)) {
