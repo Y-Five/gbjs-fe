@@ -84,7 +84,7 @@ export default function SealsDataProvider({ children }) {
 
   return children({
     seals,
-    loading: loading || isRefreshing,
+    loading: loading,
     error,
     totalCount,
     collectedCount,

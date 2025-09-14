@@ -1,28 +1,27 @@
-import TourCard from "./TourCard";
-import styles from "./TourSection.module.css";
+import CourseCardSection from '../global/CourseCardSection';
 
 export default function TourSection({
   tourData,
-  title = "관광지 음성 가이드",
-  description = "경주의 주요 관광지를 둘러보세요",
+  title = '관광지 음성 가이드',
+  description = '경주의 주요 관광지를 둘러보세요',
   onTourClick,
-  className = "",
+  className = '',
 }) {
+  // tourData를 CourseCardSection에서 사용할 수 있는 형태로 변환
+  const cards = tourData.map((tour) => ({
+    name: tour.name,
+    location: tour.location,
+    image: tour.image,
+    id: tour.id,
+  }));
+
   return (
-    <div className={`${styles.tourSection} ${className}`}>
-      <div className={styles.sectionHeader}>
-        <h3 className={styles.sectionTitle}>{title}</h3>
-        <p className={styles.sectionDescription}>{description}</p>
-      </div>
-      <div className={styles.tourCards}>
-        {tourData.map((tour) => (
-          <TourCard
-            key={tour.id}
-            tour={tour}
-            onClick={() => onTourClick?.(tour)}
-          />
-        ))}
-      </div>
-    </div>
+    <CourseCardSection
+      title={title}
+      sub={description}
+      cards={cards}
+      onCardClick={onTourClick}
+      className={className}
+    />
   );
 }

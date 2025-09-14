@@ -8,7 +8,8 @@ import {
   SealShopContainer,
   LoadingState,
 } from '../components/sealShop';
-import { AlertModal } from '../components/global';
+import ProductGridSkeleton from '../components/sealShop/ProductGridSkeleton';
+import { AlertModal, SkeletonCard } from '../components/global';
 import styles from './SealShopPage.module.css';
 
 export default function SealShopPage() {
@@ -21,6 +22,10 @@ export default function SealShopPage() {
         totalSeals,
         products,
         loading,
+        productsLoading,
+        userSealsLoading,
+        productsError,
+        userSealsError,
         selectedProduct,
         showInsufficientModal,
         showLoginModal,
@@ -31,6 +36,8 @@ export default function SealShopPage() {
         handleLoginClick,
         handleCloseLoginModal,
         handleCloseInsufficientModal,
+        handleRetryProducts,
+        handleRetryUserSeals,
       }) => {
         const handleShopButtonClickWithScroll = () => {
           handleShopButtonClick();
@@ -42,10 +49,6 @@ export default function SealShopPage() {
             });
           }
         };
-
-        if (loading) {
-          return <LoadingState />;
-        }
 
         return (
           <div className={styles.page}>
@@ -60,6 +63,9 @@ export default function SealShopPage() {
                 onAllSealsClick={handleAllSealsClick}
                 onShopButtonClick={handleShopButtonClickWithScroll}
                 isLoggedIn={isLoggedIn}
+                userSealsLoading={userSealsLoading}
+                userSealsError={userSealsError}
+                onRetryUserSeals={handleRetryUserSeals}
               />
 
               <ProductSection
@@ -68,6 +74,9 @@ export default function SealShopPage() {
                 collectedSeals={collectedSeals}
                 onProductClick={handleProductClick}
                 isLoggedIn={isLoggedIn}
+                productsLoading={productsLoading}
+                productsError={productsError}
+                onRetryProducts={handleRetryProducts}
               />
             </main>
 
