@@ -1,7 +1,11 @@
+.container {
+  margin-bottom: 16px;
+}
+
 .tabs {
   display: flex;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .tab {
@@ -31,4 +35,42 @@
   height: 2px;
   background-color: var(--blue-main);
   border-radius: 2px;
+}
+
+.sortOptions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--gray-50);
+  border-radius: 8px;
+}
+
+.sortLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  margin-right: 4px;
+}
+
+.sortTab {
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-400);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sortTab:hover {
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.sortTab.active {
+  background-color: var(--blue-main);
+  color: white;
 }

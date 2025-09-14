@@ -96,8 +96,15 @@
   font-weight: 400;
 }
 
-.spotSection{
-    display: flex;
-    gap: 2px;
-    flex-direction: column;
+.address {
+  font-size: 11px;
+  color: var(--gray-300);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.spotSection {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
 }

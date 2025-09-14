@@ -60,17 +60,16 @@ export default function Sidebar({ isOpen, onClose }) {
               {item.label}
             </li>
           ))}
-        </ul>
 
-        <div className={styles.divider} />
-        <div
-          className={`${styles.bottom} ${
-            location.pathname === '/mypage' ? styles.myPageActive : ''
-          }`}
-          onClick={handleMyPageClick}
-        >
-          마이페이지
-        </div>
+          <div
+            className={`${styles.bottom} ${
+              location.pathname === '/mypage' ? styles.myPageActive : ''
+            }`}
+            onClick={handleMyPageClick}
+          >
+            마이페이지
+          </div>
+        </ul>
       </div>
     </div>
   );

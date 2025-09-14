@@ -1,0 +1,236 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* 배경 이미지 */
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 382px;
+  z-index: 1;
+}
+
+.backgroundImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 페이지 인디케이터 */
+.pageIndicator {
+  position: absolute;
+  top: 357px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.indicatorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.activeIndicator {
+  width: 28px;
+  height: 8px;
+  border-radius: 100px;
+  background-color: #2d71b5;
+  border: 1px solid #ffffff;
+}
+
+/* 앱 로고 및 타이틀 */
+.logoSection {
+  position: absolute;
+  top: 454px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 2;
+}
+
+.appTitle {
+  font-family: "Gmarket Sans TTF", sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.1em;
+  letter-spacing: -1%;
+  color: #444444;
+  margin: 0 0 4px 0;
+}
+
+.appSubtitle {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.193359375em;
+  letter-spacing: -2%;
+  color: #444444;
+  margin: 0;
+}
+
+/* 설명 텍스트 */
+.descriptionSection {
+  position: absolute;
+  top: 530px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 283px;
+  z-index: 2;
+}
+
+.description {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5em;
+  text-align: center;
+  color: #6f6f6f;
+  margin: 0;
+}
+
+/* 카카오 로그인 버튼 */
+.loginSection {
+  position: absolute;
+  top: 625px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.kakaoLoginButton {
+  width: 301px;
+  height: 55px;
+  background-color: #fee500;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.kakaoLoginButton:hover {
+  background-color: #fdd835;
+  transform: translateY(-1px);
+}
+
+.kakaoLoginButton:active {
+  transform: translateY(0);
+}
+
+.kakaoLoginButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.kakaoIcon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kakaoIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.kakaoText {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.193359375em;
+  color: #151515;
+  text-align: center;
+}
+
+/* 건너뛰기 버튼 */
+.skipSection {
+  position: absolute;
+  top: 752px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.skipButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transition: opacity 0.2s ease;
+}
+
+.skipButton:hover {
+  opacity: 0.7;
+}
+
+.skipText {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #6f6f6f;
+  text-align: center;
+}
+
+.skipUnderline {
+  width: 100px;
+  height: 1px;
+  background-color: #6f6f6f;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 430px) {
+  .container {
+    max-width: 393px;
+    margin: 0 auto;
+  }
+
+  .backgroundImage {
+    height: 382px;
+  }
+
+  .kakaoLoginButton {
+    width: 280px;
+  }
+
+  .descriptionSection {
+  }
+}
+
+@media (max-width: 375px) {
+  .kakaoLoginButton {
+    width: 260px;
+  }
+
+  .descriptionSection {
+    width: 240px;
+  }
+
+  .appTitle {
+    font-size: 28px;
+  }
+
+  .appSubtitle {
+    font-size: 14px;
+  }
+}

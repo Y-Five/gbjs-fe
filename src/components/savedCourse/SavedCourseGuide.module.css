@@ -10,7 +10,7 @@
 }
 
 .icon {
-  width: 110px;
+  width: 80px;
   height: 80px;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .mainText {
-  color: #1A1A1A;
+  color: #1a1a1a;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
@@ -29,7 +29,7 @@
 }
 
 .subText {
-  color: #1A1A1A;
+  color: #1a1a1a;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
