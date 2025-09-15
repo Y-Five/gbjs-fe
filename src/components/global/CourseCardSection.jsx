@@ -7,6 +7,8 @@ export default function CourseCardSection({
   cards = [],
   loading = false,
   error = null,
+  activeTab = 0,
+  onTabChange = null,
 }) {
   return (
     <section className={styles.section}>
@@ -18,7 +20,10 @@ export default function CourseCardSection({
           {tabs.map((tab, index) => (
             <button
               key={index}
-              className={`${styles.tab} ${index === 0 ? styles.active : ""}`}
+              className={`${styles.tab} ${
+                index === activeTab ? styles.active : ""
+              }`}
+              onClick={() => onTabChange && onTabChange(index)}
             >
               {tab}
             </button>
@@ -43,6 +48,9 @@ export default function CourseCardSection({
               <div className={styles.description}>
                 <p className={styles.name}>{card.name}</p>
                 <p className={styles.location}>{card.location}</p>
+                {card.locationName && (
+                  <p className={styles.locationName}>{card.locationName}</p>
+                )}
               </div>
             </div>
           ))

@@ -7,7 +7,8 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* 선택 사항 */
 
   /* Font */
-  --font-family: 'Pretendard', sans-serif;
+  --font-family: "Pretendard", sans-serif;
+  --title-font: "TitleFont", sans-serif;
 
   /* Grayscale */
   --gray-100: #ffffff;
@@ -64,10 +65,16 @@ select {
   font-family: var(--font-family);
 }
 
-
 /* input:focus,
 textarea:focus {
   border: none;
   outline: none;
 }
  */
+
+@font-face {
+  font-family: "TitleFont";
+  src: url("/font/Jalnan2TTF.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

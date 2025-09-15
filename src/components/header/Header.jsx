@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import styles from "./Header.module.css";
 import { RiChatAiLine } from "react-icons/ri";
@@ -7,7 +7,11 @@ import Sidebar from "./Sidebar";
 
 export default function Header({ title = "경북지색", isDark = false }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // 현재 URL이 "/"인지 확인
+  const isHomePage = location.pathname === "/";
 
   const handleMenuClick = () => {
     setSidebarOpen(true);
@@ -20,7 +24,11 @@ export default function Header({ title = "경북지색", isDark = false }) {
   return (
     <>
       <header className={`${styles.header} ${isDark ? styles.dark : ""}`}>
-        <h1 className={`${styles.title} ${isDark ? styles.darkTitle : ""}`}>
+        <h1
+          className={`${styles.title} ${isDark ? styles.darkTitle : ""} ${
+            isHomePage ? styles.homeTitle : ""
+          }`}
+        >
           {title}
         </h1>
         <div className={styles.rightIcons}>

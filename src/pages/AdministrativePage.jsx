@@ -117,12 +117,10 @@ export default function AdministrativePage() {
           showTitle={false}
           selectedLocations={selectedLocations}
         />
-        {isLoadingSeals ? (
-          <div>띠부씰 조회 중...</div>
-        ) : regionSealsData ? (
+        {regionSealsData ? (
           <StickerList stickers={stickers} />
         ) : (
-          <div>지역을 선택해주세요.</div>
+          <div className={styles.emptyMessage}>지역을 선택해주세요.</div>
         )}
       </div>
     </>

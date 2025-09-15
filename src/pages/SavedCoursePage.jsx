@@ -10,14 +10,18 @@ export default function SavedCoursePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLocations, setSelectedLocations] = useState([]);
+  const [sortBy, setSortBy] = useState("LATEST");
 
   // 저장된 코스 목록 조회
-  const fetchSavedCourses = async (locationNames = []) => {
+  const fetchSavedCourses = async (locationNames = [], sortOrder = sortBy) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await savedCourseService.getSavedCourses(locationNames);
+      const response = await savedCourseService.getSavedCourses(
+        locationNames,
+        sortOrder
+      );
 
       if (response.code === "SUCCESS") {
         setSavedCourses(response.data?.courses || []);
@@ -40,7 +44,13 @@ export default function SavedCoursePage() {
   // 지역 선택 변경 시 코스 목록 필터링
   const handleRegionSelect = (selected) => {
     setSelectedLocations(selected);
-    fetchSavedCourses(selected);
+    fetchSavedCourses(selected, sortBy);
+  };
+
+  // 정렬 변경 핸들러
+  const handleSortChange = (newSortBy) => {
+    setSortBy(newSortBy);
+    fetchSavedCourses(selectedLocations, newSortBy);
   };
 
   return (
@@ -59,6 +69,7 @@ export default function SavedCoursePage() {
           courses={savedCourses}
           loading={loading}
           error={error}
+          onSortChange={handleSortChange}
         />
       </div>
     </div>

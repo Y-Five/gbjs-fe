@@ -8,6 +8,8 @@ import AdministrativePage from "../pages/AdministrativePage";
 import SearchPage from "../pages/SearchPage";
 import PlaceDetailPage from "../pages/PlaceDetailPage";
 import FestivalDetailPage from "../pages/FestivalDetailPage";
+import FestivalListPage from "../pages/FestivalListPage";
+import TraditionalProductsListPage from "../pages/TraditionalProductsListPage";
 import ChatPage from "../pages/ChatPage";
 import MyPage from "../pages/MyPage";
 import AccountEditPage from "../pages/AccountEditPage";
@@ -29,11 +31,19 @@ export default function AppRouter() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/place/:contentId" element={<PlaceDetailPage />} />
         <Route path="/festival/:contentid" element={<FestivalDetailPage />} />
+        <Route path="/festival-list" element={<FestivalListPage />} />
+        <Route
+          path="/traditional-products-list"
+          element={<TraditionalProductsListPage />}
+        />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account-edit" element={<AccountEditPage />} />
         <Route path="/account-withdrawal" element={<AccountWithdrawalPage />} />
-        <Route path="/account-withdrawal-complete" element={<AccountWithdrawalCompletePage />} />
+        <Route
+          path="/account-withdrawal-complete"
+          element={<AccountWithdrawalCompletePage />}
+        />
         <Route path="/saved-course" element={<SavedCoursePage />} />
       </Routes>
     </Router>

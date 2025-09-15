@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import styles from "./MapPreview.module.css";
 
-export default function MapPreview({ courseData }) {
+export default function MapPreview({ courseData, selectedDay = 1 }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
 
@@ -9,7 +9,7 @@ export default function MapPreview({ courseData }) {
     // 카카오맵 API 로드
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${
-      import.meta.env.VITE_KAKAO_MAP_API_KEY
+      import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY
     }&autoload=false`;
     script.async = true;
     document.head.appendChild(script);
@@ -25,23 +25,26 @@ export default function MapPreview({ courseData }) {
     return () => {
       document.head.removeChild(script);
     };
-  }, [courseData]);
+  }, [courseData, selectedDay]);
 
   const initializeMap = () => {
     if (!courseData || !courseData.dailyCourses) return;
 
-    // 모든 스팟의 좌표를 수집
-    const allSpots = [];
-    courseData.dailyCourses.forEach((dailyCourse) => {
-      dailyCourse.spots.forEach((spot) => {
-        allSpots.push({
-          lat: spot.latitude,
-          lng: spot.longitude,
-          name: spot.name,
-          isSealSpot: spot.isSealSpot,
-        });
-      });
-    });
+    // 선택된 일차의 스팟만 수집
+    const selectedDayCourse = courseData.dailyCourses.find(
+      (course) => course.dayNumber === selectedDay
+    );
+
+    if (!selectedDayCourse) return;
+
+    const allSpots = selectedDayCourse.spots.map((spot, index) => ({
+      lat: spot.latitude,
+      lng: spot.longitude,
+      name: spot.name,
+      isSealSpot: spot.isSealSpot,
+      visitOrder: spot.visitOrder,
+      order: index + 1,
+    }));
 
     if (allSpots.length === 0) return;
 
@@ -63,14 +66,12 @@ export default function MapPreview({ courseData }) {
     allSpots.forEach((spot, index) => {
       const markerPosition = new window.kakao.maps.LatLng(spot.lat, spot.lng);
 
-      // 띠부씰 스팟은 다른 색상의 마커 사용
-      const markerImage = spot.isSealSpot
-        ? new window.kakao.maps.MarkerImage(
-            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-            new window.kakao.maps.Size(24, 35),
-            { offset: new window.kakao.maps.Point(12, 35) }
-          )
-        : undefined;
+      // 파란색 마커 이미지 생성
+      const markerImage = new window.kakao.maps.MarkerImage(
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png",
+        new window.kakao.maps.Size(24, 35),
+        { offset: new window.kakao.maps.Point(12, 35) }
+      );
 
       const marker = new window.kakao.maps.Marker({
         position: markerPosition,
@@ -79,15 +80,29 @@ export default function MapPreview({ courseData }) {
 
       marker.setMap(mapInstance.current);
 
-      // 인포윈도우 생성
-      const infowindow = new window.kakao.maps.InfoWindow({
-        content: `<div style="padding:5px; font-size:12px;">${spot.name}</div>`,
+      // 마커 위에 숫자 표시를 위한 커스텀 오버레이 생성
+      const customOverlay = new window.kakao.maps.CustomOverlay({
+        position: markerPosition,
+        content: `<div style="
+          background-color: #2d8ae7;
+          color: white;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          font-weight: bold;
+          border: 3px solid white;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          margin-top: -40px;
+          margin-left: -14px;
+        ">${spot.visitOrder || spot.order}</div>`,
+        yAnchor: 1,
       });
 
-      // 마커 클릭 이벤트
-      window.kakao.maps.event.addListener(marker, "click", () => {
-        infowindow.open(mapInstance.current, marker);
-      });
+      customOverlay.setMap(mapInstance.current);
     });
 
     // 모든 마커가 보이도록 지도 범위 조정

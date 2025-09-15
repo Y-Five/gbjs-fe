@@ -4,3 +4,13 @@
   background-color: var(--blue-light);
   min-height: 100vh;
 }
+
+.emptyMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}

@@ -114,6 +114,7 @@ export default function DateSelector({
           onDayMouseEnter={handleDayMouseEnter}
           onMonthMouseLeave={() => setSelectingDate(null)}
           calendarClassName={styles.calendarWrapper}
+          minDate={new Date()} // 오늘 이전 날짜 선택 불가
           maxDate={
             startDate
               ? new Date(startDate.getTime() + 4 * 24 * 60 * 60 * 1000)

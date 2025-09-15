@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./TraditionalProducts.module.css";
 import { traditionService } from "../../apis/main";
 
 export default function TraditionalProducts() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,6 +35,13 @@ export default function TraditionalProducts() {
   const handleTabChange = (type) => {
     setActiveTab(type);
     fetchTraditions(type);
+  };
+
+  // 더보기 버튼 클릭 핸들러
+  const handleLoadMore = () => {
+    navigate("/traditional-products-list", {
+      state: { type: activeTab },
+    });
   };
 
   return (
@@ -77,7 +86,17 @@ export default function TraditionalProducts() {
                 />
                 <div className={styles.info}>
                   <p className={styles.location}>{product.address}</p>
-                  <div className={styles.nameRow}>
+                  <div
+                    className={styles.nameRow}
+                    onClick={() => {
+                      if (product.redirectUrl) {
+                        window.open(product.redirectUrl, "_blank");
+                      }
+                    }}
+                    style={{
+                      cursor: product.redirectUrl ? "pointer" : "default",
+                    }}
+                  >
                     <p className={styles.name}>{product.name}</p>
                     <span className={styles.arrow}>›</span>
                   </div>
@@ -85,6 +104,12 @@ export default function TraditionalProducts() {
               </div>
             ))}
           </div>
+        )}
+
+        {products.length > 0 && (
+          <button className={styles.loadMoreButton} onClick={handleLoadMore}>
+            더보기
+          </button>
         )}
       </div>
     </section>

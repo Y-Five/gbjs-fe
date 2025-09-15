@@ -105,8 +105,7 @@
 
 /* 로딩, 에러, 데이터 없음 상태 스타일 */
 .loading,
-.error,
-.noData {
+.error {
   font-size: 16px;
   font-weight: 400;
   color: var(--gray-500);
@@ -122,6 +121,34 @@
   color: #ff5858;
 }
 
-.noData {
-  color: var(--gray-400);
+.noDataCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin: 0 0 20px 0;
+}
+
+.noDataTitle {
+  color: #2d8ae7;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 130% */
+  letter-spacing: -0.479px;
+  margin-bottom: 5px;
+}
+
+.noDataSubtitle {
+  color: #8f8f8f;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.157px; /* 136.838% */
+  letter-spacing: -0.479px;
 }
