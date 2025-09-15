@@ -1,0 +1,76 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.modalContent {
+  max-width: 430px;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+}
+
+.modalCard {
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  padding: 25px 0 15px 0;
+  max-width: 314px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.modalText {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 0.9375em;
+  color: #1A1A1A;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.modalDivider {
+  width: 281px;
+  height: 1px;
+  background-color: #E5E5E5;
+  margin: 0 auto 16px auto;
+}
+
+.modalButton {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 0.9375em;
+  color: #2D8AE7;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  width: 28px;
+  height: 15px;
+}
+
+.modalButton:hover {
+  opacity: 0.8;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

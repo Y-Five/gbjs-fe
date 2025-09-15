@@ -17,7 +17,13 @@ export default function DescriptionBanner({ viewMode }) {
     </>,
   ];
 
-  const lines = viewMode === "course" ? courseLines : regionLines;
+  const shopLines = [
+    <>경북 각지의 특별한 띠부씰을</>,
+    <>온라인으로 만나보세요!</>,
+  ];
+
+  const lines = viewMode === "course" ? courseLines : 
+               viewMode === "shop" ? shopLines : regionLines;
 
   return (
     <div className={styles.banner}>

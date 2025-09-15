@@ -1,0 +1,31 @@
+@import '../../styles/shared-utilities.css';
+
+.header {
+  position: relative;
+  padding: 24px 28px;
+  background-color: #eff7ff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.backButton {
+  composes: btn-reset flex-center;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.searchSection {
+  flex: 1;
+}
+
+.backArrow {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
