@@ -1,0 +1,125 @@
+/* ProductGrid Styles - 반응형 그리드 레이아웃 */
+
+.container {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding: 0 var(--spacing-xs);
+}
+
+.count {
+  font-size: var(--body-size);
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: var(--spacing-2xl);
+}
+
+.emptyContent {
+  text-align: center;
+  max-width: 300px;
+}
+
+.emptyIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+  opacity: 0.6;
+  display: block;
+}
+
+.emptyTitle {
+  font-size: var(--title-size);
+  color: var(--gray-500);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.emptyDescription {
+  font-size: var(--body-size);
+  color: var(--gray-400);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet Styles */
+@media (max-width: var(--breakpoint-tablet)) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .header {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .emptyState {
+    min-height: 300px;
+    padding: var(--spacing-xl);
+  }
+  
+  .emptyIcon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: var(--breakpoint-mobile)) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .header {
+    margin-bottom: var(--spacing-sm);
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+  
+  .emptyState {
+    min-height: 250px;
+    padding: var(--spacing-lg);
+  }
+  
+  .emptyIcon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .emptyTitle {
+    font-size: 18px;
+  }
+  
+  .emptyDescription {
+    font-size: var(--small-size);
+  }
+}
+
+/* Large Screen Optimization */
+@media (min-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+  }
+}

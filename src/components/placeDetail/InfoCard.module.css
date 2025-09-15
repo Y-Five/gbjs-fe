@@ -1,4 +1,4 @@
-@import "../../styles/common-variables.css";
+@import '../../styles/common-variables.css';
 
 .infoCard {
   position: relative;
@@ -19,7 +19,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 12px;
   font-weight: 600;
   line-height: 1;
@@ -36,7 +36,7 @@
 }
 
 .title {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 16.64px;
@@ -45,7 +45,7 @@
 }
 
 .tags {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 16.64px;
@@ -54,12 +54,30 @@
 }
 
 .description {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 23px;
   color: #1a1a1a;
-  margin: 15px 0 15px;
+  margin: 15px 0 8px;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  color: #5e5e5e;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0 15px 0;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.expandButton:hover {
+  color: #2d8ae7;
 }
 
 .divider {
@@ -99,15 +117,17 @@
 .address,
 .phone,
 .day,
-.hours {
-  font-family: "Pretendard", sans-serif;
+.hours,
+.distance {
+  font-family: 'Pretendard', sans-serif;
   font-size: 14px;
   line-height: 15px;
   color: #1a1a1a;
 }
 
 .address,
-.phone {
+.phone,
+.distance {
   font-weight: 400;
 }
 

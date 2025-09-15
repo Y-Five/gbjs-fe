@@ -1,4 +1,4 @@
-@import "../../styles/chat-variables.css";
+@import '../../styles/chat-variables.css';
 
 .inputContainer {
   background-color: white;
@@ -36,6 +36,12 @@
   border-color: #2d8ae7;
 }
 
+.input:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
 .sendButton {
   position: absolute;
   right: 4px;
@@ -62,4 +68,9 @@
 
 .sendButton:not(:disabled):active {
   transform: scale(0.95);
+}
+
+.sendButton.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
 }

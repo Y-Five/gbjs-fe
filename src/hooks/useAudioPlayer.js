@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 const TIMER_INTERVAL = 1000;
 
@@ -19,7 +19,8 @@ export const useAudioPlayer = (audioUrl, defaultDuration = 90) => {
     audioRef.current = audio;
 
     const handleLoadedMetadata = () => setDuration(Math.round(audio.duration));
-    const handleTimeUpdate = () => setCurrentTime(Math.floor(audio.currentTime));
+    const handleTimeUpdate = () =>
+      setCurrentTime(Math.floor(audio.currentTime));
     const handleEnded = () => {
       setIsPlaying(false);
       setCurrentTime(0);
@@ -29,18 +30,18 @@ export const useAudioPlayer = (audioUrl, defaultDuration = 90) => {
       audioRef.current = null;
     };
 
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("ended", handleEnded);
-    audio.addEventListener("error", handleError);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('error', handleError);
 
     return () => {
       audio.pause();
-      audio.src = "";
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("ended", handleEnded);
-      audio.removeEventListener("error", handleError);
+      audio.src = '';
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('error', handleError);
     };
   }, [audioUrl, defaultDuration]);
 
@@ -90,23 +91,35 @@ export const useAudioPlayer = (audioUrl, defaultDuration = 90) => {
     }
   }, [isPlaying, currentTime, duration]);
 
-  const handleProgressClick = useCallback((e) => {
-    if (!duration) return;
+  const handleProgressClick = useCallback(
+    (e) => {
+      if (!duration) return;
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickPercentage = (e.clientX - rect.left) / rect.width;
-    const newTime = Math.floor(duration * Math.max(0, Math.min(1, clickPercentage)));
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickPercentage = (e.clientX - rect.left) / rect.width;
+      const newTime = Math.floor(
+        duration * Math.max(0, Math.min(1, clickPercentage))
+      );
 
-    setCurrentTime(newTime);
+      setCurrentTime(newTime);
+      if (audioRef.current) {
+        audioRef.current.currentTime = newTime;
+      }
+    },
+    [duration]
+  );
+
+  const handleSeek = useCallback((time) => {
+    setCurrentTime(time);
     if (audioRef.current) {
-      audioRef.current.currentTime = newTime;
+      audioRef.current.currentTime = time;
     }
-  }, [duration]);
+  }, []);
 
   const formatTime = useCallback((seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   }, []);
 
   return {
@@ -115,6 +128,7 @@ export const useAudioPlayer = (audioUrl, defaultDuration = 90) => {
     duration,
     handlePlayPause,
     handleProgressClick,
+    handleSeek,
     formatTime,
   };
 };

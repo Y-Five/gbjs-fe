@@ -1,4 +1,4 @@
-@import "../styles/common-variables.css";
+@import '../styles/common-variables.css';
 
 .container {
   display: flex;
@@ -9,6 +9,7 @@
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
+  padding-bottom: 40px;
 }
 
 .loadingContainer {
@@ -20,18 +21,15 @@
 }
 
 .loader {
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 16px;
   color: #2d8ae7;
 }
 
 .header {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   z-index: 1000;
-  background-color: var(--blue-light);
+  background-color: #eff7ff;
 }
 
 .imageSection {
@@ -45,4 +43,45 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #eff7ff;
+  min-height: 100vh;
+}
+
+.errorMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.errorMessage p {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.retryButton {
+  background-color: var(--blue-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: var(--blue-dark);
 }

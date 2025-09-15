@@ -1,125 +1,157 @@
-import { useState, useEffect, useMemo } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { SearchBoxContainer as SearchBox } from "../components/global";
-import { SearchFilters, SearchResults } from "../components/search";
-import { IoChevronDown } from "react-icons/io5";
-import { LuChevronLeft } from "react-icons/lu";
-import { useDropdown } from "../hooks/useDropdown";
-import { SORT_OPTIONS, sortFunctions, filterFunction, SEARCH_RESULTS_DATA } from "../data/searchData";
-import styles from "./SearchPage.module.css";
+import { useState, useMemo, useCallback, memo, useEffect, useRef } from 'react';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
+import { SearchBoxContainer as SearchBox } from '../components/global';
+import {
+  SearchFilters,
+  SearchResults,
+  SearchHeader,
+  SearchSortSection,
+} from '../components/search';
+import { useSearchData } from '../hooks/useSearchData';
+import { FILTER_OPTIONS } from '../data/searchData';
+import styles from './SearchPage.module.css';
 
-export default function SearchPage() {
+const SearchPage = memo(function SearchPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-  const [selectedFilter, setSelectedFilter] = useState("전체");
-  const [sortBy, setSortBy] = useState(SORT_OPTIONS[0]);
-  const [searchResults, setSearchResults] = useState([]);
-  const dropdown = useDropdown();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [selectedFilter, setSelectedFilter] = useState('전체');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const isInitialized = useRef(false);
+
+  const previousPage = useRef(location.state?.from || '/');
+
+  const getSortByFromParams = (order) => {
+    switch (order) {
+      case 'ABC':
+        return { key: 'ABC', label: '가나다순' };
+      case 'DISTANCE':
+      default:
+        return { key: 'DISTANCE', label: '거리순' };
+    }
+  };
+
+  const [sortBy, setSortBy] = useState(
+    getSortByFromParams(searchParams.get('order'))
+  );
+
+  const {
+    searchResults,
+    loading,
+    hasMore,
+    totalElements,
+    lastElementRef,
+    executeSearch,
+  } = useSearchData(searchQuery, sortBy, selectedCategory);
 
   useEffect(() => {
-    setSearchResults(SEARCH_RESULTS_DATA);
+    if (!isInitialized.current) {
+      const urlQuery = searchParams.get('q');
+      const urlOrder = searchParams.get('order');
+
+      if (urlQuery?.trim()) {
+        setSearchQuery(urlQuery);
+
+        if (urlOrder) {
+          setSortBy(getSortByFromParams(urlOrder));
+        }
+
+        setTimeout(() => {
+          executeSearch();
+        }, 0);
+      }
+
+      isInitialized.current = true;
+    }
   }, []);
 
   const filteredAndSorted = useMemo(() => {
-    let results = [...searchResults];
-    
-    if (searchQuery) {
-      const lowerQuery = searchQuery.toLowerCase();
-      results = results.filter(item => 
-        item.name.toLowerCase().includes(lowerQuery) ||
-        item.tags.some(tag => tag.toLowerCase().includes(lowerQuery)) ||
-        item.description.toLowerCase().includes(lowerQuery)
+    return searchResults || [];
+  }, [searchResults]);
+
+  const handleSearch = useCallback(() => {
+    executeSearch();
+    navigate(
+      `/search?q=${encodeURIComponent(searchQuery)}&order=${sortBy.key}`,
+      { replace: true }
+    );
+  }, [navigate, searchQuery, sortBy.key, executeSearch]);
+
+  const handleBackClick = useCallback(() => {
+    navigate(previousPage.current);
+  }, [navigate]);
+
+  const handleResultClick = useCallback(
+    (result) => navigate(`/place/${result.contentId}`),
+    [navigate]
+  );
+
+  const handleSearchQueryChange = useCallback((value) => {
+    setSearchQuery(value);
+  }, []);
+
+  const handleFilterChange = useCallback(
+    (filter) => {
+      setSelectedFilter(filter);
+      // FILTER_OPTIONS에서 해당 filter의 value를 찾아서 selectedCategory 설정
+      const filterOption = FILTER_OPTIONS.find(
+        (option) => option.id === filter
       );
-    }
-    
-    results = filterFunction(results, selectedFilter);
-    
-    const sortKey = sortBy.key;
-    if (sortFunctions[sortKey]) {
-      results = sortFunctions[sortKey](results);
-    }
-    
-    return results;
-  }, [searchResults, searchQuery, selectedFilter, sortBy]);
+      setSelectedCategory(filterOption ? filterOption.value : null);
 
-  const handleSearch = () => {
-    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-  };
+      // 카테고리가 변경되면 검색 실행
+      if (searchQuery?.trim()) {
+        setTimeout(() => {
+          executeSearch();
+        }, 0);
+      }
+    },
+    [searchQuery, executeSearch]
+  );
 
-  const handleBackClick = () => navigate(-1);
-  const handleResultClick = (result) => navigate(`/place/${result.id}`);
+  const handleSortChange = useCallback(
+    (sort) => {
+      setSortBy(sort);
+      if (searchQuery?.trim()) {
+        navigate(
+          `/search?q=${encodeURIComponent(searchQuery)}&order=${sort.key}`,
+          { replace: true }
+        );
+      }
+    },
+    [searchQuery, navigate]
+  );
 
   return (
     <div className={styles.searchPage}>
-      <div className={styles.header}>
-        <button 
-          className={styles.backButton} 
-          onClick={handleBackClick}
-          aria-label="뒤로 가기"
-        >
-          <LuChevronLeft size={20} className={styles.backArrow} />
-        </button>
-
-        <SearchBox
-          placeholder="경북의 어떤 관광지를 찾으세요?"
-          value={searchQuery}
-          onChange={setSearchQuery}
-          onSearch={handleSearch}
-          autoFocus={true}
-          noMargin={true}
-          className={styles.searchSection}
-        />
-      </div>
+      <SearchHeader
+        searchQuery={searchQuery}
+        onSearchQueryChange={handleSearchQueryChange}
+        onSearch={handleSearch}
+        onBackClick={handleBackClick}
+      />
 
       <SearchFilters
         selectedFilter={selectedFilter}
-        onFilterChange={setSelectedFilter}
+        onFilterChange={handleFilterChange}
       />
 
-      <div className={styles.resultsHeader}>
-        <span className={styles.resultsCount}>
-          총 <span className={styles.countNumber}>{filteredAndSorted.length}</span> 건
-        </span>
-        <div className={styles.sortDropdown} ref={dropdown.ref}>
-          <button
-            className={styles.dropdownButton}
-            onClick={dropdown.toggle}
-            aria-label={`정렬 방식: ${sortBy.label}`}
-            aria-expanded={dropdown.isOpen}
-            aria-haspopup="listbox"
-          >
-            <span>{sortBy.label}</span>
-            <IoChevronDown 
-              size={16} 
-              className={`${styles.dropdownIcon} ${dropdown.isOpen ? styles.rotated : ''}`}
-            />
-          </button>
-          {dropdown.isOpen && (
-            <div className={styles.dropdownMenu} role="listbox" aria-label="정렬 방식 선택">
-              {SORT_OPTIONS.map((option) => (
-                <button
-                  key={option.key}
-                  className={`${styles.dropdownOption} ${sortBy.key === option.key ? styles.active : ''}`}
-                  onClick={() => {
-                    setSortBy(option);
-                    dropdown.close();
-                  }}
-                  role="option"
-                  aria-selected={sortBy.key === option.key}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchSortSection
+        totalElements={totalElements}
+        sortBy={sortBy}
+        onSortChange={handleSortChange}
+      />
 
       <SearchResults
         results={filteredAndSorted}
         onResultClick={handleResultClick}
+        lastElementRef={lastElementRef}
+        loading={loading}
+        hasMore={hasMore}
       />
     </div>
   );
-}
+});
+
+export default SearchPage;

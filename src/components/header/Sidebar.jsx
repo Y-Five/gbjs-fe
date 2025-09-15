@@ -1,16 +1,17 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import styles from "./Sidebar.module.css";
+import { useNavigate, useLocation } from 'react-router-dom';
+import styles from './Sidebar.module.css';
 
 export default function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { key: "home", label: "홈", path: "/" },
-    { key: "map", label: "띠부씰 지도", path: "/sealtour" },
-    { key: "product", label: "띠부씰 상품", path: "/sealtour" },
-    { key: "tour", label: "관광지 투어", path: "/tour" },
-    { key: "saved", label: "저장된 코스", path: "/saved-course" },
+    { key: 'home', label: '홈', path: '/' },
+    { key: 'map', label: '경북씰 지도', path: '/sealtour' },
+    { key: 'product', label: '경북씰 상품', path: '/sealshop' },
+    { key: 'acquisition', label: '경북씰 획득', path: '/getseals' },
+    { key: 'tour', label: '관광지 투어', path: '/tour' },
+    { key: 'saved', label: '저장된 코스', path: '/saved-course' },
   ];
 
   const handleMenuClick = (path) => {
@@ -19,7 +20,7 @@ export default function Sidebar({ isOpen, onClose }) {
   };
 
   const handleMyPageClick = () => {
-    navigate("/mypage");
+    navigate('/mypage');
     onClose(); // 사이드바 닫기
   };
 
@@ -33,7 +34,7 @@ export default function Sidebar({ isOpen, onClose }) {
   const currentMenuKey = getCurrentMenuKey();
 
   return (
-    <div className={`${styles.overlay} ${isOpen ? styles.show : ""}`}>
+    <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`}>
       <div className={styles.sidebar}>
         <button
           className={styles.closeButton}
@@ -63,7 +64,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
           <div
             className={`${styles.bottom} ${
-              location.pathname === "/mypage" ? styles.myPageActive : ""
+              location.pathname === '/mypage' ? styles.myPageActive : ''
             }`}
             onClick={handleMyPageClick}
           >
