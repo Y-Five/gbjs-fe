@@ -1,4 +1,5 @@
 import styles from '../../pages/SealAcquisitionPage.module.css';
+import magpieImage from '../../assets/images/seal-acquisition-illustration.png';
 
 const NotificationCard = () => {
   return (
@@ -12,7 +13,7 @@ const NotificationCard = () => {
           있어요!
         </p>
         <img
-          src="/src/assets/images/seal-acquisition-illustration.png"
+          src={magpieImage}
           alt="획득 안내"
           className={styles.notificationImage}
         />
