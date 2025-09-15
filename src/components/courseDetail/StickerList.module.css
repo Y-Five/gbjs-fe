@@ -29,6 +29,17 @@
   box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.1);
 }
 
+.card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.card.disabled:hover {
+  transform: none;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+}
+
 .collected {
   font-size: 12px;
   color: var(--blue-main);

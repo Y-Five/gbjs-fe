@@ -63,7 +63,7 @@ export default function SearchWeather() {
   const getLocationText = () => {
     if (!location.loaded) return "위치 정보 로딩 중...";
     if (location.error) return "위치 정보를 가져올 수 없습니다";
-    return `${formatDate(new Date())} >`;
+    return `${formatDate(new Date())} `;
   };
 
   return (
@@ -86,7 +86,7 @@ export default function SearchWeather() {
                   <span className={styles.weatherText}>의 날씨</span>
                 </>
               ) : (
-                "경북날씨"
+                "현재날씨"
               )}
             </p>
             <p className={styles.location}>{getLocationText()}</p>

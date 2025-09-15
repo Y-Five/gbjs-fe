@@ -102,8 +102,34 @@ export const traditionService = {
   },
 };
 
+/**
+ * 추천 코스 API 서비스
+ * 추천 코스 정보를 가져오는 API 호출
+ */
+export const courseService = {
+  /**
+   * 추천 코스 목록 조회
+   * @param {string} type - 코스 타입 (THEME: 테마별 코스, FESTIVAL: 행사별 코스)
+   * @returns {Promise} 추천 코스 목록 응답
+   */
+  getRecommendCourses: async (type) => {
+    try {
+      const response = await APIService.private.get("/api/courses/recommend", {
+        params: {
+          type,
+        },
+      });
+      return response;
+    } catch (error) {
+      console.error("추천 코스 정보 조회 실패:", error);
+      throw error;
+    }
+  },
+};
+
 export default {
   weatherService,
   festivalService,
   traditionService,
+  courseService,
 };

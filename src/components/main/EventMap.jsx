@@ -101,15 +101,33 @@ export default function EventMap() {
             </div>
           ))
         ) : selectedRegion ? (
-          <div className={styles.noData}>
-            {selectedRegion}의 축제 정보가 없습니다
+          <div className={styles.noDataCard}>
+            <div className={styles.noDataTitle}>
+              {selectedRegion}의 진행 행사가 없습니다.
+            </div>
+            <div className={styles.noDataSubtitle}>
+              경북의 다른 시/군에서 다양한 다른 행사들을 찾아보세요.
+            </div>
           </div>
         ) : (
-          <div className={styles.noData}>지도에서 지역을 선택해주세요</div>
+          <div className={styles.noDataCard}>
+            <div className={styles.noDataTitle}>
+              지도에서 지역을 선택해주세요
+            </div>
+          </div>
         )}
 
         {festivals.length > 0 && (
-          <button className={styles.loadMoreButton}>더보기</button>
+          <button
+            className={styles.loadMoreButton}
+            onClick={() =>
+              navigate("/festival-list", {
+                state: { region: selectedRegion },
+              })
+            }
+          >
+            더보기
+          </button>
         )}
       </div>
     </section>

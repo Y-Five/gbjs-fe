@@ -80,6 +80,12 @@ export async function updateTtsSetting(ttsSetting) {
   return response?.data ?? response;
 }
 
+// 로그아웃
+export async function logout() {
+  const response = await APIService.private.post("/api/auth/logout");
+  return response?.data ?? response;
+}
+
 function normalizeUser(raw) {
   if (!raw) return null;
 
@@ -107,4 +113,5 @@ export default {
   toggleLocationConsent,
   togglePushNotificationConsent,
   updateTtsSetting,
+  logout,
 };

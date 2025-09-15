@@ -8,8 +8,9 @@ export default function SavedCourseList({
   courses = [],
   loading = false,
   error = null,
+  onSortChange,
 }) {
-  const [sortOrder, setSortOrder] = useState("latest");
+  const [sortOrder, setSortOrder] = useState("LATEST");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -48,14 +49,17 @@ export default function SavedCourseList({
   // ];
 
   const sortOptions = [
-    { value: "latest", label: "최신순" },
-    { value: "oldest", label: "오래된순" },
-    { value: "name", label: "이름순" },
+    { value: "LATEST", label: "최신순" },
+    { value: "OLDEST", label: "오래된순" },
   ];
 
   const handleSortChange = (value) => {
     setSortOrder(value);
     setIsDropdownOpen(false);
+    // 부모 컴포넌트에 정렬 변경 알림
+    if (onSortChange) {
+      onSortChange(value);
+    }
   };
 
   const handleCourseClick = async (courseId) => {
@@ -215,4 +219,5 @@ SavedCourseList.propTypes = {
   courses: PropTypes.array,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  onSortChange: PropTypes.func,
 };

@@ -68,17 +68,15 @@
 .productList {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .card {
   display: flex;
-  padding: 18px;
+  width: 90%;
+  padding: 18px 0;
   align-items: center;
   border-bottom: 1px solid var(--gray-200);
-}
-
-.card:last-child {
-  border-bottom: none;
 }
 
 .image {
@@ -152,4 +150,20 @@
   font-size: 16px;
   color: var(--gray-400);
   font-weight: 500;
+}
+
+.loadMoreButton {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 23px;
+  width: 100%;
+  text-align: center;
+  color: var(--gray-300);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }

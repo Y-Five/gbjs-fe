@@ -26,7 +26,7 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
       .filter((spot) => spot.isSealSpot)
       .map((spot) => ({
         title: spot.name,
-        collected: false, // 기본값은 수집 안함
+        collected: false, // API 응답에서 실제 collected 상태를 가져올 예정
         sealSpotId: spot.sealSpotId,
       }));
   }, [courseData, selectedDay]);
@@ -65,12 +65,15 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
             return {
               ...sticker,
               sealData: response.data,
+              // 항상 API 응답의 collected 상태 사용
+              collected: response.data.collected,
             };
           } catch (err) {
             console.error(`띠부씰 ${sticker.sealSpotId} 조회 실패:`, err);
             return {
               ...sticker,
               sealData: null,
+              collected: false, // 에러 시 클릭 불가
             };
           }
         });
@@ -89,6 +92,9 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
   }, [selectedDay, courseData, getCurrentDayStickers, stickers]);
 
   const handleSealClick = (seal) => {
+    // collected가 false이면 클릭 무시
+    if (seal.collected === false) return;
+
     setSelectedSeal(seal);
     setIsModalOpen(true);
   };
@@ -124,7 +130,9 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
           {sealDetails.map((sticker, i) => (
             <div
               key={i}
-              className={styles.card}
+              className={`${styles.card} ${
+                !sticker.collected ? styles.disabled : ""
+              }`}
               onClick={() => handleSealClick(sticker)}
             >
               <img

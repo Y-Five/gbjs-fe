@@ -118,7 +118,7 @@ export default function CourseDetailPage({
     <>
       <BackHeader title={finalHeaderTitle} />
       <div className={styles.main}>
-        <MapPreview courseData={courseData} />
+        <MapPreview courseData={courseData} selectedDay={selectedDay} />
         <DayTabs
           selectedDay={selectedDay}
           onChange={setSelectedDay}

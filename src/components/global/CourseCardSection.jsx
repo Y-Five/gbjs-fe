@@ -48,6 +48,9 @@ export default function CourseCardSection({
               <div className={styles.description}>
                 <p className={styles.name}>{card.name}</p>
                 <p className={styles.location}>{card.location}</p>
+                {card.locationName && (
+                  <p className={styles.locationName}>{card.locationName}</p>
+                )}
               </div>
             </div>
           ))

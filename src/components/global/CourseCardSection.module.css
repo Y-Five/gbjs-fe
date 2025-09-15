@@ -102,9 +102,20 @@
 }
 
 .location {
+  color: #5e5e5e;
+  font-family: Pretendard;
   font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21.467px; /* 153.339% */
+  letter-spacing: -0.537px;
+  margin-bottom: 4px;
+}
+
+.locationName {
+  font-size: 12px;
   font-weight: 400;
-  color: var(--gray-400);
+  color: var(--gray-300);
 }
 
 .loading {

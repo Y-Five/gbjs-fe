@@ -127,21 +127,7 @@ export default function SealModal({ seal, isOpen, onClose }) {
                 style={{
                   backgroundImage: `url(${seal.sealData?.backImageUrl})`,
                 }}
-              >
-                <div className={styles.content}>
-                  <p className={styles.poem}>
-                    {seal.sealData?.content?.split("\n").map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        {index <
-                          seal.sealData.content.split("\n").length - 1 && (
-                          <br />
-                        )}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              </div>
+              />
             </div>
           </div>
         </div>

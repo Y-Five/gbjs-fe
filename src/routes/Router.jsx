@@ -26,6 +26,8 @@ const AccountWithdrawalCompletePage = lazy(() =>
 const SavedCoursePage = lazy(() => import('../pages/SavedCoursePage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 const SealAcquisitionPage = lazy(() => import('../pages/SealAcquisitionPage'));
+import FestivalListPage from "../pages/FestivalListPage";
+import TraditionalProductsListPage from "../pages/TraditionalProductsListPage";
 
 // Loading component for Suspense fallback
 const PageLoader = () => (
@@ -78,6 +80,11 @@ export default function AppRouter() {
           <Route path="/saved-course" element={<SavedCoursePage />} />
           <Route path="/getseals" element={<SealAcquisitionPage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/festival-list" element={<FestivalListPage />} />
+          <Route
+            path="/traditional-products-list"
+            element={<TraditionalProductsListPage />}
+          />
         </Routes>
       </Suspense>
     </Router>
