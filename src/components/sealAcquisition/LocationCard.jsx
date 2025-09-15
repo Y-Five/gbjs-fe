@@ -215,7 +215,10 @@ const LocationCard = ({
 
         // 띠부씰 데이터 새로고침
         try {
-          const sealsData = await getNearbySeals(currentLocation.lat, currentLocation.lng);
+          const sealsData = await getNearbySeals(
+            currentLocation.lat,
+            currentLocation.lng
+          );
 
           if (sealsData.code === 'SUCCESS' && sealsData.data?.nearbySeals) {
             // 부모 컴포넌트에 데이터 전달
@@ -233,6 +236,8 @@ const LocationCard = ({
               }
             }
           }
+        } catch (error) {
+          console.error('주변 띠부씰 조회 실패:', error);
         }
       }
     } catch (error) {
