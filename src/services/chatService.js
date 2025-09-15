@@ -1,35 +1,16 @@
-import axios from 'axios';
-import { APIService } from '../apis/axios';
-
-// 백엔드 서버 API 연동
-const CHAT_ENDPOINT = 'http://localhost:8000/api/chat';
+import {
+  sendMessageToChatGPT as apiSendMessageToChatGPT,
+  saveChatHistory,
+} from '../apis/chatApi';
 
 export const sendMessageToChatGPT = async (message, context = []) => {
   try {
-    const response = await axios.post(
-      CHAT_ENDPOINT,
-      {
-        message,
-        context, // 이전 대화 내용
-        // 백엔드에서 ChatGPT 시스템 프롬프트 관리
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          // 필요한 경우 인증 토큰 추가
-          // 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        },
-        timeout: 30000, // 30초 타임아웃
-      }
-    );
-
-    // axios는 자동으로 JSON 파싱하고 data 속성에 응답 저장
-    const data = response.data;
+    const data = await apiSendMessageToChatGPT(message, context);
     return data.response || data.message || data.content || data.reply;
   } catch (error) {
     console.error('Backend API Error:', error);
 
-    // axios 에러 처리
+    // 에러 처리
     if (error.code === 'ECONNABORTED') {
       throw new Error('요청 시간이 초과되었습니다. 다시 시도해주세요.');
     }
@@ -84,12 +65,7 @@ export const mockChatAPI = async (message) => {
 // 새로운 챗봇 API 호출 함수
 export const sendChatMessage = async (question) => {
   try {
-    const response = await APIService.private.post('/api/chat', {
-      question,
-    });
-
-    // API 응답에서 data 필드 추출
-    const data = response?.data ?? response;
+    const data = await apiSendMessageToChatGPT(question);
 
     // 응답이 "No relevant data found."인 경우 처리
     if (data === 'No relevant data found.') {

@@ -8,6 +8,7 @@ import {
   createMarkerImage,
 } from '../../utils/mapUtils';
 import { getAddressFromCoordinates } from '../../utils/addressUtils';
+import { getNearbySeals } from '../../apis/sealApi';
 
 const DEFAULT_ADDRESS = '위치 불러오는 중...';
 
@@ -110,15 +111,7 @@ const LocationCard = ({
           onLoadingChange(true);
         }
 
-        const response = await fetch(
-          `/api/seals/nearby?latitude=${location.lat}&longitude=${location.lng}`
-        );
-
-        if (!response.ok) {
-          throw new Error('주변 띠부씰 조회 실패');
-        }
-
-        const data = await response.json();
+        const data = await getNearbySeals(location.lat, location.lng);
 
         if (data.code === 'SUCCESS' && data.data?.nearbySeals) {
           // 부모 컴포넌트에 데이터 전달
@@ -221,12 +214,8 @@ const LocationCard = ({
         onLocationUpdate(address);
 
         // 띠부씰 데이터 새로고침
-        const sealsResponse = await fetch(
-          `/api/seals/nearby?latitude=${currentLocation.lat}&longitude=${currentLocation.lng}`
-        );
-
-        if (sealsResponse.ok) {
-          const sealsData = await sealsResponse.json();
+        try {
+          const sealsData = await getNearbySeals(currentLocation.lat, currentLocation.lng);
 
           if (sealsData.code === 'SUCCESS' && sealsData.data?.nearbySeals) {
             // 부모 컴포넌트에 데이터 전달
