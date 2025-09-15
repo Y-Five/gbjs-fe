@@ -115,7 +115,7 @@ export async function getNearbySeals(latitude, longitude) {
       params: { latitude, longitude },
     });
 
-    const payload = response?.data ?? response;
+    const payload = response;
     return payload;
   } catch (error) {
     console.error('Nearby seals API Error details:', {

@@ -39,8 +39,8 @@ export default function PopularSpotList() {
 
   return (
     <CourseCardSection
-      title="인기 띠부씰 관광지"
-      sub="요즘 인기 있는 관광지에서 띠부씰을 모아보세요!"
+      title="인기 경북씰 관광지"
+      sub="요즘 인기 있는 관광지에서 경북씰을 모아보세요!"
       cards={popularCards}
       loading={loading}
       error={error}

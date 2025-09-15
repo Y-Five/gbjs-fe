@@ -3,14 +3,14 @@ import styles from '../../pages/AllSealsPage.module.css';
 export default function CollectionCard({ totalCount, collectedCount }) {
   return (
     <div className={styles.collectionCard}>
-      <h3 className={styles.collectionTitle}>띠부씰 수집 현황</h3>
+      <h3 className={styles.collectionTitle}>경북씰 수집 현황</h3>
       <div className={styles.collectionCount}>
         <span className={styles.countNumber}>{collectedCount}</span>
         <span className={styles.countSeparator}>/</span>
         <span className={styles.countTotal}>{totalCount}</span>
       </div>
       <div className={styles.progressInfo}>
-        <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
+        <span className={styles.progressLabel}>경북씰 수집 완료까지</span>
         <span className={styles.progressRemaining}>
           <span className={styles.remainingNumber}>
             {totalCount - collectedCount}개

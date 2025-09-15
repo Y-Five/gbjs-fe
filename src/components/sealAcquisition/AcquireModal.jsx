@@ -17,7 +17,7 @@ const AcquireModal = ({
 
   const getButtonContent = () => {
     if (isCollected) {
-      return '띠부씰을 눌러 까치가 지어준 시를 확인해보세요!';
+      return '경북씰을 눌러 까치가 지어준 시를 확인해보세요!';
     }
 
     if (acquiring) {

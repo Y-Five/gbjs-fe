@@ -6,6 +6,7 @@ import { SearchBoxContainer as SearchBox } from '../components/global';
 import styles from './TourPage.module.css';
 import { getPlacesWithinDistance } from '../data/placeDetailData';
 import { useGeolocation } from '../hooks/useGeolocation';
+import { useAuth } from '../hooks/useAuth';
 import { getMyInfo } from '../apis/myPageApi';
 
 const MAX_DISTANCE_KM = 20;
@@ -15,11 +16,19 @@ export default function TourPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const geolocation = useGeolocation();
-  const [nickname, setNickname] = useState('');
+  const { isLoggedIn, isLoading: isAuthLoading } = useAuth();
+  const [nickname, setNickname] = useState('게스트님');
   const [isLoadingNickname, setIsLoadingNickname] = useState(true);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      // 로그인 상태가 아니면 게스트로 설정
+      if (!isLoggedIn) {
+        setNickname('게스트님');
+        setIsLoadingNickname(false);
+        return;
+      }
+
       try {
         const userInfo = await getMyInfo();
         console.log('User info API response:', userInfo); // 디버깅용
@@ -38,8 +47,11 @@ export default function TourPage() {
       }
     };
 
-    fetchUserInfo();
-  }, []);
+    // 인증 상태 로딩이 완료된 후에만 사용자 정보 조회
+    if (!isAuthLoading) {
+      fetchUserInfo();
+    }
+  }, [isLoggedIn, isAuthLoading]);
 
   const sortedTourData = useMemo(
     () =>

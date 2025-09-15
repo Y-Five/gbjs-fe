@@ -9,7 +9,7 @@ export default function ViewToggle({ showUserSeals, onViewToggle }) {
         }`}
         onClick={() => onViewToggle(false)}
       >
-        전체 띠부씰
+        전체 경북씰
       </button>
       <button
         className={`${styles.toggleButton} ${

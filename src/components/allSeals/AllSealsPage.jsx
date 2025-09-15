@@ -37,7 +37,7 @@ export default function AllSealsPage({
   if (error) {
     return (
       <div className={styles.page}>
-        <BackHeader title="전체 띠부씰 보기" />
+        <BackHeader title="전체 경북씰 보기" />
         <main className={styles.main}>
           <ErrorState
             error={error}

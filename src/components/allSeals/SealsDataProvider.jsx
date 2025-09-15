@@ -20,7 +20,7 @@ export default function SealsDataProvider({ children }) {
       if (isLoggedIn) {
         response = await getUserSeals(sortBy);
       } else {
-        response = await getAllSeals(sortBy);
+        response = await getUserSeals(sortBy);
       }
 
       const sealsData = response?.data?.seals || response?.seals || [];

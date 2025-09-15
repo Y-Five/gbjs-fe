@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import PropTypes from "prop-types";
-import styles from "./StickerList.module.css";
-import { sealtourService } from "../../apis/sealtour";
-import SealModal from "./SealModal";
+import { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import styles from './StickerList.module.css';
+import { sealtourService } from '../../apis/sealtour';
+import SealModal from './SealModal';
 
 export default function StickerList({ selectedDay, courseData, stickers }) {
   const [sealDetails, setSealDetails] = useState([]);
@@ -78,7 +78,7 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
         const results = await Promise.all(promises);
         setSealDetails(results);
       } catch (err) {
-        console.error("띠부씰 상세 정보 조회 실패:", err);
+        console.error('띠부씰 상세 정보 조회 실패:', err);
         setError(err);
       } finally {
         setLoading(false);
@@ -101,7 +101,7 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
   if (loading) {
     return (
       <div className={styles.container}>
-        <p className={styles.title}>수집 가능한 띠부씰 리스트</p>
+        <p className={styles.title}>수집 가능한 경북씰 리스트</p>
         <div className={styles.loading}>로딩 중...</div>
       </div>
     );
@@ -110,8 +110,8 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
   if (error) {
     return (
       <div className={styles.container}>
-        <p className={styles.title}>수집 가능한 띠부씰 리스트</p>
-        <div className={styles.error}>띠부씰 정보를 불러올 수 없습니다.</div>
+        <p className={styles.title}>수집 가능한 경북씰 리스트</p>
+        <div className={styles.error}>경북씰 정보를 불러올 수 없습니다.</div>
       </div>
     );
   }
@@ -119,7 +119,7 @@ export default function StickerList({ selectedDay, courseData, stickers }) {
   return (
     <>
       <div className={styles.container}>
-        <p className={styles.title}>수집 가능한 띠부씰 리스트</p>
+        <p className={styles.title}>수집 가능한 경북씰 리스트</p>
         <div className={styles.grid}>
           {sealDetails.map((sticker, i) => (
             <div

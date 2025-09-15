@@ -41,14 +41,14 @@ const CollectionCard = forwardRef(
                   className={styles.allSealsButton}
                   onClick={onAllSealsClick}
                 >
-                  전체 띠부씰 보기
+                  전체 경북씰 보기
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        <h3 className={styles.collectionTitle}>띠부씰 수집 현황</h3>
+        <h3 className={styles.collectionTitle}>경북씰 수집 현황</h3>
 
         {userSealsLoading ? (
           <>
@@ -74,7 +74,7 @@ const CollectionCard = forwardRef(
             </div>
 
             <div className={styles.progressInfo}>
-              <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
+              <span className={styles.progressLabel}>경북씰 수집 완료까지</span>
               <span className={styles.progressRemaining}>-개 남음</span>
             </div>
 
@@ -100,7 +100,7 @@ const CollectionCard = forwardRef(
             </div>
 
             <div className={styles.progressInfo}>
-              <span className={styles.progressLabel}>띠부씰 수집 완료까지</span>
+              <span className={styles.progressLabel}>경북씰 수집 완료까지</span>
               <span className={styles.progressRemaining}>
                 {remainingSeals}개 남음
               </span>
@@ -117,10 +117,10 @@ const CollectionCard = forwardRef(
 
         <div className={styles.buttonGroup}>
           <button className={styles.shopButton} onClick={onShopButtonClick}>
-            띠부씰 상품 보기
+            경북씰 상품 보기
           </button>
           <button className={styles.allSealsButton} onClick={onAllSealsClick}>
-            전체 띠부씰 보기
+            전체 경북씰 보기
           </button>
         </div>
       </div>

@@ -3,9 +3,9 @@ import {
   saveChatHistory,
 } from '../apis/chatApi';
 
-export const sendMessageToChatGPT = async (message, context = []) => {
+export const sendMessageToChatGPT = async (message) => {
   try {
-    const data = await apiSendMessageToChatGPT(message, context);
+    const data = await apiSendMessageToChatGPT(message);
     return data.response || data.message || data.content || data.reply;
   } catch (error) {
     console.error('Backend API Error:', error);
@@ -67,12 +67,15 @@ export const sendChatMessage = async (question) => {
   try {
     const data = await apiSendMessageToChatGPT(question);
 
+    // API 응답 구조에 맞게 data 필드에서 실제 답변 추출
+    const responseData = data.data || data;
+
     // 응답이 "No relevant data found."인 경우 처리
-    if (data === 'No relevant data found.') {
+    if (responseData === 'No relevant data found.') {
       return '죄송합니다. 해당 질문에 대한 답변을 찾을 수 없습니다. 다른 질문을 해주시거나 더 구체적으로 말씀해주세요.';
     }
 
-    return data;
+    return responseData;
   } catch (error) {
     console.error('Chat API Error:', error);
 

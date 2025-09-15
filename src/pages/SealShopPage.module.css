@@ -243,6 +243,7 @@
 
 .sectionHeader {
   padding: var(--section-header-padding);
+  margin-bottom: var(--spacing-lg);
 }
 
 .sectionTitle {
@@ -434,6 +435,95 @@
   margin-bottom: var(--spacing-lg);
   display: flex;
   justify-content: center;
+}
+
+/* 모달 오버레이 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(26, 26, 26, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* 부족 모달 */
+.insufficientModal {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 320px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modalContent {
+  padding: 23px 17px;
+  text-align: center;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.modalMessage {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.sealCountInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.sealCountInfo .insufficient {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.modalButton {
+  background: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.modalButton:hover {
+  background: #1b75d0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 117, 208, 0.3);
 }
 
 @media (max-width: var(--breakpoint-mobile)) {

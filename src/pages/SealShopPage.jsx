@@ -52,7 +52,7 @@ export default function SealShopPage() {
 
         return (
           <div className={styles.page}>
-            <Header title="띠부씰 상품" isDark={true} />
+            <Header title="경북씰 상품" isDark={true} />
 
             <main className={styles.main}>
               <Banner />

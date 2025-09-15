@@ -27,7 +27,9 @@ const InsufficientModal = ({
           </p>
           <div className={styles.sealCountInfo}>
             <span>현재 보유: {collectedSeals}개</span>
-            <span>부족: {selectedProduct.price - collectedSeals}개</span>
+            <span className={styles.insufficient}>
+              부족: {selectedProduct.price - collectedSeals}개
+            </span>
           </div>
           <button className={styles.modalButton} onClick={onClose}>
             확인
