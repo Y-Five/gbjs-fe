@@ -8,7 +8,7 @@ import {
   SearchSortSection,
 } from '../components/search';
 import { useSearchData } from '../hooks/useSearchData';
-import { FILTER_OPTIONS } from '../data/searchData';
+import { FILTER_OPTIONS } from '../constants/searchConstants';
 import styles from './SearchPage.module.css';
 
 const SearchPage = memo(function SearchPage() {

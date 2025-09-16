@@ -84,3 +84,37 @@ export async function getSpotById(
     throw error;
   }
 }
+
+// 근처 음성 가이드 관광지 조회
+export async function getNearbyAudioGuides(
+  latitude = 36.5759985,
+  longitude = 128.505832
+) {
+  try {
+    const params = {
+      latitude,
+      longitude,
+    };
+
+    const response = await APIService.private.get(
+      '/api/spots/audio-guides/nearby',
+      {
+        params,
+      }
+    );
+    return response?.data ?? response;
+  } catch (error) {
+    console.error('Nearby audio guides API Error details:', {
+      message: error.message,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      config: {
+        url: error.config?.url,
+        params: error.config?.params,
+        method: error.config?.method,
+      },
+    });
+    throw error;
+  }
+}

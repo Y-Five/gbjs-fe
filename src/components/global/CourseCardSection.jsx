@@ -8,6 +8,7 @@ export default function CourseCardSection({
   loading = false,
   error = null,
   onCardClick,
+  onRetry,
 }) {
   return (
     <section className={styles.section}>
@@ -27,35 +28,56 @@ export default function CourseCardSection({
         </div>
       )}
 
-      <div className={styles.cardContainer}>
-        {loading ? (
-          <div className={styles.loading}>로딩 중...</div>
-        ) : error ? (
-          <div className={styles.error}>데이터를 불러올 수 없습니다.</div>
-        ) : cards.length === 0 ? (
-          <div className={styles.noData}>데이터가 없습니다.</div>
-        ) : (
-          cards.map((card, index) => (
-            <div
-              key={index}
-              className={styles.card}
-              onClick={() => onCardClick?.(card)}
-            >
-              <div
-                className={styles.image}
-                style={{ backgroundImage: `url(${card.image})` }}
-              />
-              <div className={styles.description}>
-                <p className={styles.name}>{card.name}</p>
-                <p className={styles.location}>{card.location}</p>
-                {card.locationName && (
-                  <p className={styles.locationName}>{card.locationName}</p>
-                )}
-              </div>
+      {error ? (
+        <div className={styles.errorContainer}>
+          <div className={styles.errorMessage}>
+            데이터를 불러올 수 없습니다.
+          </div>
+          {onRetry && (
+            <button className={styles.retryButton} onClick={onRetry}>
+              다시 불러오기
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className={styles.cardContainer}>
+          {loading ? (
+            <div className={styles.skeletonContainer}>
+              {Array.from({ length: 5 }, (_, index) => (
+                <div key={index} className={styles.skeletonCard}>
+                  <div className={styles.skeletonImage}></div>
+                  <div className={styles.skeletonDescription}>
+                    <div className={styles.skeletonName}></div>
+                    <div className={styles.skeletonLocation}></div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))
-        )}
-      </div>
+          ) : cards.length === 0 ? (
+            <div className={styles.noData}>데이터가 없습니다.</div>
+          ) : (
+            cards.map((card, index) => (
+              <div
+                key={index}
+                className={styles.card}
+                onClick={() => onCardClick?.(card)}
+              >
+                <div
+                  className={styles.image}
+                  style={{ backgroundImage: `url(${card.image})` }}
+                />
+                <div className={styles.description}>
+                  <p className={styles.name}>{card.name}</p>
+                  <p className={styles.location}>{card.location}</p>
+                  {card.locationName && (
+                    <p className={styles.locationName}>{card.locationName}</p>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
     </section>
   );
 }

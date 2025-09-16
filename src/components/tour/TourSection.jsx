@@ -6,6 +6,9 @@ export default function TourSection({
   description = '경주의 주요 관광지를 둘러보세요',
   onTourClick,
   className = '',
+  loading = false,
+  error = null,
+  onRetry,
 }) {
   // tourData를 CourseCardSection에서 사용할 수 있는 형태로 변환
   const cards = tourData.map((tour) => ({
@@ -22,6 +25,9 @@ export default function TourSection({
       cards={cards}
       onCardClick={onTourClick}
       className={className}
+      loading={loading}
+      error={error}
+      onRetry={onRetry}
     />
   );
 }

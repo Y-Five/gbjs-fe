@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useScrollGradient } from '../../hooks/useScrollGradient';
-import { FILTER_OPTIONS } from '../../data/searchData';
+import { FILTER_OPTIONS } from '../../constants/searchConstants';
 import styles from './SearchFilters.module.css';
 
 export default function SearchFilters({ selectedFilter, onFilterChange }) {

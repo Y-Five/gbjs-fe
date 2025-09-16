@@ -42,6 +42,7 @@ export const useGeolocation = () => {
     // 실제 사용자 위치 사용
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
+    console.log('위치 정보 성공:', latitude, longitude);
 
     // 초기 로드 시에만 주소 변환 API 호출
     if (!hasInitialLocation.current) {
@@ -78,6 +79,7 @@ export const useGeolocation = () => {
     // 위치 권한이 거부되거나 오류가 발생한 경우 fallback 좌표 사용
     const latitude = 36.925135; // 경주시 좌표 (fallback)
     const longitude = 128.580307;
+    console.log('Fallback 좌표 사용:', latitude, longitude);
 
     const address = await getAddressFromCoords(latitude, longitude);
 
