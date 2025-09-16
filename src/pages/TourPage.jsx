@@ -6,7 +6,7 @@ import { SearchBoxContainer as SearchBox } from '../components/global';
 import styles from './TourPage.module.css';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { useAuth } from '../hooks/useAuth';
-import { getMyInfo } from '../apis/myPageApi';
+import { getNickname } from '../apis/myPageApi';
 import { getNearbyAudioGuides } from '../apis/spotApi';
 
 export default function TourPage() {
@@ -19,6 +19,7 @@ export default function TourPage() {
   const [tourData, setTourData] = useState([]);
   const [isLoadingTourData, setIsLoadingTourData] = useState(true);
   const [tourDataError, setTourDataError] = useState(null);
+  const [isNoNearbyData, setIsNoNearbyData] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -30,17 +31,18 @@ export default function TourPage() {
       }
 
       try {
-        const userInfo = await getMyInfo();
-        console.log('User info API response:', userInfo); // 디버깅용
-        if (userInfo && userInfo.nickname) {
-          setNickname(`${userInfo.nickname}님`);
-          console.log('Nickname set to:', userInfo.nickname); // 디버깅용
+        const response = await getNickname();
+        if (response && typeof response === 'string' && response.trim()) {
+          // API가 직접 닉네임 문자열을 반환하는 경우
+          setNickname(`${response}님`);
+        } else if (response && response.code === 'SUCCESS' && response.data) {
+          // API가 객체 형태로 반환하는 경우
+          setNickname(`${response.data}님`);
         } else {
-          console.log('No nickname in user info or userInfo is null'); // 디버깅용
           setNickname('게스트님'); // 기본값
         }
       } catch (error) {
-        console.error('Failed to fetch user info:', error);
+        console.error('Failed to fetch nickname:', error);
         setNickname('게스트님'); // 에러 시 기본값
       } finally {
         setIsLoadingNickname(false);
@@ -56,39 +58,61 @@ export default function TourPage() {
   // 근처 음성 가이드 관광지 데이터 가져오기
   const fetchTourData = async () => {
     if (!geolocation.coordinates.lat || !geolocation.coordinates.lng) {
-      console.log('위치 정보가 없어서 API 요청을 건너뜁니다:', geolocation);
       return;
     }
 
     try {
       setIsLoadingTourData(true);
       setTourDataError(null);
-      console.log(
-        'API 요청 시작:',
-        geolocation.coordinates.lat,
-        geolocation.coordinates.lng
-      );
+      setIsNoNearbyData(false);
+
       const response = await getNearbyAudioGuides(
         geolocation.coordinates.lat,
         geolocation.coordinates.lng
       );
 
-      console.log('API 응답:', response);
-      if (response.code === 'SUCCESS' && response.data) {
-        // API 응답 데이터를 TourSection에서 사용하는 형태로 변환
-        const transformedData = response.data.map((item) => ({
-          id: item.contentId,
-          name: item.title,
-          image: item.image,
-          distance: 0, // API에서 거리 정보가 없으므로 0으로 설정
-          type: item.hashtag,
-        }));
-        console.log('변환된 데이터:', transformedData);
-        setTourData(transformedData);
+      // API가 직접 배열을 반환하는 경우
+      if (Array.isArray(response)) {
+        if (response.length > 0) {
+          // 데이터가 있는 경우
+          const transformedData = response.map((item) => ({
+            id: item.contentId,
+            name: item.title,
+            image: item.image,
+            distance: 0,
+            type: item.hashtag,
+          }));
+          setTourData(transformedData);
+          setIsNoNearbyData(false);
+        } else {
+          // 빈 배열인 경우 - 근처 관광지가 없음
+          setTourData([]);
+          setIsNoNearbyData(true);
+        }
+      } else if (response.code === 'SUCCESS') {
+        // 객체 형태로 응답하는 경우
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          const transformedData = response.data.map((item) => ({
+            id: item.contentId,
+            name: item.title,
+            image: item.image,
+            distance: 0,
+            type: item.hashtag,
+          }));
+          setTourData(transformedData);
+          setIsNoNearbyData(false);
+        } else if (Array.isArray(response.data) && response.data.length === 0) {
+          setTourData([]);
+          setIsNoNearbyData(true);
+        } else {
+          setTourData([]);
+          setIsNoNearbyData(true);
+        }
       } else {
-        console.error('Failed to fetch tour data:', response);
+        // API 에러
         setTourData([]);
         setTourDataError('데이터를 불러올 수 없습니다.');
+        setIsNoNearbyData(false);
       }
     } catch (error) {
       console.error('Error fetching tour data:', error);
@@ -134,6 +158,7 @@ export default function TourPage() {
           loading={isLoadingTourData}
           error={tourDataError}
           onRetry={fetchTourData}
+          isNoNearbyData={isNoNearbyData}
         />
         <ChatSection onChatClick={handleChatClick} />
       </div>

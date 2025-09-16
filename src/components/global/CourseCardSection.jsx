@@ -30,9 +30,7 @@ export default function CourseCardSection({
 
       {error ? (
         <div className={styles.errorContainer}>
-          <div className={styles.errorMessage}>
-            데이터를 불러올 수 없습니다.
-          </div>
+          <div className={styles.errorMessage}>{error}</div>
           {onRetry && (
             <button className={styles.retryButton} onClick={onRetry}>
               다시 불러오기

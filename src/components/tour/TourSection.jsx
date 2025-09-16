@@ -9,6 +9,7 @@ export default function TourSection({
   loading = false,
   error = null,
   onRetry,
+  isNoNearbyData = false,
 }) {
   // tourData를 CourseCardSection에서 사용할 수 있는 형태로 변환
   const cards = tourData.map((tour) => ({
@@ -18,6 +19,12 @@ export default function TourSection({
     id: tour.id,
   }));
 
+  // 근처 관광지가 없는 경우와 에러를 구분
+  const displayError = isNoNearbyData
+    ? '근처에 음성 가이드가 있는 관광지가 없습니다.'
+    : error;
+  const showRetryButton = !isNoNearbyData && onRetry; // 근처 관광지가 없는 경우에는 재시도 버튼 숨김
+
   return (
     <CourseCardSection
       title={title}
@@ -26,8 +33,8 @@ export default function TourSection({
       onCardClick={onTourClick}
       className={className}
       loading={loading}
-      error={error}
-      onRetry={onRetry}
+      error={displayError}
+      onRetry={showRetryButton ? onRetry : null}
     />
   );
 }
