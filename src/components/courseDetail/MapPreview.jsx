@@ -62,44 +62,30 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
 
     mapInstance.current = new window.kakao.maps.Map(mapRef.current, mapOption);
 
-    // 마커 생성
+    // 원과 숫자만 표시
     allSpots.forEach((spot, index) => {
       const markerPosition = new window.kakao.maps.LatLng(spot.lat, spot.lng);
 
-      // 파란색 마커 이미지 생성
-      const markerImage = new window.kakao.maps.MarkerImage(
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png",
-        new window.kakao.maps.Size(24, 35),
-        { offset: new window.kakao.maps.Point(12, 35) }
-      );
-
-      const marker = new window.kakao.maps.Marker({
-        position: markerPosition,
-        image: markerImage,
-      });
-
-      marker.setMap(mapInstance.current);
-
-      // 마커 위에 숫자 표시를 위한 커스텀 오버레이 생성
+      // 숫자가 있는 원만 표시하는 커스텀 오버레이 생성
       const customOverlay = new window.kakao.maps.CustomOverlay({
         position: markerPosition,
         content: `<div style="
           background-color: #2d8ae7;
           color: white;
-          width: 28px;
-          height: 28px;
+          width: 32px;
+          height: 32px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: bold;
           border: 3px solid white;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          margin-top: -40px;
-          margin-left: -14px;
+          margin-top: -16px;
+          margin-left: -16px;
         ">${spot.visitOrder || spot.order}</div>`,
-        yAnchor: 1,
+        yAnchor: 0.5,
       });
 
       customOverlay.setMap(mapInstance.current);

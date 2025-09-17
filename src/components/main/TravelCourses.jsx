@@ -28,6 +28,7 @@ export default function TravelCourses() {
         // API 응답을 CourseCardSection 형식으로 변환
         const transformedCourses =
           response.data?.map((course) => ({
+            id: course.courseId,
             image: course.imageUrl || course.image,
             name: course.title || course.name,
             location: course.location || course.region,

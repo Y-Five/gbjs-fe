@@ -115,9 +115,7 @@ const privateApi = axios.create({
  * 디버깅용 쿠키 확인 함수
  */
 const debugCookies = () => {
-  console.log("현재 쿠키:", document.cookie);
-  console.log("ACCESS_TOKEN:", getCookie("ACCESS_TOKEN"));
-  console.log("REFRESH_TOKEN:", getCookie("REFRESH_TOKEN"));
+  // 디버깅 로그 제거됨
 };
 
 /**
@@ -132,14 +130,10 @@ privateApi.interceptors.request.use(
 
     // 쿠키에서 ACCESS_TOKEN 가져오기
     const token = getCookie("ACCESS_TOKEN");
-    console.log("privateApi 요청 - 토큰:", token ? "존재함" : "없음");
 
     if (token) {
       // Authorization 헤더에 Bearer 토큰 추가
       config.headers.Authorization = `Bearer ${token}`;
-      console.log("Authorization 헤더 추가됨");
-    } else {
-      console.log("토큰이 없어서 Authorization 헤더 추가 안됨");
     }
     return config;
   },

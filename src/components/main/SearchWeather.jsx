@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import styles from "./SearchWeather.module.css";
-import rainCharacter from "../../assets/images/rain-character.png";
 import { SearchBoxContainer as SearchBox } from "../global";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { weatherService } from "../../apis/main";
@@ -117,11 +116,13 @@ export default function SearchWeather() {
             )}
           </div>
         </div>
-        <img
-          src={rainCharacter}
-          alt="날씨 캐릭터"
-          className={styles.character}
-        />
+        {weatherData?.data?.imageUrl && (
+          <img
+            src={weatherData.data.imageUrl}
+            alt="날씨 캐릭터"
+            className={styles.character}
+          />
+        )}
       </div>
     </section>
   );
