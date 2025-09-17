@@ -47,14 +47,14 @@
  * }
  */
 
-import axios from 'axios';
-import qs from 'qs';
+import axios from "axios";
+import qs from "qs";
 
 function getCookie(name) {
-  if (typeof document === 'undefined') return null;
+  if (typeof document === "undefined") return null;
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  if (parts.length === 2) return parts.pop().split(";").shift();
   return null;
 }
 
@@ -69,10 +69,10 @@ const publicApi = axios.create({
   timeout: 30000,
   withCredentials: true, // 쿠키를 포함하여 요청
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   paramsSerializer: {
-    serialize: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
+    serialize: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
   },
 });
 
@@ -88,7 +88,7 @@ publicApi.interceptors.response.use(
   async (error) => {
     // 401 에러(인증 실패)인 경우 로그인 페이지로 리다이렉트
     if (error.response?.status === 401) {
-      window.location.href = '/login';
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
@@ -104,10 +104,10 @@ const privateApi = axios.create({
   timeout: 30000,
   withCredentials: true, // 쿠키를 포함하여 요청
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   paramsSerializer: {
-    serialize: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
+    serialize: (params) => qs.stringify(params, { arrayFormat: "repeat" }),
   },
 });
 
@@ -115,7 +115,9 @@ const privateApi = axios.create({
  * 디버깅용 쿠키 확인 함수
  */
 const debugCookies = () => {
-  // 디버깅 로그 제거됨
+  console.log("현재 쿠키:", document.cookie);
+  console.log("ACCESS_TOKEN:", getCookie("ACCESS_TOKEN"));
+  console.log("REFRESH_TOKEN:", getCookie("REFRESH_TOKEN"));
 };
 
 /**
@@ -129,7 +131,7 @@ privateApi.interceptors.request.use(
     debugCookies();
 
     // 쿠키에서 ACCESS_TOKEN 가져오기
-    const token = getCookie('ACCESS_TOKEN');
+    const token = getCookie("ACCESS_TOKEN");
 
     if (token) {
       // Authorization 헤더에 Bearer 토큰 추가
@@ -164,11 +166,11 @@ privateApi.interceptors.response.use(
       try {
         // 쿠키에 있는 리프레시 토큰으로 새 액세스 토큰 발급 시도
         // 백엔드에서 자동으로 쿠키를 설정하므로 별도로 토큰을 전달할 필요 없음
-        await publicApi.post('/api/auth/refresh');
+        await publicApi.post("/api/auth/refresh");
 
         // 백엔드에서 쿠키에 새 토큰을 설정했으므로
         // 새 토큰으로 원래 요청 재시도
-        const newToken = getCookie('ACCESS_TOKEN');
+        const newToken = getCookie("ACCESS_TOKEN");
         if (newToken) {
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
         }
@@ -177,7 +179,7 @@ privateApi.interceptors.response.use(
         // 리프레시 토큰도 만료된 경우
         // 쿠키는 백엔드에서 자동으로 삭제됨
         // 로그인 페이지로 리다이렉트
-        window.location.href = '/login';
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }

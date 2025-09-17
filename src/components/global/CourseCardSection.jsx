@@ -1,4 +1,4 @@
-import styles from './CourseCardSection.module.css';
+import styles from "./CourseCardSection.module.css";
 
 export default function CourseCardSection({
   title,
@@ -20,7 +20,7 @@ export default function CourseCardSection({
           {tabs.map((tab, index) => (
             <button
               key={index}
-              className={`${styles.tab} ${index === 0 ? styles.active : ''}`}
+              className={`${styles.tab} ${index === 0 ? styles.active : ""}`}
             >
               {tab}
             </button>

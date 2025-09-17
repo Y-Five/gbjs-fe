@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CourseCardSection from "../global/CourseCardSection";
+import CourseCardSectionMain from "../global/CourseCardSectionMain";
 import { courseService } from "../../apis/main";
 
 export default function TravelCourses() {
@@ -28,6 +28,7 @@ export default function TravelCourses() {
         // API 응답을 CourseCardSection 형식으로 변환
         const transformedCourses =
           response.data?.map((course) => ({
+            id: course.courseId,
             image: course.imageUrl || course.image,
             name: course.title || course.name,
             location: course.location || course.region,
@@ -52,7 +53,7 @@ export default function TravelCourses() {
   }, []);
 
   return (
-    <CourseCardSection
+    <CourseCardSectionMain
       title="여행코스"
       sub="원하는 코스를 골라 아름다운 경북을 여행하세요."
       tabs={tabs}

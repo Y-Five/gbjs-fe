@@ -1,11 +1,11 @@
-import CourseCardSection from '../global/CourseCardSection';
+import CourseCardSection from "../global/CourseCardSection";
 
 export default function TourSection({
   tourData,
-  title = '관광지 음성 가이드',
-  description = '경주의 주요 관광지를 둘러보세요',
+  title = "관광지 음성 가이드",
+  description = "경주의 주요 관광지를 둘러보세요",
   onTourClick,
-  className = '',
+  className = "",
   loading = false,
   error = null,
   onRetry,
@@ -21,7 +21,7 @@ export default function TourSection({
 
   // 근처 관광지가 없는 경우와 에러를 구분
   const displayError = isNoNearbyData
-    ? '근처에 음성 가이드가 있는 관광지가 없습니다.'
+    ? "근처에 음성 가이드가 있는 관광지가 없습니다."
     : error;
   const showRetryButton = !isNoNearbyData && onRetry; // 근처 관광지가 없는 경우에는 재시도 버튼 숨김
 

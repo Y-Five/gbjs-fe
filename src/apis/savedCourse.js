@@ -40,6 +40,17 @@ export const savedCourseService = {
       throw error;
     }
   },
+  getPublicCourseDetail: async (courseId) => {
+    try {
+      const response = await APIService.private.get(
+        `/api/courses/${courseId}/public`
+      );
+      return response;
+    } catch (error) {
+      console.error("공개 코스 상세 조회 실패:", error);
+      throw error;
+    }
+  },
 };
 
 export default {
