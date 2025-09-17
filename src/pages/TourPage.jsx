@@ -1,16 +1,13 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/header/Header';
 import { LocationCard, TourSection, ChatSection } from '../components/tour';
 import { SearchBoxContainer as SearchBox } from '../components/global';
 import styles from './TourPage.module.css';
-import { getPlacesWithinDistance } from '../data/placeDetailData';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { useAuth } from '../hooks/useAuth';
-import { getMyInfo } from '../apis/myPageApi';
-
-const MAX_DISTANCE_KM = 20;
-const MAX_DISPLAY_COUNT = 5;
+import { getNickname } from '../apis/myPageApi';
+import { getNearbyAudioGuides } from '../apis/spotApi';
 
 export default function TourPage() {
   const navigate = useNavigate();
@@ -19,6 +16,10 @@ export default function TourPage() {
   const { isLoggedIn, isLoading: isAuthLoading } = useAuth();
   const [nickname, setNickname] = useState('게스트님');
   const [isLoadingNickname, setIsLoadingNickname] = useState(true);
+  const [tourData, setTourData] = useState([]);
+  const [isLoadingTourData, setIsLoadingTourData] = useState(true);
+  const [tourDataError, setTourDataError] = useState(null);
+  const [isNoNearbyData, setIsNoNearbyData] = useState(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -30,17 +31,18 @@ export default function TourPage() {
       }
 
       try {
-        const userInfo = await getMyInfo();
-        console.log('User info API response:', userInfo); // 디버깅용
-        if (userInfo && userInfo.nickname) {
-          setNickname(`${userInfo.nickname}님`);
-          console.log('Nickname set to:', userInfo.nickname); // 디버깅용
+        const response = await getNickname();
+        if (response && typeof response === 'string' && response.trim()) {
+          // API가 직접 닉네임 문자열을 반환하는 경우
+          setNickname(`${response}님`);
+        } else if (response && response.code === 'SUCCESS' && response.data) {
+          // API가 객체 형태로 반환하는 경우
+          setNickname(`${response.data}님`);
         } else {
-          console.log('No nickname in user info or userInfo is null'); // 디버깅용
           setNickname('게스트님'); // 기본값
         }
       } catch (error) {
-        console.error('Failed to fetch user info:', error);
+        console.error('Failed to fetch nickname:', error);
         setNickname('게스트님'); // 에러 시 기본값
       } finally {
         setIsLoadingNickname(false);
@@ -53,13 +55,77 @@ export default function TourPage() {
     }
   }, [isLoggedIn, isAuthLoading]);
 
-  const sortedTourData = useMemo(
-    () =>
-      getPlacesWithinDistance(MAX_DISTANCE_KM)
-        .sort((a, b) => a.distance - b.distance)
-        .slice(0, MAX_DISPLAY_COUNT),
-    []
-  );
+  // 근처 음성 가이드 관광지 데이터 가져오기
+  const fetchTourData = async () => {
+    if (!geolocation.coordinates.lat || !geolocation.coordinates.lng) {
+      return;
+    }
+
+    try {
+      setIsLoadingTourData(true);
+      setTourDataError(null);
+      setIsNoNearbyData(false);
+
+      const response = await getNearbyAudioGuides(
+        geolocation.coordinates.lat,
+        geolocation.coordinates.lng
+      );
+
+      // API가 직접 배열을 반환하는 경우
+      if (Array.isArray(response)) {
+        if (response.length > 0) {
+          // 데이터가 있는 경우
+          const transformedData = response.map((item) => ({
+            id: item.contentId,
+            name: item.title,
+            image: item.image,
+            distance: 0,
+            type: item.hashtag,
+          }));
+          setTourData(transformedData);
+          setIsNoNearbyData(false);
+        } else {
+          // 빈 배열인 경우 - 근처 관광지가 없음
+          setTourData([]);
+          setIsNoNearbyData(true);
+        }
+      } else if (response.code === 'SUCCESS') {
+        // 객체 형태로 응답하는 경우
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          const transformedData = response.data.map((item) => ({
+            id: item.contentId,
+            name: item.title,
+            image: item.image,
+            distance: 0,
+            type: item.hashtag,
+          }));
+          setTourData(transformedData);
+          setIsNoNearbyData(false);
+        } else if (Array.isArray(response.data) && response.data.length === 0) {
+          setTourData([]);
+          setIsNoNearbyData(true);
+        } else {
+          setTourData([]);
+          setIsNoNearbyData(true);
+        }
+      } else {
+        // API 에러
+        setTourData([]);
+        setTourDataError('데이터를 불러올 수 없습니다.');
+        setIsNoNearbyData(false);
+      }
+    } catch (error) {
+      console.error('Error fetching tour data:', error);
+      setTourData([]);
+      setTourDataError('네트워크 오류가 발생했습니다.');
+    } finally {
+      setIsLoadingTourData(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTourData();
+  }, [geolocation.coordinates.lat, geolocation.coordinates.lng]);
 
   const handleSearch = (searchQuery) => {
     if (searchQuery.trim()) {
@@ -86,7 +152,14 @@ export default function TourPage() {
           userName={nickname}
           isLoadingNickname={isLoadingNickname}
         />
-        <TourSection tourData={sortedTourData} onTourClick={handleTourClick} />
+        <TourSection
+          tourData={tourData}
+          onTourClick={handleTourClick}
+          loading={isLoadingTourData}
+          error={tourDataError}
+          onRetry={fetchTourData}
+          isNoNearbyData={isNoNearbyData}
+        />
         <ChatSection onChatClick={handleChatClick} />
       </div>
     </div>

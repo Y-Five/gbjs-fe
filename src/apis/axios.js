@@ -115,7 +115,9 @@ const privateApi = axios.create({
  * 디버깅용 쿠키 확인 함수
  */
 const debugCookies = () => {
-  // 디버깅 로그 제거됨
+  console.log("현재 쿠키:", document.cookie);
+  console.log("ACCESS_TOKEN:", getCookie("ACCESS_TOKEN"));
+  console.log("REFRESH_TOKEN:", getCookie("REFRESH_TOKEN"));
 };
 
 /**

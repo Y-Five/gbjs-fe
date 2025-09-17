@@ -1,5 +1,4 @@
-import { placeDetailData } from './placeDetailData';
-
+// 검색 관련 상수들
 export const SORT_OPTIONS = [
   { key: 'latest', label: '최신순' },
   { key: 'distance', label: '거리순' },
@@ -23,19 +22,7 @@ export const FILTER_OPTIONS = [
   { id: 'MUSEUM', label: '박물관', value: 'MUSEUM' },
 ];
 
-export const SEARCH_RESULTS_DATA = placeDetailData.map((place) => ({
-  id: place.id,
-  name: place.name,
-  location: place.location,
-  description: place.detailedDescription || place.description,
-  tags: place.tags,
-  category: place.category,
-  popularity: place.popularity,
-  distance: place.distance,
-  createdAt: place.createdAt,
-  imageUrl: place.imageUrl,
-}));
-
+// 정렬 함수들
 export const sortFunctions = {
   accuracy: (results) =>
     [...results].sort((a, b) => a.name.localeCompare(b.name)),
@@ -46,6 +33,7 @@ export const sortFunctions = {
   distance: (results) => [...results].sort((a, b) => a.distance - b.distance),
 };
 
+// 필터 함수
 export const filterFunction = (results, selectedFilter) =>
   selectedFilter === '전체'
     ? results
