@@ -101,7 +101,6 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>여행 코스 지도</h3>
       <div ref={mapRef} className={styles.map}></div>
     </div>
   );
