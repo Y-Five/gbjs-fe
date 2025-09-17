@@ -62,11 +62,11 @@ function getCookie(name) {
  * 토큰이 필요없는 일반 요청을 위한 Axios 인스턴스
  * 주로 로그인, 회원가입 등 인증 전 요청에 사용
  * baseURL: 환경변수에서 가져온 API 기본 주소
- * timeout: 30초 (30000ms) 후 요청 자동 취소
+ * timeout: 50초 (50000ms) 후 요청 자동 취소
  */
 const publicApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
-  timeout: 30000,
+  timeout: 50000,
   withCredentials: true, // 쿠키를 포함하여 요청
   headers: {
     "Content-Type": "application/json",
@@ -101,7 +101,7 @@ publicApi.interceptors.response.use(
  */
 const privateApi = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
-  timeout: 30000,
+  timeout: 50000,
   withCredentials: true, // 쿠키를 포함하여 요청
   headers: {
     "Content-Type": "application/json",
