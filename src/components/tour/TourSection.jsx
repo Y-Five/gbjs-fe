@@ -6,7 +6,6 @@ export default function TourSection({
   description = "경주의 주요 관광지를 둘러보세요",
   onTourClick,
   className = "",
-  className = "",
   loading = false,
   error = null,
   onRetry,

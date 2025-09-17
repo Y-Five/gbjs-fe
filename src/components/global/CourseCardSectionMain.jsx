@@ -14,44 +14,27 @@ export default function CourseCardSectionMain({
 }) {
   const navigate = useNavigate();
 
-  const handleCardClick = async (card) => {
-    try {
-      // courseId가 있으면 API로 상세 정보 조회
-      if (card.id) {
-        const response = await savedCourseService.getPublicCourseDetail(
-          card.id
-        );
-
-        if (response.code === "SUCCESS") {
-          // 코스 데이터를 localStorage에 저장
-          localStorage.setItem("courseData", JSON.stringify(response.data));
-
-          // CourseDetailPage로 이동 (저장하기 버튼 표시, 재생성 버튼 숨김)
-          navigate("/course", {
-            state: {
-              headerTitle: "코스 상세보기",
-              showSaveButton: true,
-              showRegenerateButton: false,
-            },
-          });
-        } else {
-          alert("코스 정보를 불러올 수 없습니다.");
-        }
-      } else {
-        // courseId가 없으면 기존 방식으로 처리
-        localStorage.setItem("courseData", JSON.stringify(card));
-
-        navigate("/course", {
-          state: {
-            headerTitle: "코스 상세보기",
-            showSaveButton: true,
-            showRegenerateButton: false,
-          },
-        });
-      }
-    } catch (error) {
-      console.error("코스 상세 조회 실패:", error);
-      alert("코스 정보를 불러올 수 없습니다.");
+  const handleCardClick = (card) => {
+    // courseId가 있으면 상세 페이지로 이동 (API 호출은 상세 페이지에서)
+    if (card.id) {
+      navigate("/course", {
+        state: {
+          headerTitle: "코스 상세보기",
+          showSaveButton: true,
+          showRegenerateButton: false,
+          courseId: card.id, // courseId를 전달
+        },
+      });
+    } else {
+      // courseId가 없으면 기존 방식으로 처리
+      localStorage.setItem("courseData", JSON.stringify(card));
+      navigate("/course", {
+        state: {
+          headerTitle: "코스 상세보기",
+          showSaveButton: true,
+          showRegenerateButton: false,
+        },
+      });
     }
   };
   return (
