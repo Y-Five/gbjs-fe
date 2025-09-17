@@ -1,18 +1,26 @@
-import { placeDetailData } from "./placeDetailData";
+import { placeDetailData } from './placeDetailData';
 
 export const SORT_OPTIONS = [
-  { key: "accuracy", label: "정확도순" },
-  { key: "popularity", label: "인기순" },
-  { key: "latest", label: "최신순" },
-  { key: "distance", label: "거리순" },
+  { key: 'latest', label: '최신순' },
+  { key: 'distance', label: '거리순' },
 ];
 
 export const FILTER_OPTIONS = [
-  { id: "전체", label: "전체" },
-  { id: "문화유적", label: "문화유적" },
-  { id: "행사", label: "행사" },
-  { id: "기념품", label: "기념품" },
-  { id: "이렇게 딱 맞", label: "이렇게 딱 맞" },
+  { id: '전체', label: '전체', value: null },
+  {
+    id: 'MONUMENT_VIEWPOINT',
+    label: '기념탑/기념비/전망대',
+    value: 'MONUMENT_VIEWPOINT',
+  },
+  { id: 'TOURIST_COMPLEX', label: '관광단지', value: 'TOURIST_COMPLEX' },
+  { id: 'HISTORIC_SITE', label: '유적지/사적지', value: 'HISTORIC_SITE' },
+  { id: 'HANOK', label: '한옥', value: 'HANOK' },
+  { id: 'PARK', label: '공원', value: 'PARK' },
+  { id: 'FOLK_VILLAGE', label: '민속마을', value: 'FOLK_VILLAGE' },
+  { id: 'CAMPING_SITE', label: '야영장/오토캠핑장', value: 'CAMPING_SITE' },
+  { id: 'EXHIBITION_HALL', label: '전시관', value: 'EXHIBITION_HALL' },
+  { id: 'TEMPLE', label: '사찰', value: 'TEMPLE' },
+  { id: 'MUSEUM', label: '박물관', value: 'MUSEUM' },
 ];
 
 export const SEARCH_RESULTS_DATA = placeDetailData.map((place) => ({
@@ -39,6 +47,6 @@ export const sortFunctions = {
 };
 
 export const filterFunction = (results, selectedFilter) =>
-  selectedFilter === "전체"
+  selectedFilter === '전체'
     ? results
     : results.filter((result) => result.category === selectedFilter);

@@ -1,13 +1,24 @@
-import { useScrollGradient } from "../../hooks/useScrollGradient";
-import { FILTER_OPTIONS } from "../../data/searchData";
-import styles from "./SearchFilters.module.css";
+import { useEffect } from 'react';
+import { useScrollGradient } from '../../hooks/useScrollGradient';
+import { FILTER_OPTIONS } from '../../data/searchData';
+import styles from './SearchFilters.module.css';
 
 export default function SearchFilters({ selectedFilter, onFilterChange }) {
-  const { scrollRef, showLeftGradient, showRightGradient, checkScroll } = useScrollGradient();
+  const { scrollRef, showLeftGradient, showRightGradient, checkScroll } =
+    useScrollGradient();
+
+  // 컴포넌트 마운트 후 스크롤 상태 확인
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      checkScroll();
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [checkScroll]);
 
   return (
-    <div className={`${styles.filtersWrapper} ${showLeftGradient ? styles.showLeft : ''} ${showRightGradient ? styles.showRight : ''}`}>
-      <div 
+    <div className={styles.filtersWrapper}>
+      <div
         ref={scrollRef}
         className={styles.filtersContainer}
         onScroll={checkScroll}
@@ -18,7 +29,7 @@ export default function SearchFilters({ selectedFilter, onFilterChange }) {
           <button
             key={filter.id}
             className={`${styles.filterButton} ${
-              selectedFilter === filter.id ? styles.active : ""
+              selectedFilter === filter.id ? styles.active : ''
             }`}
             onClick={() => onFilterChange(filter.id)}
             role="tab"
@@ -29,6 +40,8 @@ export default function SearchFilters({ selectedFilter, onFilterChange }) {
           </button>
         ))}
       </div>
+      {showLeftGradient && <div className={styles.leftGradient} />}
+      {showRightGradient && <div className={styles.rightGradient} />}
     </div>
   );
 }

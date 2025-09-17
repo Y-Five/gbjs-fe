@@ -1,0 +1,532 @@
+@import '../styles/common-variables.css';
+
+.page {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.main {
+  padding: 0 0 var(--spacing-xl) 0;
+  max-width: 393px;
+  margin: 0 auto;
+}
+
+/* 로딩 상태 */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--blue-main);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* 에러 상태 */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  margin: 0; /* main 컨테이너의 패딩을 사용하므로 마진 제거 */
+}
+
+.errorIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.errorMessage {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.errorButtonGroup {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 200px;
+}
+
+.retryButton {
+  background-color: var(--blue-main);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.retryButton:hover:not(:disabled) {
+  background: #1b75d0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27, 117, 208, 0.3);
+}
+
+.retryButton:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.backButton {
+  background-color: var(--gray-300);
+  color: var(--gray-600);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: var(--gray-400);
+  transform: translateY(-1px);
+}
+
+/* 수집 현황 카드 */
+.collectionCard {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 20px 20px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.collectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-600);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.collectionCount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 25px;
+}
+
+.countNumber {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--blue-main);
+  line-height: 1;
+}
+
+.countSeparator {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-400);
+  line-height: 1;
+  margin: 0 2px;
+}
+
+.countTotal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-400);
+  line-height: 1;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--small-size);
+  color: var(--gray-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.progressLabel {
+  font-weight: 400;
+}
+
+.progressRemaining {
+  font-weight: 400;
+  color: var(--gray-500);
+}
+
+.remainingNumber {
+  color: var(--blue-main);
+}
+
+.progressBar {
+  height: 11px;
+  background-color: var(--gray-200);
+  border-radius: 5.5px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--blue-main);
+  transition: width 0.3s ease;
+}
+
+/* 뷰 토글 버튼 */
+.viewToggle {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.toggleButton {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--gray-500);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: all 0.2s ease;
+}
+
+.toggleButton.active {
+  background-color: var(--blue-main);
+  color: white;
+}
+
+/* 정렬 섹션 */
+.sortSection {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 띠부씰 그리드 */
+.gridContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto;
+  overflow: hidden;
+  width: 100%;
+}
+
+.sealsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 20px 15px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  transform: scale(1);
+  transform-origin: center;
+  width: 100%;
+  max-width: 100%;
+  justify-items: center;
+  align-items: start;
+  min-height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.sealsGrid.expandedGrid {
+  grid-template-rows: auto;
+  min-height: auto;
+  align-items: start;
+}
+
+.sealsGrid.sorting {
+  transform: scale(1);
+  gap: 0px 0px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 띠부씰 카드 */
+.sealCard {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 2px solid #e8e8e8;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 108/128;
+  transform: scale(1);
+  opacity: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.sealCard img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* 카드 뒤집기 애니메이션 */
+.sealCard.sorting {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0.7;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sealCard.flipped {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sealCard.sorting.flipped {
+  transform: rotateY(180deg) scale(0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sealCard.collected {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.sealCard.uncollected {
+  opacity: 0.6;
+}
+
+.sealCard.uncollected.sorting {
+  opacity: 0.3;
+}
+
+/* 카드 내부 요소들 */
+.sealHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 8px 4px 8px;
+}
+
+.sealBadge {
+  width: 24px;
+  height: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badgeNumber {
+  color: white;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.sealName {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gray-600);
+  line-height: 1.2;
+  flex: 1;
+}
+
+.sealName.longName {
+  font-size: 8px;
+}
+
+.sealImageWrapper {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  min-height: 80px;
+}
+
+.sealImage {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.sealLocation {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--gray-500);
+  line-height: 1.2;
+  padding: 4px 8px 8px 8px;
+  text-align: center;
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* Collection Card Skeleton Styles */
+.skeletonCountNumber {
+  width: 40px;
+  height: 32px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonCountTotal {
+  width: 30px;
+  height: 16px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonProgressRemaining {
+  width: 60px;
+  height: 12px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeletonProgressFill {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 5.5px;
+}
+
+/* Seals Grid Skeleton Styles */
+.skeletonBadge {
+  width: 20px;
+  height: 10px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 5px;
+}
+
+.skeletonSealName {
+  width: 60px;
+  height: 10px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+.skeletonSealImage {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonLocation {
+  width: 40px;
+  height: 8px;
+  background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 모바일 반응형 */
+@media (max-width: var(--breakpoint-mobile)) {
+  .main {
+    max-width: 100%;
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+
+  .collectionCard {
+    padding: 30px 12px;
+  }
+
+  .sealsGrid {
+    gap: var(--spacing-sm);
+  }
+}

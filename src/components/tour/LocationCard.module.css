@@ -1,9 +1,8 @@
-@import "../../styles/tour-variables.css";
+@import '../../styles/tour-variables.css';
 
 .welcomeSection {
   margin-bottom: var(--tour-spacing-xl);
 }
-
 
 .welcomeCard {
   background-color: var(--gray-100);
@@ -11,7 +10,6 @@
   padding: var(--tour-spacing-lg);
   box-shadow: var(--tour-card-shadow);
 }
-
 
 .greeting {
   display: flex;
@@ -63,7 +61,7 @@
   gap: var(--tour-spacing-xs);
   background-color: var(--blue-light);
   border-radius: var(--tour-border-radius-small);
-  padding: var(--tour-spacing-xs) var(--tour-spacing-sm);
+  padding: 4px var(--tour-spacing-sm);
   width: fit-content;
 }
 
@@ -79,4 +77,23 @@
   font-weight: 400;
   color: var(--gray-600);
   line-height: 25px;
+}
+
+/* 스켈레톤 UI */
+.nameSkeleton {
+  width: 120px;
+  height: 25px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

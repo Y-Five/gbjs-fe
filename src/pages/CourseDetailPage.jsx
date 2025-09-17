@@ -1,18 +1,18 @@
-import BackHeader from "../components/header/BackHeader";
-import MapPreview from "../components/courseDetail/MapPreview";
-import DayTabs from "../components/courseDetail/DayTabs";
-import ScheduleList from "../components/courseDetail/ScheduleList";
-import SaveButton from "../components/courseDetail/SaveButton";
-import StickerList from "../components/courseDetail/StickerList";
-import { sealtourService } from "../apis/sealtour";
+import BackHeader from '../components/header/BackHeader';
+import MapPreview from '../components/courseDetail/MapPreview';
+import DayTabs from '../components/courseDetail/DayTabs';
+import ScheduleList from '../components/courseDetail/ScheduleList';
+import SaveButton from '../components/courseDetail/SaveButton';
+import StickerList from '../components/courseDetail/StickerList';
+import { sealtourService } from '../apis/sealtour';
 
-import styles from "./CourseDetailPage.module.css";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
+import styles from './CourseDetailPage.module.css';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function CourseDetailPage({
-  headerTitle: propHeaderTitle = "띠부씰 코스",
+  headerTitle: propHeaderTitle = '경북씰 코스',
   showSaveButton: propShowSaveButton = true,
 }) {
   const location = useLocation();
@@ -36,8 +36,8 @@ export default function CourseDetailPage({
 
   // localStorage에서 코스 데이터와 원본 파라미터 로드
   useEffect(() => {
-    const savedCourseData = localStorage.getItem("courseData");
-    const savedParams = localStorage.getItem("courseParams");
+    const savedCourseData = localStorage.getItem('courseData');
+    const savedParams = localStorage.getItem('courseParams');
 
     if (savedCourseData) {
       try {
@@ -65,7 +65,7 @@ export default function CourseDetailPage({
           setSchedules(formattedSchedules);
         }
       } catch (error) {
-        console.error("코스 데이터 파싱 실패:", error);
+        console.error('코스 데이터 파싱 실패:', error);
       }
     }
 
@@ -74,7 +74,7 @@ export default function CourseDetailPage({
         const params = JSON.parse(savedParams);
         setOriginalParams(params);
       } catch (error) {
-        console.error("코스 파라미터 파싱 실패:", error);
+        console.error('코스 파라미터 파싱 실패:', error);
       }
     }
   }, []);
@@ -82,7 +82,7 @@ export default function CourseDetailPage({
   // 코스 재생성 함수
   const handleRegenerate = async () => {
     if (!originalParams) {
-      alert("재생성할 수 없습니다. 다시 코스를 생성해주세요.");
+      alert('재생성할 수 없습니다. 다시 코스를 생성해주세요.');
       return;
     }
 
@@ -94,18 +94,18 @@ export default function CourseDetailPage({
         originalParams.locations
       );
 
-      if (response.code === "SUCCESS") {
+      if (response.code === 'SUCCESS') {
         // 새로운 코스 데이터를 localStorage에 저장
-        localStorage.setItem("courseData", JSON.stringify(response.data));
+        localStorage.setItem('courseData', JSON.stringify(response.data));
 
         // 페이지 새로고침하여 새로운 데이터 로드
         window.location.reload();
       } else {
-        alert("코스 재생성에 실패했습니다. 다시 시도해주세요.");
+        alert('코스 재생성에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
-      console.error("코스 재생성 실패:", error);
-      alert("코스 재생성에 실패했습니다. 다시 시도해주세요.");
+      console.error('코스 재생성 실패:', error);
+      alert('코스 재생성에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setIsRegenerating(false);
     }

@@ -1,23 +1,33 @@
-import sealIcon from "../../assets/images/sealCharacter.png";
-import styles from "./DescriptionBanner.module.css";
+import sealIcon from '../../assets/images/sealCharacter.png';
+import styles from './DescriptionBanner.module.css';
 
 export default function DescriptionBanner({ viewMode }) {
   const courseLines = [
     <>원하시는 날짜, 지역을 선택하시면</>,
-    <>맞춤형 띠부씰 코스를 제공해드려요!</>,
+    <>맞춤형 경북씰 코스를 제공해드려요!</>,
   ];
 
   const regionLines = [
     <>원하시는 행정구역을 지도에서</>,
     <>
-      선택하시면 <span className={styles.highlight}>띠부씰 리스트 및</span>
+      선택하시면 <span className={styles.highlight}>경북씰 리스트 및</span>
     </>,
     <>
       <span className={styles.highlight}>즐길거리</span>를 확인하실 수 있어요!
     </>,
   ];
 
-  const lines = viewMode === "course" ? courseLines : regionLines;
+  const shopLines = [
+    <>경북 각지의 특별한 경북씰을</>,
+    <>온라인으로 만나보세요!</>,
+  ];
+
+  const lines =
+    viewMode === 'course'
+      ? courseLines
+      : viewMode === 'shop'
+      ? shopLines
+      : regionLines;
 
   return (
     <div className={styles.banner}>

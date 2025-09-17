@@ -1,10 +1,15 @@
-import { MdLocationOn } from "react-icons/md";
-import styles from "./LocationCard.module.css";
+import { MdLocationOn } from 'react-icons/md';
+import styles from './LocationCard.module.css';
 
-export default function LocationCard({ location, userName = "나나나난님", className = "" }) {
+export default function LocationCard({
+  location,
+  userName = '사용자님',
+  className = '',
+  isLoadingNickname = false,
+}) {
   const formatLocation = () => {
     if (!location.loaded) {
-      return "위치 정보 로딩 중...";
+      return '위치 정보 로딩 중...';
     }
 
     const { province, city } = location.address;
@@ -13,7 +18,7 @@ export default function LocationCard({ location, userName = "나나나난님", c
       return province ? `${province} ${city}`.trim() : `${city}`.trim();
     }
 
-    return "경상북도 경주시 인왕동";
+    return '경상북도 경주시 인왕동';
   };
 
   return (
@@ -22,7 +27,11 @@ export default function LocationCard({ location, userName = "나나나난님", c
         <div className={styles.greeting}>
           <div className={styles.welcomeTitle}>
             <span className={styles.greetingText}>안녕하세요,</span>
-            <span className={styles.nameText}>{userName}!</span>
+            {isLoadingNickname ? (
+              <div className={styles.nameSkeleton}></div>
+            ) : (
+              <span className={styles.nameText}>{userName}!</span>
+            )}
           </div>
           <div className={styles.locationInfo}>
             <p className={styles.locationLabel}>현재 위치</p>

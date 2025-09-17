@@ -1,0 +1,847 @@
+@import '../styles/common-variables.css';
+@import '../styles/tour-variables.css';
+
+.page {
+  min-height: 100vh;
+  background-color: var(--blue-light);
+  position: relative;
+}
+
+/* 메인 콘텐츠 */
+.main {
+  padding: 4.375rem var(--tour-container-padding) var(--tour-spacing-xl)
+    var(--tour-container-padding);
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* 알림 카드 */
+.notificationCard {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.notificationContent {
+  padding: 9px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 106px;
+}
+
+.notificationText {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.563;
+  letter-spacing: -0.4px;
+  color: var(--gray-600);
+  margin: 0;
+  flex: 1;
+}
+
+.gpsHighlight {
+  color: #2d8ae7;
+}
+
+.notificationImage {
+  width: 89px;
+  height: 89px;
+  object-fit: cover;
+  margin-left: 20px;
+}
+
+/* 현재 위치 카드 */
+.locationCard {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  position: relative;
+  height: 352px;
+}
+
+.locationContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 30px 22px 22px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.locationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.locationTitle {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 0.832;
+  color: var(--gray-600);
+  margin: 0;
+  text-align: left;
+}
+
+.locationRefreshButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--blue-main);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.locationRefreshButton:hover {
+  background-color: rgba(45, 138, 231, 0.1);
+  transform: scale(1.05);
+}
+
+.locationRefreshButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.locationRefreshButton.refreshing {
+  background-color: rgba(45, 138, 231, 0.1);
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.locationAddress {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.189;
+  color: var(--gray-600);
+  margin: 0 0 20px 0;
+  text-align: left;
+  word-break: keep-all;
+}
+
+.mapContainer {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  position: relative;
+  background-color: #f0f0f0; /* 디버깅용 배경색 */
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+}
+
+.locationPin {
+  position: absolute;
+  bottom: 135px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 31px;
+  background-color: var(--pink-main);
+  border-radius: 50% 50% 50% 0;
+  transform: translateX(-50%) rotate(-45deg);
+  z-index: 10;
+}
+
+.locationPin::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* 근처 스티커 섹션 */
+.nearbySection {
+  margin-top: var(--spacing-2xl);
+  position: relative;
+}
+
+.nearbyHeader {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--section-header-padding);
+}
+
+.nearbyTitle {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: var(--title-size);
+  line-height: 0.832;
+  color: var(--section-title-color);
+  margin: 0;
+}
+
+.nearbyTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.refreshButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--blue-main);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refreshButton:hover {
+  background-color: rgba(45, 138, 231, 0.1);
+  transform: scale(1.05);
+}
+
+.refreshButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.refreshButton:disabled:hover {
+  background-color: transparent;
+  transform: none;
+}
+
+/* 새로고침 버튼 회전 애니메이션 */
+.refreshButton.refreshing {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 로딩 오버레이 */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 10px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--blue-main);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.loadingOverlay p {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.nearbyDescription {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.071;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* 경북씰 스켈레톤 UI */
+.sealSkeleton {
+  width: 100%;
+  height: 200px; /* 더 긴 높이 설정 */
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 2px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.sealSkeletonImage {
+  flex: 1;
+  min-height: 140px; /* 더 긴 최소 높이 */
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  margin: 0;
+  border-radius: 2px;
+}
+
+.sealSkeletonBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 28px;
+  height: 14px;
+  background: linear-gradient(90deg, #e9ecef 25%, #dee2e6 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 7px;
+}
+
+.sealSkeletonName {
+  position: absolute;
+  top: 8px;
+  left: 44px;
+  right: 8px;
+  height: 12px;
+  background: linear-gradient(90deg, #e9ecef 25%, #dee2e6 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 2px;
+}
+
+/* 스켈레톤 거리 텍스트 */
+.skeletonDistanceText {
+  width: 40px;
+  height: 16px;
+  background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.stickerGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stickerRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stickerCardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.stickerCard {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stickerCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+}
+
+.distanceBadge {
+  background-color: #2d8ae7;
+  border-radius: 100px;
+  padding: 3px 12px;
+  min-width: 59px;
+  text-align: center;
+}
+
+.distanceText {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.533;
+  letter-spacing: -0.45px;
+  color: #ffffff;
+}
+
+/* 획득하기 버튼 */
+.acquireButton {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  padding: 20px 109px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.092;
+  letter-spacing: -0.546px;
+  color: var(--blue-main);
+  cursor: pointer;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.acquireButton:hover {
+  background-color: #f8f9fa;
+  transform: translateX(-50%) translateY(-1px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.acquireButton:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 하단 바 */
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 129px;
+  height: 6px;
+  background-color: var(--gray-600);
+  border-radius: 10px;
+}
+
+/* 모달 오버레이 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(26, 26, 26, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* 획득 모달 - 피그마 디자인 정확히 매칭 */
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 400px;
+  height: 500px;
+  align-items: center;
+  overflow: visible;
+}
+
+.modalCard {
+  border: none;
+  border-radius: 15px;
+  box-shadow: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+/* 모으지 않은 씰 - 투명 배경 */
+.modalCard.notCollected {
+  overflow: hidden;
+  padding: 0;
+  background-color: transparent;
+}
+
+/* 모은 씰 - 투명 배경 */
+.modalCard.collected {
+  overflow: visible;
+  padding: 20px;
+  background-color: transparent;
+}
+
+.modalSealCardWrapper {
+  width: 320px;
+  height: 387.5px;
+  transform: scale(1);
+  border-radius: 0;
+  position: relative;
+  perspective: 1000px;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.modalCard.flipped .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  background: transparent;
+}
+
+.modalButtonWrapper {
+  width: 320px;
+  margin-top: 20px;
+}
+
+.modalAcquireButton {
+  width: 100%;
+  background-color: #ffffff;
+  color: var(--blue-main);
+  border: none;
+  border-radius: 15px;
+  padding: 20px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.092;
+  letter-spacing: -0.546px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalAcquireButton:hover {
+  background-color: #f8f9fa;
+}
+
+/* 완료 모달 - 피그마 디자인 정확히 매칭 */
+.completionModal {
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 320px;
+  height: 109px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.completionContent {
+  padding: 23px 17px;
+  text-align: center;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.completionText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.563;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.completionDivider {
+  width: 100%;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 0 0 15px 0;
+  flex-shrink: 0;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+.completionButton {
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 0.938;
+  color: #2d8ae7;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.completionButton:hover {
+  color: #1a6bc7;
+}
+
+/* 획득 버튼 로딩 상태 */
+.modalAcquireButton.acquiring {
+  background-color: var(--blue-main);
+  color: white;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.modalAcquireButton.acquiring:hover {
+  background-color: var(--blue-main);
+}
+
+/* 획득 버튼 성공 상태 */
+.modalAcquireButton.success {
+  background: linear-gradient(45deg, #4caf50, #66bb6a, #4caf50);
+  background-size: 200% 200%;
+  color: white;
+  cursor: not-allowed;
+  pointer-events: none;
+  animation: successPulse 0.5s ease-in-out,
+    successButtonGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+.modalAcquireButton.success:hover {
+  background-color: var(--green-main);
+}
+
+/* 획득 버튼 수집된 상태 */
+.modalAcquireButton.collected {
+  background-color: white;
+  color: #2d8ae7;
+  border: 2px solid #2d8ae7;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 8px 16px;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* 카드 회전 애니메이션 */
+.modalCard.rotating {
+  animation: cardRotate 5s ease-in-out infinite;
+}
+
+/* 카드 색상 채우기 효과 */
+.modalCard.filled {
+  animation: cardFill 0.5s ease-in-out forwards,
+    successGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+}
+
+/* 버튼 내부 콘텐츠 */
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 카드 회전 애니메이션 - 천천히 → 빨리 → 천천히 (5초) */
+@keyframes cardRotate {
+  0% {
+    transform: rotateY(0deg);
+    animation-timing-function: ease-in;
+  }
+  20% {
+    transform: rotateY(360deg);
+    animation-timing-function: linear;
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: linear;
+  }
+  80% {
+    transform: rotateY(2520deg);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: rotateY(2880deg);
+  }
+}
+
+/* 카드 색상 채우기 애니메이션 */
+@keyframes cardFill {
+  0% {
+    filter: brightness(1) saturate(1);
+  }
+  100% {
+    filter: brightness(1.2) saturate(1.5);
+    box-shadow: 0 0 20px rgba(0, 210, 122, 0.5);
+  }
+}
+
+/* 성공 펄스 애니메이션 */
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 성공 시 반짝이는 효과 */
+@keyframes successGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8), 0 0 40px rgba(76, 175, 80, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+  }
+}
+
+/* 성공 버튼 그라데이션 애니메이션 */
+@keyframes successButtonGlow {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+  }
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+}
+
+/* 반응형 스타일 */
+/* Small (sm) - 모바일 */
+@media (max-width: 767px) {
+  .main {
+    max-width: 100%;
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+
+  .notificationCard,
+  .locationCard {
+    margin-bottom: 30px;
+  }
+
+  .nearbySection {
+    margin-top: var(--spacing-2xl);
+  }
+
+  .stickerRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .stickerCard {
+    width: 100%;
+    height: auto;
+  }
+
+  .modalOverlay {
+    padding: 10px;
+  }
+}
+
+/* Medium (md) - 태블릿 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    max-width: 600px;
+  }
+
+  .stickerRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .stickerCard {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Large (lg) - 데스크톱 */
+@media (min-width: 1024px) {
+  .main {
+    max-width: 800px;
+  }
+
+  .stickerRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .stickerCard {
+    width: 100%;
+    height: auto;
+  }
+}

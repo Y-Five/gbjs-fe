@@ -4,6 +4,11 @@
   /* Font */
   --font-family: 'Pretendard', sans-serif;
 
+  /* 띠부씰 희귀도 색상 */
+  --rarity-blue: #2d8ae7; /* 흔함 (BLUE) */
+  --rarity-green: #00d27a; /* 보통 (GREEN) */
+  --rarity-red: #ff0f67; /* 희귀 (RED) */
+
   /* Grayscale */
   --gray-100: #ffffff;
   --gray-200: #e5e5e5;
@@ -15,6 +20,11 @@
   /* Colors */
   --blue-main: #2d8ae7;
   --blue-light: #eff7ff;
+  --pink-main: #ff0f67;
+  --cyan-main: #00d2bd;
+  --gray-border: #e8e8e8;
+  --green-success: #4caf50;
+  --green-light: #e8f5e8;
 
   /* Shadows */
   --shadow-card: 0px 0px 12px 0px rgba(0, 0, 0, 0.05);
@@ -22,6 +32,7 @@
   --shadow-button: 0px 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-button-hover: 0px 6px 16px rgba(0, 0, 0, 0.2);
   --shadow-menu: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  --shadow-badge: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
   /* Border Radius */
   --radius-small: 5px;
@@ -35,6 +46,13 @@
   --body-size: 14px;
   --small-size: 12px;
   --input-size: 15px;
+
+  /* Section Headers */
+  --section-title-color: #1a1a1a;
+  --section-subtitle-color: #5e5e5e;
+  --section-title-margin: 4px;
+  --section-subtitle-margin: 16px;
+  --section-header-padding: 0 8px;
 
   /* Spacing */
   --spacing-xs: 0.5rem;

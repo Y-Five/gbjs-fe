@@ -1,0 +1,97 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.alertModal {
+  background-color: #ffffff;
+  border-radius: 15px;
+  max-width: 314px;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.alertContent {
+  padding: 25px 0 15px 0;
+  text-align: center;
+}
+
+.alertTitle {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 18px;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.alertText {
+  font-family: Pretendard;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 0.9375em;
+  color: #1a1a1a;
+  margin: 0 0 18px 0;
+}
+
+.alertDivider {
+  width: 281px;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 0 auto 16px auto;
+}
+
+.alertButton {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 0.9375em;
+  color: #2d8ae7;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  width: 28px;
+  height: 15px;
+}
+
+.alertButton:hover {
+  opacity: 0.8;
+}
+
+/* 에러 모달 스타일 */
+.errorModal {
+  border: 2px solid #ff6b6b;
+}
+
+.errorModal .alertTitle {
+  color: #ff6b6b;
+}
+
+.errorModal .alertButton {
+  color: #ff6b6b;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

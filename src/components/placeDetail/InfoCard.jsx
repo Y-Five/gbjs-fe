@@ -1,26 +1,39 @@
-import { useCallback } from "react";
-import { IoCall } from "react-icons/io5";
-import { MdLocationOn, MdOutlineMap } from "react-icons/md";
-import { TbClockFilled } from "react-icons/tb";
-import styles from "./InfoCard.module.css";
+import { useCallback, useState } from 'react';
+import { IoCall } from 'react-icons/io5';
+import { MdLocationOn, MdOutlineMap } from 'react-icons/md';
+import { TbClockFilled } from 'react-icons/tb';
+import styles from './InfoCard.module.css';
 
-const KAKAO_MAP_URL = "https://map.kakao.com/link/search/";
+const KAKAO_MAP_URL = 'https://map.kakao.com/link/search/';
 
 export default function InfoCard({ placeData }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const handleMapClick = useCallback(() => {
     const mapUrl = `${KAKAO_MAP_URL}${encodeURIComponent(placeData.name)}`;
-    window.open(mapUrl, "_blank", "noopener,noreferrer");
+    window.open(mapUrl, '_blank', 'noopener,noreferrer');
   }, [placeData.name]);
 
   const formatTags = (tags) => {
-    if (!tags || tags.length === 0) return "";
-    return `#${tags.join(", #")}`;
+    if (!tags || tags.length === 0) return '';
+    return `#${tags.join(', #')}`;
   };
+
+  const shouldShowExpandButton =
+    placeData.description && placeData.description.length > 100;
+  const displayDescription =
+    isExpanded || !shouldShowExpandButton
+      ? placeData.description
+      : placeData.description.substring(0, 100) + '...';
+
+  const handleExpandClick = useCallback(() => {
+    setIsExpanded(!isExpanded);
+  }, [isExpanded]);
 
   return (
     <div className={styles.infoCard}>
-      <button 
-        className={styles.mapButton} 
+      <button
+        className={styles.mapButton}
         onClick={handleMapClick}
         aria-label="카카오맵에서 위치 보기"
       >
@@ -29,13 +42,14 @@ export default function InfoCard({ placeData }) {
       </button>
 
       <h1 className={styles.title}>{placeData.name}</h1>
-      {placeData.tags && (
-        <p className={styles.tags}>{formatTags(placeData.tags)}</p>
-      )}
+      {placeData.type && <p className={styles.tags}>#{placeData.type}</p>}
 
-      <p className={styles.description}>
-        {placeData.description}
-      </p>
+      <p className={styles.description}>{displayDescription}</p>
+      {shouldShowExpandButton && (
+        <button className={styles.expandButton} onClick={handleExpandClick}>
+          {isExpanded ? '접기' : '더보기'}
+        </button>
+      )}
 
       <div className={styles.divider} />
 
@@ -63,6 +77,17 @@ export default function InfoCard({ placeData }) {
         </div>
         <span className={styles.phone}>{placeData.phoneNumber}</span>
       </div>
+
+      {placeData.distance && (
+        <div className={styles.infoItem}>
+          <div className={styles.icon}>
+            <MdLocationOn size={20} />
+          </div>
+          <span className={styles.distance}>
+            현재 위치에서 약 {Math.round(placeData.distance)}m
+          </span>
+        </div>
+      )}
     </div>
   );
 }

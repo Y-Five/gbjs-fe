@@ -1,0 +1,11 @@
+@import '../../styles/common-variables.css';
+
+.ttsBadge {
+  background-color: var(--green-success);
+  color: white;
+  padding: 2px 6px;
+  border-radius: var(--radius-small);
+  font-size: var(--small-size);
+  font-weight: 600;
+  display: inline-block;
+}

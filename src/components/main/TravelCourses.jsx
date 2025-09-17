@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CourseCardSection from "../global/CourseCardSection";
+import CourseCardSection from "../global/CourseCardSection2";
 import { courseService } from "../../apis/main";
 
 export default function TravelCourses() {

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import CourseCardSection from "../global/CourseCardSection";
-import { sealtourService } from "../../apis/sealtour";
+import { useState, useEffect } from 'react';
+import CourseCardSection from '../global/CourseCardSection';
+import { sealtourService } from '../../apis/sealtour';
 
 export default function PopularSpotList() {
   const [spots, setSpots] = useState([]);
@@ -15,7 +15,7 @@ export default function PopularSpotList() {
       const response = await sealtourService.getPopularSpots();
       setSpots(response.data || []);
     } catch (err) {
-      console.error("인기 관광지 데이터 조회 실패:", err);
+      console.error('인기 관광지 데이터 조회 실패:', err);
       setError(err);
       setSpots([]);
     } finally {
@@ -33,14 +33,14 @@ export default function PopularSpotList() {
     image: spot.imageUrl,
     name: spot.name,
     location: spot.hashtag
-      ? spot.hashtag.map((tag) => `# ${tag}`).join("\n")
-      : "",
+      ? spot.hashtag.map((tag) => `# ${tag}`).join('\n')
+      : '',
   }));
 
   return (
     <CourseCardSection
-      title="인기 띠부씰 관광지"
-      sub="요즘 인기 있는 관광지에서 띠부씰을 모아보세요!"
+      title="인기 경북씰 관광지"
+      sub="요즘 인기 있는 관광지에서 경북씰을 모아보세요!"
       cards={popularCards}
       loading={loading}
       error={error}
