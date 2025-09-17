@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { savedCourseService } from "../../apis/savedCourse";
-import styles from "./CourseCardSection2.module.css";
+import styles from "./CourseCardSectionMain.module.css";
 
-export default function CourseCardSection2({
+export default function CourseCardSectionMain({
   title,
   sub,
   tabs = [],

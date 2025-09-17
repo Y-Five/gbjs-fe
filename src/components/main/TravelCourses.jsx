@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CourseCardSection from "../global/CourseCardSection2";
+import CourseCardSectionMain from "../global/CourseCardSectionMain";
 import { courseService } from "../../apis/main";
 
 export default function TravelCourses() {
@@ -53,7 +53,7 @@ export default function TravelCourses() {
   }, []);
 
   return (
-    <CourseCardSection
+    <CourseCardSectionMain
       title="여행코스"
       sub="원하는 코스를 골라 아름다운 경북을 여행하세요."
       tabs={tabs}
