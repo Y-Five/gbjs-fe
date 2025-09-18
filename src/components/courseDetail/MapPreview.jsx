@@ -23,19 +23,25 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
     };
 
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, [courseData, selectedDay]);
 
   const initializeMap = () => {
-    if (!courseData || !courseData.dailyCourses) return;
+    if (!courseData || !courseData.dailyCourses) {
+      return;
+    }
 
     // 선택된 일차의 스팟만 수집
     const selectedDayCourse = courseData.dailyCourses.find(
       (course) => course.dayNumber === selectedDay
     );
 
-    if (!selectedDayCourse) return;
+    if (!selectedDayCourse) {
+      return;
+    }
 
     const allSpots = selectedDayCourse.spots.map((spot, index) => ({
       lat: spot.latitude,
@@ -46,13 +52,27 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
       order: index + 1,
     }));
 
-    if (allSpots.length === 0) return;
+    // 좌표 유효성 검사
+    const validSpots = allSpots.filter((spot) => {
+      const isValidLat = spot.lat >= 33 && spot.lat <= 39; // 한국 위도 범위
+      const isValidLng = spot.lng >= 124 && spot.lng <= 132; // 한국 경도 범위
 
-    // 지도 중심점 계산 (모든 스팟의 중심)
+      return isValidLat && isValidLng;
+    });
+
+    if (validSpots.length === 0) {
+      return;
+    }
+
+    if (allSpots.length === 0) {
+      return;
+    }
+
+    // 유효한 좌표로 지도 중심점 계산
     const centerLat =
-      allSpots.reduce((sum, spot) => sum + spot.lat, 0) / allSpots.length;
+      validSpots.reduce((sum, spot) => sum + spot.lat, 0) / validSpots.length;
     const centerLng =
-      allSpots.reduce((sum, spot) => sum + spot.lng, 0) / allSpots.length;
+      validSpots.reduce((sum, spot) => sum + spot.lng, 0) / validSpots.length;
 
     // 지도 생성
     const mapOption = {
@@ -62,8 +82,8 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
 
     mapInstance.current = new window.kakao.maps.Map(mapRef.current, mapOption);
 
-    // 원과 숫자만 표시
-    allSpots.forEach((spot, index) => {
+    // 유효한 좌표에만 원과 숫자 표시
+    validSpots.forEach((spot, index) => {
       const markerPosition = new window.kakao.maps.LatLng(spot.lat, spot.lng);
 
       // 숫자가 있는 원만 표시하는 커스텀 오버레이 생성
@@ -91,12 +111,22 @@ export default function MapPreview({ courseData, selectedDay = 1 }) {
       customOverlay.setMap(mapInstance.current);
     });
 
-    // 모든 마커가 보이도록 지도 범위 조정
-    const bounds = new window.kakao.maps.LatLngBounds();
-    allSpots.forEach((spot) => {
-      bounds.extend(new window.kakao.maps.LatLng(spot.lat, spot.lng));
-    });
-    mapInstance.current.setBounds(bounds);
+    // 유효한 마커가 보이도록 지도 범위 조정
+    if (validSpots.length > 1) {
+      const bounds = new window.kakao.maps.LatLngBounds();
+      validSpots.forEach((spot) => {
+        bounds.extend(new window.kakao.maps.LatLng(spot.lat, spot.lng));
+      });
+      mapInstance.current.setBounds(bounds);
+    } else if (validSpots.length === 1) {
+      // 마커가 하나만 있을 경우 해당 위치로 중심 이동
+      const center = new window.kakao.maps.LatLng(
+        validSpots[0].lat,
+        validSpots[0].lng
+      );
+      mapInstance.current.setCenter(center);
+      mapInstance.current.setLevel(3);
+    }
   };
 
   return (

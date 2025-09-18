@@ -1,5 +1,5 @@
-import sealIcon from '../../assets/images/sealCharacter.png';
-import styles from './DescriptionBanner.module.css';
+import sealIcon from "../../assets/images/sealTour/까치_지도 2.png";
+import styles from "./DescriptionBanner.module.css";
 
 export default function DescriptionBanner({ viewMode }) {
   const courseLines = [
@@ -23,9 +23,9 @@ export default function DescriptionBanner({ viewMode }) {
   ];
 
   const lines =
-    viewMode === 'course'
+    viewMode === "course"
       ? courseLines
-      : viewMode === 'shop'
+      : viewMode === "shop"
       ? shopLines
       : regionLines;
 

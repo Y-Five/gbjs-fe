@@ -1,31 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
 // Lazy load pages for better performance
-const LoginPage = lazy(() => import('../pages/LoginPage'));
-const MainPage = lazy(() => import('../pages/MainPage'));
-const TourPage = lazy(() => import('../pages/TourPage'));
-const SealTourPage = lazy(() => import('../pages/SealTourPage'));
-const SealShopPage = lazy(() => import('../pages/SealShopPage'));
-const SealExchangePage = lazy(() => import('../pages/SealExchangePage'));
-const AllSealsPage = lazy(() => import('../pages/AllSealsPage'));
-const CourseDetailPage = lazy(() => import('../pages/CourseDetailPage'));
-const AdministrativePage = lazy(() => import('../pages/AdministrativePage'));
-const SearchPage = lazy(() => import('../pages/SearchPage'));
-const PlaceDetailPage = lazy(() => import('../pages/PlaceDetailPage'));
-const FestivalDetailPage = lazy(() => import('../pages/FestivalDetailPage'));
-const ChatPage = lazy(() => import('../pages/ChatPage'));
-const MyPage = lazy(() => import('../pages/MyPage'));
-const AccountEditPage = lazy(() => import('../pages/AccountEditPage'));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const MainPage = lazy(() => import("../pages/MainPage"));
+const TourPage = lazy(() => import("../pages/TourPage"));
+const SealTourPage = lazy(() => import("../pages/SealTourPage"));
+const SealShopPage = lazy(() => import("../pages/SealShopPage"));
+const SealExchangePage = lazy(() => import("../pages/SealExchangePage"));
+const AllSealsPage = lazy(() => import("../pages/AllSealsPage"));
+const CourseDetailPage = lazy(() => import("../pages/CourseDetailPage"));
+const AdministrativePage = lazy(() => import("../pages/AdministrativePage"));
+const SearchPage = lazy(() => import("../pages/SearchPage"));
+const PlaceDetailPage = lazy(() => import("../pages/PlaceDetailPage"));
+const FestivalDetailPage = lazy(() => import("../pages/FestivalDetailPage"));
+const ChatPage = lazy(() => import("../pages/ChatPage"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const AccountEditPage = lazy(() => import("../pages/AccountEditPage"));
 const AccountWithdrawalPage = lazy(() =>
-  import('../pages/AccountWithdrawalPage')
+  import("../pages/AccountWithdrawalPage")
 );
 const AccountWithdrawalCompletePage = lazy(() =>
-  import('../pages/AccountWithdrawalCompletePage')
+  import("../pages/AccountWithdrawalCompletePage")
 );
-const SavedCoursePage = lazy(() => import('../pages/SavedCoursePage'));
-const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
-const SealAcquisitionPage = lazy(() => import('../pages/SealAcquisitionPage'));
+const SavedCoursePage = lazy(() => import("../pages/SavedCoursePage"));
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
+const SealAcquisitionPage = lazy(() => import("../pages/SealAcquisitionPage"));
+const TermsDetailPage = lazy(() => import("../pages/TermsDetailPage"));
 import FestivalListPage from "../pages/FestivalListPage";
 import TraditionalProductsListPage from "../pages/TraditionalProductsListPage";
 
@@ -33,12 +34,12 @@ import TraditionalProductsListPage from "../pages/TraditionalProductsListPage";
 const PageLoader = () => (
   <div
     style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      fontSize: '16px',
-      color: '#666',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      fontSize: "16px",
+      color: "#666",
     }}
   >
     페이지를 불러오는 중...
@@ -79,6 +80,7 @@ export default function AppRouter() {
           />
           <Route path="/saved-course" element={<SavedCoursePage />} />
           <Route path="/getseals" element={<SealAcquisitionPage />} />
+          <Route path="/terms-detail" element={<TermsDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/festival-list" element={<FestivalListPage />} />
           <Route

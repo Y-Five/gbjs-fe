@@ -10,6 +10,7 @@ export default function TraditionalProductsListPage() {
   const { type } = location.state || { type: "ACTIVITY" };
 
   const [products, setProducts] = useState([]);
+  const [totalElements, setTotalElements] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pageNum, setPageNum] = useState(1);
@@ -37,6 +38,7 @@ export default function TraditionalProductsListPage() {
 
       if (reset) {
         setProducts(newProducts);
+        setTotalElements(data.data?.totalElements || 0);
       } else {
         setProducts((prev) => [...prev, ...newProducts]);
       }
@@ -127,7 +129,7 @@ export default function TraditionalProductsListPage() {
 
         <div className={styles.countSection}>
           <span className={styles.countText}>
-            총 <span className={styles.countNumber}>{products.length}</span>건
+            총 <span className={styles.countNumber}>{totalElements}</span>건
           </span>
         </div>
 
@@ -155,7 +157,9 @@ export default function TraditionalProductsListPage() {
                   />
                   <div className={styles.productInfo}>
                     <p className={styles.productLocation}>
-                      {product.address || "위치 정보 없음"}
+                      {activeTab === "SPECIALTIES"
+                        ? `${product.price || 0}원`
+                        : product.address || "위치 정보 없음"}
                     </p>
                     <div className={styles.productNameRow}>
                       <p className={styles.productName}>

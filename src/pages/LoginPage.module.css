@@ -1,9 +1,12 @@
 .container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh; /* 동적 뷰포트 높이 사용 */
   position: relative;
   background-color: #ffffff;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 /* 배경 이미지 */
@@ -48,6 +51,15 @@
   border: 1px solid #ffffff;
 }
 
+/* 상단 컨텐츠 영역 */
+.topContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 600px; /* 최소 높이 보장 */
+}
+
 /* 앱 로고 및 타이틀 */
 .logoSection {
   position: absolute;
@@ -59,7 +71,7 @@
 }
 
 .appTitle {
-  font-family: 'Gmarket Sans TTF', sans-serif;
+  font-family: "Gmarket Sans TTF", sans-serif;
   font-weight: 700;
   font-size: 30px;
   line-height: 1.1em;
@@ -69,7 +81,7 @@
 }
 
 .appSubtitle {
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.193359375em;
@@ -84,12 +96,23 @@
   top: 530px;
   left: 50%;
   transform: translateX(-50%);
-  width: 283px;
+  width: 100%;
   z-index: 2;
 }
 
+/* 하단 컨텐츠 영역 */
+.bottomContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  align-items: center;
+  z-index: 2;
+  flex-shrink: 0; /* 축소되지 않도록 설정 */
+}
+
 .description {
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5em;
@@ -98,17 +121,104 @@
   margin: 0;
 }
 
+/* 위치정보 동의 약관 */
+.termsSection {
+  width: 100%;
+  max-width: 301px;
+}
+
+.termsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.checkbox:checked + .checkmark {
+  background-color: #2d71b5;
+  border-color: #2d71b5;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox:checked + .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.termsText {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5em;
+  color: #444444;
+  user-select: none;
+}
+
+.termsDetailButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5em;
+  color: #6f6f6f;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.termsDetailButton:hover {
+  color: #2d71b5;
+}
+
 /* 카카오 로그인 버튼 */
 .loginSection {
-  position: absolute;
-  top: 625px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+  width: 100%;
+  max-width: 301px;
 }
 
 .kakaoLoginButton {
-  width: 301px;
+  width: 100%;
   height: 55px;
   background-color: #fee500;
   border: none;
@@ -131,9 +241,16 @@
   transform: translateY(0);
 }
 
-.kakaoLoginButton:disabled {
-  opacity: 0.7;
+.kakaoLoginButton:disabled,
+.kakaoLoginButton.disabled {
+  opacity: 0.5;
   cursor: not-allowed;
+  background-color: #e5e7eb;
+}
+
+.kakaoLoginButton.disabled:hover {
+  background-color: #e5e7eb;
+  transform: none;
 }
 
 .kakaoIcon {
@@ -151,7 +268,7 @@
 }
 
 .kakaoText {
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.193359375em;
@@ -161,11 +278,9 @@
 
 /* 건너뛰기 버튼 */
 .skipSection {
-  position: absolute;
-  top: 752px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .skipButton {
@@ -184,7 +299,7 @@
 }
 
 .skipText {
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5em;
@@ -204,32 +319,25 @@
     margin: 0 auto;
   }
 
-  .backgroundImage {
-    height: 382px;
+  .bottomContent {
+    padding: 1.5rem 0.75rem;
+    gap: 1.25rem;
   }
 
-  .kakaoLoginButton {
-    width: 280px;
-  }
-
-  .descriptionSection {
+  .termsSection,
+  .loginSection {
+    max-width: 280px;
   }
 }
 
 @media (max-width: 375px) {
-  .kakaoLoginButton {
-    width: 260px;
+  .bottomContent {
+    padding: 1.25rem 0.5rem;
+    gap: 1rem;
   }
 
-  .descriptionSection {
-    width: 240px;
-  }
-
-  .appTitle {
-    font-size: 28px;
-  }
-
-  .appSubtitle {
-    font-size: 14px;
+  .termsSection,
+  .loginSection {
+    max-width: 260px;
   }
 }
