@@ -112,24 +112,12 @@ const privateApi = axios.create({
 });
 
 /**
- * 디버깅용 쿠키 확인 함수
- */
-const debugCookies = () => {
-  console.log("현재 쿠키:", document.cookie);
-  console.log("ACCESS_TOKEN:", getCookie("ACCESS_TOKEN"));
-  console.log("REFRESH_TOKEN:", getCookie("REFRESH_TOKEN"));
-};
-
-/**
  * privateApi 요청 인터셉터
  * 모든 privateApi 요청이 실행되기 전에 실행되는 미들웨어
  * 쿠키에서 토큰을 가져와 요청 헤더에 추가
  */
 privateApi.interceptors.request.use(
   (config) => {
-    // 디버깅: 쿠키 상태 확인
-    debugCookies();
-
     // 쿠키에서 ACCESS_TOKEN 가져오기
     const token = getCookie("ACCESS_TOKEN");
 

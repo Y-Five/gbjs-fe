@@ -42,7 +42,7 @@ export default function MyPage() {
         <AccountInfo
           nickname={nickname}
           email={email}
-          message={user ? "소상 공인 인증 계정" : ""}
+          message={user ? "소셜 로그인 연동 계정" : ""}
         />
         <SettingsSection
           ttsSetting={user?.ttsSetting}

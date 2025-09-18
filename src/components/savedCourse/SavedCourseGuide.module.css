@@ -1,6 +1,6 @@
 .banner {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   background-color: #fff;
   padding: 0 0 0 20px;
   border-radius: 12px;
@@ -10,12 +10,12 @@
 }
 
 .icon {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 70px;
 }
 
 .textContainer {
-  padding: 16px 8px 16px 0;
+  padding: 16px 0 16px 0;
 }
 
 .mainText {

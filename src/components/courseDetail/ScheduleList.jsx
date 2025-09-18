@@ -32,7 +32,7 @@ export default function ScheduleList({
       <p className={styles.label}>코스가 마음에 드신다면 저장해주세요.</p>
       <p className={styles.titleRow}>
         <span className={styles.title}>
-          {formatDate(date)} {location} 코스
+          {courseData?.title || `${formatDate(date)} ${location} 코스`}
         </span>
         {onRegenerate && (
           <button

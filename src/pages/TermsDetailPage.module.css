@@ -1,0 +1,139 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 4.375rem 1rem 2rem 1rem;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4em;
+  color: #2d71b5;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5f3ff;
+}
+
+.sectionContent {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6em;
+  color: #444444;
+  margin: 0 0 1rem 0;
+  text-align: justify;
+}
+
+.list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.list li {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6em;
+  color: #444444;
+  margin-bottom: 0.5rem;
+  list-style-type: disc;
+}
+
+.contactInfo {
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #2d71b5;
+  margin-top: 1rem;
+}
+
+.contactInfo p {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6em;
+  color: #444444;
+  margin: 0.5rem 0;
+}
+
+.contactInfo strong {
+  font-weight: 600;
+  color: #2d71b5;
+}
+
+.effectiveDate {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.effectiveDate p {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6em;
+  color: #6f6f6f;
+  margin: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    padding: 4.375rem 0.5rem 2rem 0.5rem;
+  }
+
+  .content {
+    padding: 0 0.5rem;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .sectionContent,
+  .list li,
+  .contactInfo p {
+    font-size: 13px;
+  }
+
+  .contactInfo {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 4.375rem 0.25rem 2rem 0.25rem;
+  }
+
+  .content {
+    padding: 0 0.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+  }
+
+  .sectionContent,
+  .list li,
+  .contactInfo p {
+    font-size: 12px;
+  }
+
+  .list {
+    padding-left: 1rem;
+  }
+}
