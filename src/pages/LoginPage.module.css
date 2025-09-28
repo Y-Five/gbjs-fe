@@ -9,24 +9,46 @@
   overflow-y: auto;
 }
 
-/* 배경 이미지 */
-.backgroundImage {
+/* 배경 이미지 슬라이더 */
+.backgroundSlider {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 382px;
   z-index: 1;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: pan-y;
 }
 
-.backgroundImg {
+.backgroundSlider:active {
+  cursor: grabbing;
+}
+
+.backgroundSlide {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* 페이지 인디케이터 */
-.pageIndicator {
+.backgroundSlide.active {
+  opacity: 1;
+}
+
+/* 슬라이드 인디케이터 */
+.slideIndicators {
   position: absolute;
   top: 357px;
   left: 50%;
@@ -36,19 +58,27 @@
   z-index: 2;
 }
 
-.indicatorDot {
+.indicator {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
 }
 
-.activeIndicator {
+.indicator.active {
   width: 28px;
   height: 8px;
   border-radius: 100px;
   background-color: #2d71b5;
   border: 1px solid #ffffff;
+}
+
+.indicator:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* 상단 컨텐츠 영역 */

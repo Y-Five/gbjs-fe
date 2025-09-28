@@ -11,11 +11,18 @@ export default function CourseCardSectionMain({
   error = null,
   activeTab = 0,
   onTabChange = null,
+  onCardClick = null,
 }) {
   const navigate = useNavigate();
 
   const handleCardClick = (card) => {
-    // courseId가 있으면 상세 페이지로 이동 (API 호출은 상세 페이지에서)
+    // 외부에서 onCardClick이 전달되면 그것을 사용
+    if (onCardClick) {
+      onCardClick(card.originalData || card);
+      return;
+    }
+
+    // 기본 동작: courseId가 있으면 상세 페이지로 이동 (API 호출은 상세 페이지에서)
     if (card.id) {
       navigate("/course", {
         state: {
