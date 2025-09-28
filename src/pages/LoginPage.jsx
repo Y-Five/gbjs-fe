@@ -1,13 +1,100 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
-import backgroundImage from "../assets/images/login/background.jpg";
+import banner1 from "../assets/images/login/banner1.png";
+import banner2 from "../assets/images/login/banner2.jpeg";
+import banner3 from "../assets/images/login/banner3.jpeg";
+import banner4 from "../assets/images/login/banner4.jpeg";
 import kakaoIcon from "../assets/images/login/kakao-icon.png";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isTermsAgreed, setIsTermsAgreed] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
+
+  const banners = [banner1, banner2, banner3, banner4];
+
+  // 자동 슬라이드
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 4000); // 4초마다 슬라이드
+
+    return () => clearInterval(interval);
+  }, [banners.length]);
+
+  // 수동 슬라이드 핸들러
+  const handleSlideChange = (index) => {
+    setCurrentSlide(index);
+  };
+
+  // 마우스 드래그 시작
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setCurrentX(e.clientX);
+  };
+
+  // 마우스 드래그 중
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    setCurrentX(e.clientX);
+  };
+
+  // 마우스 드래그 종료
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    handleDragEnd();
+  };
+
+  // 터치 시작
+  const handleTouchStart = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setStartX(e.touches[0].clientX);
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  // 터치 이동
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  // 터치 종료
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    handleDragEnd();
+  };
+
+  // 드래그 종료 공통 로직
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+
+    const diffX = startX - currentX;
+    const threshold = 50; // 최소 드래그 거리
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0) {
+        // 왼쪽으로 드래그 (다음 슬라이드)
+        setCurrentSlide((prev) => (prev + 1) % banners.length);
+      } else {
+        // 오른쪽으로 드래그 (이전 슬라이드)
+        setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
+      }
+    }
+
+    setIsDragging(false);
+    setStartX(0);
+    setCurrentX(0);
+  };
 
   const handleKakaoLogin = () => {
     if (!isTermsAgreed) return;
@@ -32,21 +119,39 @@ export default function LoginPage() {
     <div className={styles.container}>
       {/* 상단 컨텐츠 영역 */}
       <div className={styles.topContent}>
-        {/* 배경 이미지 */}
-        <div className={styles.backgroundImage}>
-          <img
-            src={backgroundImage}
-            alt="배경"
-            className={styles.backgroundImg}
-          />
+        {/* 배경 이미지 슬라이더 */}
+        <div
+          className={styles.backgroundSlider}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {banners.map((banner, index) => (
+            <div
+              key={index}
+              className={`${styles.backgroundSlide} ${
+                index === currentSlide ? styles.active : ""
+              }`}
+              style={{ backgroundImage: `url(${banner})` }}
+            />
+          ))}
         </div>
 
-        {/* 페이지 인디케이터 */}
-        <div className={styles.pageIndicator}>
-          <div className={styles.indicatorDot}></div>
-          <div className={styles.indicatorDot}></div>
-          <div className={styles.indicatorDot}></div>
-          <div className={styles.activeIndicator}></div>
+        {/* 슬라이드 인디케이터 */}
+        <div className={styles.slideIndicators}>
+          {banners.map((_, index) => (
+            <button
+              key={index}
+              className={`${styles.indicator} ${
+                index === currentSlide ? styles.active : ""
+              }`}
+              onClick={() => handleSlideChange(index)}
+            />
+          ))}
         </div>
 
         {/* 앱 로고 및 타이틀 */}

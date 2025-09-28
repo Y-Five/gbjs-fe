@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import styles from "./MainBanner.module.css";
-import bannerImg from "../../assets/images/main-banner.png";
 import banner1 from "../../assets/images/main/banner1.png";
 import banner2 from "../../assets/images/main/banner2.png";
+import banner3 from "../../assets/images/main/banner3.png";
+import banner4 from "../../assets/images/main/banner4.png";
+import banner5 from "../../assets/images/main/banner5.png";
 
 export default function MainBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
-  const banners = [bannerImg, banner1, banner2];
+  const banners = [banner1, banner2, banner3, banner4, banner5];
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);

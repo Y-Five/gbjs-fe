@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CourseCardSection from "../global/CourseCardSectionMain";
 import { sealtourService } from "../../apis/sealtour";
 
 export default function PopularSpotList() {
+  const navigate = useNavigate();
   const [spots, setSpots] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,13 +30,24 @@ export default function PopularSpotList() {
     fetchPopularSpots();
   }, []);
 
+  // 카드 클릭 핸들러
+  const handleCardClick = (spot) => {
+    navigate(`/place/${spot.spotId}`, {
+      state: {
+        headerTitle: "관광지 상세보기",
+      },
+    });
+  };
+
   // API 응답 데이터를 CourseCardSection 형식으로 변환
   const popularCards = spots.map((spot) => ({
+    id: spot.spotId,
     image: spot.imageUrl,
     name: spot.name,
     location: spot.hashtag
       ? spot.hashtag.map((tag) => `# ${tag}`).join("\n")
       : "",
+    originalData: spot, // 원본 데이터 보존
   }));
 
   return (
@@ -44,6 +57,7 @@ export default function PopularSpotList() {
       cards={popularCards}
       loading={loading}
       error={error}
+      onCardClick={handleCardClick}
     />
   );
 }
