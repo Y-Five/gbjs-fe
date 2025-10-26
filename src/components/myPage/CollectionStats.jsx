@@ -4,10 +4,11 @@ import styles from "./CollectionStats.module.css";
 export default function CollectionStats({
   collectedCount = 0,
   totalCount = 0,
+  isLoading = false,
 }) {
   const navigate = useNavigate();
   const progressPercentage =
-    totalCount > 0 ? (collectedCount / totalCount) * 100 : 0;
+    isLoading || totalCount === 0 ? 0 : (collectedCount / totalCount) * 100;
   const remainingCount = totalCount - collectedCount;
 
   const handleDetailClick = () => {
@@ -18,9 +19,7 @@ export default function CollectionStats({
     <div className={styles.collectionStats}>
       <div className={styles.title}>띠부실 수집 현황</div>
       <div className={styles.countSection}>
-        <span className={styles.count}>
-          {totalCount > 0 ? collectedCount : "-"}
-        </span>
+        <span className={styles.count}>{isLoading ? "-" : collectedCount}</span>
         <span className={styles.unit}>개</span>
         <button className={styles.detailButton} onClick={handleDetailClick}>
           <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
@@ -39,9 +38,9 @@ export default function CollectionStats({
           <div className={styles.progressLabel}>띠부실 수집 완료까지</div>
           <div className={styles.progressText}>
             <span className={styles.countEmphasis}>
-              {totalCount > 0 ? `${remainingCount}개` : "-"}
+              {isLoading ? "-" : `${remainingCount}개`}
             </span>{" "}
-            {totalCount > 0 ? "남음" : ""}
+            {isLoading ? "" : "남음"}
           </div>
         </div>
         <div className={styles.progressBar}>

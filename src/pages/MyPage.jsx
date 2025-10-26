@@ -42,6 +42,7 @@ export default function MyPage() {
         <CollectionStats
           collectedCount={sealCount}
           totalCount={totalSealCount}
+          isLoading={!user}
         />
         <AccountInfo
           nickname={nickname}
