@@ -125,8 +125,23 @@
   justify-content: center;
 }
 
+/* 모달 버튼 collected 상태 - 폰트 크기 14px 강제 적용 */
+.modalButton.collected {
+  font-size: 14px !important;
+  line-height: 1.4;
+  padding: 8px 16px;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 .modalButton:hover {
   background-color: #f8f9fa;
+}
+
+/* 모달 버튼 collected 상태 - 폰트 크기 14px 강제 적용 */
+.modalButton.collected {
+  font-size: 14px !important;
 }
 
 /* 모바일 반응형 */

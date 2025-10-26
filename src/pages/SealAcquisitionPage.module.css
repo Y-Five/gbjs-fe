@@ -120,15 +120,16 @@
 }
 
 .rotating {
-  animation: rotate 1s linear infinite;
+  animation: rotateYFast 5s linear infinite;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
+@keyframes rotateYFast {
+  0% {
+    transform: rotateY(0deg);
+    animation-timing-function: cubic-bezier(0.1, 0, 0.9, 1);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: rotateY(2520deg);
   }
 }
 
@@ -627,17 +628,28 @@
   background-color: var(--green-main);
 }
 
-/* 획득 버튼 수집된 상태 */
-.modalAcquireButton.collected {
+/* 획득 버튼 수집된 상태 - 추가 스타일만 */
+.modalButton.modalAcquireButton.collected {
   background-color: white;
   color: #2d8ae7;
   border: 2px solid #2d8ae7;
+}
+
+/* AcquireModal에서 사용하는 collected 클래스 */
+.collected {
   font-size: 14px !important;
   line-height: 1.4;
   padding: 8px 16px;
   text-align: center;
   white-space: normal;
   word-wrap: break-word;
+}
+
+/* AcquireModal에서 사용하는 filled 클래스 - 반짝이는 효과 */
+.filled {
+  animation: cardFill 0.5s ease-in-out forwards,
+    successGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
 }
 
 /* 카드 회전 애니메이션 */
