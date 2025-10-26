@@ -36,14 +36,14 @@ export default function SealTourPage() {
       return;
     }
 
-    // 날짜 차이 계산 (최대 5일)
+    // 날짜 차이 계산 (최대 3일)
     const start = new Date(startDate);
     const end = new Date(endDate);
     const diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-    if (diffDays > 5) {
-      alert('여행 기간은 최대 5일까지 가능합니다.');
+    if (diffDays > 3) {
+      alert('여행 기간은 최대 3일까지 가능합니다.');
       return;
     }
 

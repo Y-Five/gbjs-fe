@@ -96,12 +96,12 @@ export default function SealAcquisitionPage() {
       console.log('success 값:', data.success, typeof data.success);
 
       if (data.success === true) {
-        // 2초 후 색상 채워짐 (돌리는 모션 유지)
+        // 4초 후 색상 채워짐 (돌리는 모션 유지)
         setTimeout(() => {
           setAcquireSuccess(true);
-        }, 2000);
+        }, 4000);
 
-        // 5초 후 모달 닫고 완료 모달 표시
+        // 7초 후 모달 닫고 완료 모달 표시
         setTimeout(async () => {
           setShowAcquireModal(false);
           setShowCompletionModal(true);
@@ -133,7 +133,7 @@ export default function SealAcquisitionPage() {
               console.error('근처 스티커 새로고침 실패:', error);
             }
           }
-        }, 5000);
+        }, 7000);
       } else {
         // 실패 모션 표시 (회전 애니메이션 유지)
         setAcquireSuccess(false);
