@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import BackHeader from '../header/BackHeader';
 import { Dropdown, SealCard, AlertModal } from '../global';
+import '../../styles/modal-common.css';
 import {
   CollectionCard,
   CollectionCardSkeleton,
@@ -33,6 +35,29 @@ export default function AllSealsPage({
   onCloseLoginModal,
   onRetry,
 }) {
+  const [showSealModal, setShowSealModal] = useState(false);
+  const [selectedSeal, setSelectedSeal] = useState(null);
+  const [isModalFlipped, setIsModalFlipped] = useState(false);
+
+  const handleSealClick = (seal) => {
+    if (seal.collected) {
+      setSelectedSeal(seal);
+      setShowSealModal(true);
+      setIsModalFlipped(false);
+    }
+  };
+
+  const handleCardClick = () => {
+    if (selectedSeal?.collected) {
+      setIsModalFlipped(!isModalFlipped);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowSealModal(false);
+    setSelectedSeal(null);
+    setIsModalFlipped(false);
+  };
   // 에러 상태
   if (error) {
     return (
@@ -79,6 +104,7 @@ export default function AllSealsPage({
             seals={seals}
             isSorting={isSorting}
             isFlipped={isFlipped}
+            onSealClick={handleSealClick}
           />
         )}
 
@@ -95,6 +121,63 @@ export default function AllSealsPage({
         onConfirm={onLoginClick}
         message="로그인이 필요한 서비스 입니다."
       />
+
+      {/* 경북씰 모달 */}
+      {showSealModal && selectedSeal && (
+        <div className="modalOverlay" onClick={handleCloseModal}>
+          <div className="modalContainer" onClick={(e) => e.stopPropagation()}>
+            <div
+              className={`modalCard ${isModalFlipped ? 'flipped' : ''}`}
+              onClick={handleCardClick}
+            >
+              <div className="modalSealCardWrapper">
+                <div className="cardInner">
+                  <div className="cardFront">
+                    <SealCard
+                      seal={{
+                        id: selectedSeal.id,
+                        number: selectedSeal.number,
+                        spotName: selectedSeal.spotName,
+                        locationName: selectedSeal.locationName,
+                        rarity: selectedSeal.rarity,
+                        frontImageUrl: selectedSeal.frontImageUrl,
+                        collected: selectedSeal.collected,
+                      }}
+                      size="large"
+                      imageOnly={true}
+                    />
+                  </div>
+                  {selectedSeal.collected && selectedSeal.backImageUrl && (
+                    <div className="cardBack">
+                      <SealCard
+                        seal={{
+                          id: selectedSeal.id,
+                          number: selectedSeal.number,
+                          spotName: selectedSeal.spotName,
+                          locationName: selectedSeal.locationName,
+                          rarity: selectedSeal.rarity,
+                          frontImageUrl: selectedSeal.backImageUrl,
+                          collected: selectedSeal.collected,
+                        }}
+                        size="large"
+                        imageOnly={true}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="modalButtonWrapper">
+              <button
+                className="modalButton modalCloseButton"
+                onClick={handleCloseModal}
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

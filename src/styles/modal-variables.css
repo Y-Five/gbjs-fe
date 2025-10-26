@@ -1,0 +1,22 @@
+/* 모달 공통 CSS 변수 */
+:root {
+  --modal-overlay-bg: rgba(26, 26, 26, 0.45);
+  --modal-container-width: 400px;
+  --modal-container-height: 500px;
+  --modal-seal-card-width: 320px;
+  --modal-seal-card-height: 387.5px;
+  --modal-button-width: 320px;
+  --modal-border-radius: 15px;
+  --modal-z-index: 1000;
+}
+
+/* 모바일 반응형 변수 */
+@media (max-width: 768px) {
+  :root {
+    --modal-container-width: 320px;
+    --modal-container-height: 400px;
+    --modal-seal-card-width: 280px;
+    --modal-seal-card-height: 350px;
+    --modal-button-width: 280px;
+  }
+}

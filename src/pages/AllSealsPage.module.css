@@ -1,4 +1,5 @@
 @import '../styles/common-variables.css';
+@import '../styles/modal-common.css';
 
 .page {
   min-height: 100vh;
@@ -248,8 +249,9 @@
   justify-content: center;
   align-items: center;
   min-height: auto;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
+  padding: 10px;
 }
 
 .sealsGrid {
@@ -283,6 +285,7 @@
   transform: scale(1);
   gap: 0px 0px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
 /* 띠부씰 카드 */
@@ -314,7 +317,6 @@
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
-  user-drag: none;
 }
 
 /* 카드 뒤집기 애니메이션 */
@@ -340,9 +342,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
-.sealCard.uncollected {
-  /* opacity: 0.6; removed */
-}
+/* .sealCard.uncollected - opacity 제거됨 */
 
 .sealCard.uncollected.sorting {
   opacity: 0.3;
@@ -513,6 +513,8 @@
     background-position: 200% 0;
   }
 }
+
+/* 모달 닫기 버튼 전용 스타일 - modal-common.css의 .modalButton 클래스 사용 */
 
 /* 모바일 반응형 */
 @media (max-width: var(--breakpoint-mobile)) {

@@ -27,6 +27,8 @@ export default function SealAcquisitionPage() {
   const [showToast, setShowToast] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [nearbyLoading, setNearbyLoading] = useState(false);
+  const [filteredStickers, setFilteredStickers] = useState([]);
+  const [showNoNearbyMessage, setShowNoNearbyMessage] = useState(false);
 
   // useGeolocation 훅 사용
   const geolocation = useGeolocation();
@@ -39,7 +41,27 @@ export default function SealAcquisitionPage() {
   const handleNearbySealsUpdate = useCallback(async (newStickers) => {
     // getNearbySeals API 응답에는 이미 collected 상태와 backImageUrl이 포함되어 있음
     console.log('근처 스티커 업데이트:', newStickers);
-    setStickers(newStickers);
+
+    // 10km 이내 스티커만 필터링
+    const nearbyStickers = newStickers.filter(
+      (sticker) => sticker.distance <= 10000
+    );
+
+    // 10km 이내 스티커가 없으면 가장 가까운 스티커들을 미리보기로 표시
+    if (nearbyStickers.length === 0) {
+      // 거리순으로 정렬하여 가장 가까운 4개 선택
+      const sortedStickers = newStickers
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 4);
+
+      setStickers(sortedStickers);
+      setFilteredStickers(sortedStickers);
+      setShowNoNearbyMessage(true);
+    } else {
+      setStickers(nearbyStickers);
+      setFilteredStickers(nearbyStickers);
+      setShowNoNearbyMessage(false);
+    }
   }, []);
 
   const handleStickerClick = useCallback((sticker) => {
@@ -231,6 +253,7 @@ export default function SealAcquisitionPage() {
           onStickerClick={handleStickerClick}
           formatDistance={formatDistance}
           loading={nearbyLoading}
+          showNoNearbyMessage={showNoNearbyMessage}
         />
       </main>
 

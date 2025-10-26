@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import { SealCard } from '../global';
 import styles from '../../pages/AllSealsPage.module.css';
 
-export default function SealsGrid({ seals, isSorting, isFlipped }) {
+export default function SealsGrid({
+  seals,
+  isSorting,
+  isFlipped,
+  onSealClick,
+}) {
   return (
     <div className={styles.gridContainer}>
       <div
@@ -16,6 +22,7 @@ export default function SealsGrid({ seals, isSorting, isFlipped }) {
             isFlipped={isFlipped}
             isSorting={isSorting}
             size="small"
+            onClick={() => onSealClick && onSealClick(seal)}
           />
         ))}
       </div>

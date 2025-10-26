@@ -1,0 +1,137 @@
+@import './modal-variables.css';
+
+/* 모달 오버레이 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--modal-overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--modal-z-index);
+  padding: 20px;
+}
+
+/* 모달 컨테이너 */
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: var(--modal-container-width);
+  height: var(--modal-container-height);
+  align-items: center;
+  overflow: visible;
+}
+
+/* 모달 카드 */
+.modalCard {
+  border: none;
+  border-radius: var(--modal-border-radius);
+  box-shadow: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+/* 모으지 않은 씰 - 투명 배경 */
+.modalCard.notCollected {
+  overflow: hidden;
+  padding: 0;
+  background-color: transparent;
+}
+
+/* 모은 씰 - 투명 배경 */
+.modalCard.collected {
+  overflow: visible;
+  padding: 20px;
+  background-color: transparent;
+}
+
+/* 모달 씰 카드 래퍼 */
+.modalSealCardWrapper {
+  width: var(--modal-seal-card-width);
+  height: var(--modal-seal-card-height);
+  transform: scale(1);
+  border-radius: 0;
+  position: relative;
+  perspective: 1000px;
+}
+
+/* 카드 내부 */
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* 카드 뒤집기 */
+.modalCard.flipped .cardInner {
+  transform: rotateY(180deg);
+}
+
+/* 카드 앞면, 뒷면 */
+.cardFront,
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--modal-border-radius);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  background: transparent;
+}
+
+/* 모달 버튼 래퍼 */
+.modalButtonWrapper {
+  width: var(--modal-button-width);
+  margin-top: 20px;
+}
+
+/* 모달 버튼 공통 스타일 */
+.modalButton {
+  width: 100%;
+  background-color: #ffffff;
+  color: var(--blue-main);
+  border: none;
+  border-radius: var(--modal-border-radius);
+  padding: 20px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.092;
+  letter-spacing: -0.546px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalButton:hover {
+  background-color: #f8f9fa;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 10px;
+  }
+}

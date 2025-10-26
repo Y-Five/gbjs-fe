@@ -16,7 +16,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  pointer-events: none;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
 }
@@ -44,11 +44,21 @@
   user-drag: none;
 }
 
-/* 카드 뒤집기 애니메이션 */
+/* 카드 뒤집기 애니메이션 및 정렬 중 상호작용 비활성화 */
 .sealCard.sorting {
   transform: rotateY(180deg) scale(0.8);
   opacity: 0.7;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* 정렬 중일 때 hover 효과 완전 비활성화 */
+.sealCard.sorting:hover {
+  transform: rotateY(180deg) scale(0.8) !important;
+  opacity: 0.7 !important;
+  box-shadow: none !important;
+  cursor: default !important;
 }
 
 .sealCard.flipped {

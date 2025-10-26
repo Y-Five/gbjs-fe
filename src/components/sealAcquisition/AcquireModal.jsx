@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../../pages/SealAcquisitionPage.module.css';
 import { SealCard } from '../global';
+import '../../styles/modal-common.css';
 
 const AcquireModal = ({
   showModal,
@@ -40,7 +41,7 @@ const AcquireModal = ({
   };
 
   const getButtonClassName = () => {
-    let className = styles.modalAcquireButton;
+    let className = 'modalButton modalAcquireButton';
 
     if (isCollected) {
       className += ` ${styles.collected}`;
@@ -54,7 +55,7 @@ const AcquireModal = ({
   };
 
   const getModalCardClassName = () => {
-    let className = styles.modalCard;
+    let className = 'modalCard';
 
     if (!isCollected) {
       className += ` ${styles.notCollected}`;
@@ -89,20 +90,15 @@ const AcquireModal = ({
   };
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div
-        className={styles.modalContainer}
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="modalOverlay" onClick={onClose}>
+      <div className="modalContainer" onClick={(e) => e.stopPropagation()}>
         <div
-          className={`${getModalCardClassName()} ${
-            isFlipped ? styles.flipped : ''
-          }`}
+          className={`${getModalCardClassName()} ${isFlipped ? 'flipped' : ''}`}
           onClick={handleCardClick}
         >
-          <div className={styles.modalSealCardWrapper}>
-            <div className={styles.cardInner}>
-              <div className={styles.cardFront}>
+          <div className="modalSealCardWrapper">
+            <div className="cardInner">
+              <div className="cardFront">
                 <SealCard
                   seal={{
                     id: selectedSticker.id,
@@ -118,7 +114,7 @@ const AcquireModal = ({
                 />
               </div>
               {isCollected && selectedSticker.backImageUrl && (
-                <div className={styles.cardBack}>
+                <div className="cardBack">
                   <SealCard
                     seal={{
                       id: selectedSticker.id,
@@ -137,7 +133,7 @@ const AcquireModal = ({
             </div>
           </div>
         </div>
-        <div className={styles.modalButtonWrapper}>
+        <div className="modalButtonWrapper">
           <button className={getButtonClassName()} onClick={handleButtonClick}>
             {getButtonContent()}
           </button>
