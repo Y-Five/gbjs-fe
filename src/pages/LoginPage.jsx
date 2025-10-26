@@ -6,6 +6,7 @@ import banner2 from "../assets/images/login/banner2.jpeg";
 import banner3 from "../assets/images/login/banner3.jpeg";
 import banner4 from "../assets/images/login/banner4.jpeg";
 import kakaoIcon from "../assets/images/login/kakao-icon.png";
+import APIService from "../apis/axios";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -111,6 +112,22 @@ export default function LoginPage() {
     navigate("/terms-detail");
   };
 
+  const handleTestLogin = async () => {
+    try {
+      setIsLoading(true);
+      const response = await APIService.public.post("/api/auth/test-login");
+      console.log("테스트 로그인 성공:", response);
+
+      // 로그인 성공 후 메인 페이지로 이동
+      navigate("/");
+    } catch (error) {
+      console.error("테스트 로그인 실패:", error);
+      alert("테스트 로그인에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSkip = () => {
     navigate("/");
   };
@@ -172,6 +189,17 @@ export default function LoginPage() {
 
       {/* 하단 컨텐츠 영역 */}
       <div className={styles.bottomContent}>
+        {/* 테스트 로그인 버튼 */}
+        <div className={styles.testLoginSection}>
+          <button
+            className={styles.testLoginButton}
+            onClick={handleTestLogin}
+            disabled={isLoading}
+          >
+            {isLoading ? "로그인 중..." : "테스트 로그인"}
+          </button>
+        </div>
+
         {/* 위치정보 동의 약관 */}
         <div className={styles.termsSection}>
           <div className={styles.termsContainer}>

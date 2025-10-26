@@ -91,10 +91,6 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-  .container {
-    padding: 4.375rem 0.5rem 2rem 0.5rem;
-  }
-
   .content {
     padding: 0 0.5rem;
   }
@@ -115,10 +111,6 @@
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 4.375rem 0.25rem 2rem 0.25rem;
-  }
-
   .content {
     padding: 0 0.25rem;
   }

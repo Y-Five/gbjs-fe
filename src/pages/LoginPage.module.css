@@ -306,6 +306,56 @@
   text-align: center;
 }
 
+/* 테스트 로그인 버튼 */
+.testLoginSection {
+  width: 100%;
+  max-width: 301px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testLoginButton {
+  width: 50%;
+  padding: 5px 15px;
+  background-color: #eff7ff;
+  border: 1px solid #2d71b5;
+  color: #2d8ae7;
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 153.846% */
+  letter-spacing: -0.3px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.testLoginButton:hover {
+  background-color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+.testLoginButton:active {
+  transform: translateY(0);
+}
+
+.testLoginButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #e5e7eb;
+}
+
+.testLoginButton:disabled:hover {
+  background-color: #e5e7eb;
+  transform: none;
+}
+
 /* 건너뛰기 버튼 */
 .skipSection {
   width: 100%;
@@ -355,6 +405,7 @@
   }
 
   .termsSection,
+  .testLoginSection,
   .loginSection {
     max-width: 280px;
   }
@@ -367,6 +418,7 @@
   }
 
   .termsSection,
+  .testLoginSection,
   .loginSection {
     max-width: 260px;
   }
