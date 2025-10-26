@@ -30,6 +30,7 @@ export default function MyPage() {
   const nickname = user?.nickname ?? "";
   const email = user?.email ?? "";
   const sealCount = user?.sealCount ?? 0;
+  const totalSealCount = user?.totalSealCount ?? 0;
   const profileImageUrl = user?.profileImageUrl ?? "";
 
   return (
@@ -38,7 +39,10 @@ export default function MyPage() {
 
       <div className={styles.main}>
         <ProfileSection nickname={nickname} profileImageUrl={profileImageUrl} />
-        <CollectionStats collectedCount={sealCount} totalCount={100} />
+        <CollectionStats
+          collectedCount={sealCount}
+          totalCount={totalSealCount}
+        />
         <AccountInfo
           nickname={nickname}
           email={email}
