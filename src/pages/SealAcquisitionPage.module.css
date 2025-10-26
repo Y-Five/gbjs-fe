@@ -695,6 +695,13 @@
   box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
 }
 
+/* 회전과 채우기가 동시에 적용될 때 */
+.modalCard.rotating.filled {
+  animation: cardRotate 5s ease-in-out infinite,
+    cardFill 0.5s ease-in-out forwards, successGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+}
+
 /* 버튼 내부 콘텐츠 */
 .buttonContent {
   display: flex;

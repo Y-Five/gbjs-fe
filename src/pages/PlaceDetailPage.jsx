@@ -72,8 +72,24 @@ export default function PlaceDetailPage() {
 
   if (isLoading) {
     return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loader}>로딩 중...</div>
+      <div className={styles.container}>
+        <BackHeader title="로딩 중..." className={styles.header} />
+        <div className={styles.main}>
+          <div className={styles.skeletonImage}></div>
+          <div className={styles.skeletonInfoCard}>
+            <div className={styles.skeletonTitle}></div>
+            <div className={styles.skeletonDescription}></div>
+            <div className={styles.skeletonDescription}></div>
+            <div className={styles.skeletonAddress}></div>
+            <div className={styles.skeletonPhone}></div>
+          </div>
+          <div className={styles.skeletonVoiceGuide}>
+            <div className={styles.skeletonVoiceTitle}></div>
+            <div className={styles.skeletonVoiceContent}></div>
+            <div className={styles.skeletonVoiceContent}></div>
+            <div className={styles.skeletonVoiceButton}></div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -102,26 +118,28 @@ export default function PlaceDetailPage() {
   return (
     <div className={styles.container}>
       <BackHeader title={placeData?.name || ''} className={styles.header} />
-      {placeData?.imageUrl &&
-        placeData.imageUrl.trim() !== '' &&
-        placeData.imageUrl !== 'null' && (
-          <div className={styles.imageSection}>
-            <img
-              src={placeData.imageUrl}
-              alt={placeData.name || ''}
-              className={styles.mainImage}
-            />
-          </div>
+      <div className={styles.main}>
+        {placeData?.imageUrl &&
+          placeData.imageUrl.trim() !== '' &&
+          placeData.imageUrl !== 'null' && (
+            <div className={styles.imageSection}>
+              <img
+                src={placeData.imageUrl}
+                alt={placeData.name || ''}
+                className={styles.mainImage}
+              />
+            </div>
+          )}
+        <InfoCard placeData={placeData} />
+        {placeData.hasVoiceGuide && (
+          <VoiceGuide
+            placeData={placeData}
+            audioControls={audioControls}
+            selectedTtsIndex={selectedTtsIndex}
+            onTtsChange={handleTtsChange}
+          />
         )}
-      <InfoCard placeData={placeData} />
-      {placeData.hasVoiceGuide && (
-        <VoiceGuide
-          placeData={placeData}
-          audioControls={audioControls}
-          selectedTtsIndex={selectedTtsIndex}
-          onTtsChange={handleTtsChange}
-        />
-      )}
+      </div>
     </div>
   );
 }

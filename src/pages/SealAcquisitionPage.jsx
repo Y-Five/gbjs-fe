@@ -74,8 +74,10 @@ export default function SealAcquisitionPage() {
       console.log('success 값:', data.success, typeof data.success);
 
       if (data.success === true) {
-        // 성공 모션 표시
-        setAcquireSuccess(true);
+        // 2초 후 색상 채워짐 (돌리는 모션 유지)
+        setTimeout(() => {
+          setAcquireSuccess(true);
+        }, 2000);
 
         // 5초 후 모달 닫고 완료 모달 표시
         setTimeout(async () => {

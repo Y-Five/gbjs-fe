@@ -106,6 +106,11 @@ export const useGeolocation = () => {
       return;
     }
 
+    // 이미 위치를 가져왔으면 재시도하지 않음
+    if (hasInitialLocation.current) {
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(onSuccess, onError, {
       enableHighAccuracy: true,
       timeout: 10000, // 10초로 증가
@@ -116,16 +121,21 @@ export const useGeolocation = () => {
   useEffect(() => {
     requestLocation();
 
-    // 권한 변경 감지
+    // 권한 변경 감지 (Safari에서 제한적 지원)
     if ('permissions' in navigator) {
       navigator.permissions
         .query({ name: 'geolocation' })
         .then((permission) => {
           permission.addEventListener('change', () => {
+            // 권한이 허용되었고 아직 위치를 가져오지 못한 경우에만 재시도
             if (permission.state === 'granted' && !hasInitialLocation.current) {
               requestLocation();
             }
           });
+        })
+        .catch((error) => {
+          // permissions API가 지원되지 않는 경우 무시
+          console.warn('Permissions API not supported:', error);
         });
     }
 
@@ -135,7 +145,12 @@ export const useGeolocation = () => {
         document.visibilityState === 'visible' &&
         !hasInitialLocation.current
       ) {
-        requestLocation();
+        // 짧은 지연 후 재시도 (권한 허용 후 돌아온 경우를 위해)
+        setTimeout(() => {
+          if (!hasInitialLocation.current) {
+            requestLocation();
+          }
+        }, 1000);
       }
     };
 
